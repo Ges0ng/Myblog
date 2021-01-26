@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--移动端的预览设置-->
+    <meta name="viewport" content="width=device-width, initial-scal=1.0">
+    <title>标签管理</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}">
+    <link rel="stylesheet" href="../../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+</head>
+<body>
+    <!--导航-->
+    <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small " style="opacity: 80%;">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <a href="#" th:href="@{/admin/blogs}">
+                <h2 class="ui inverted header blue item" style="font-family: 幼圆">后台管理 </h2>
+                </a>
+                <a href="#" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide"><i class="inverted home icon"></i>博客</a>
+                <a href="#" th:href="@{/admin/types}" class="active m-item item m-mobile-hide"><i class="inverted idea icon"></i>分类</a>
+                <a href="#" th:href="@{/admin/tags}"  class="m-item item m-mobile-hide"><i class="inverted tags icon"></i>标签</a>
+                <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide"><i class="inverted info icon"></i>关于我</a>
+                <div class="right m-item  m-mobile-hide menu">
+                    <div class="ui dropdown item">
+                        <img class="ui avatar image" src="../../static/images/tx.jpg" th:src="@{${session.user.avatar}}" >
+                        &nbsp;&nbsp;
+                        <span class="text" th:text="${session.user.nickname}">
+                        Paracosm
+                    </span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a href="#" th:href="@{/index}" class="item">博客首页</a>
+                            <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="ui menu quanping black icon button m-right-qp" title="全屏/取消">
+                    <i class="expand arrows alternate icon" ></i>
+                </a>
+            </div>
+        </div>
+        <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+            <i class="sidebar icon" ></i>
+        </a>
+    </nav>
+
+    <div class="ui attached pointing  m-shadow-small menu " style="opacity: 80%;">
+        <div class="ui container ">
+            <div class="right menu">
+                <a href="#" th:href="@{/admin/tags/input}" class="active blue item">发布</a>
+                <a href="#" th:href="@{/admin/tags}" class=" blue item">列表</a>
+            </div>
+
+        </div>
+
+    </div>
+    <!--中间内容-->
+    <div id="waypoint" class="m-container-small m-padded-tb-big animated fadeIn"  style="opacity: 80%;">
+        <div class="ui container">
+            <form action="#" method="post" th:object="${tag}" th:action=" '*{id}==null' ?  '/admin/tags' : '/admin/tags/{id}(id=*{id})'" class="ui form">
+                <input type="hidden" name="id" th:value="*{id}">
+                <div class="field">
+                    <div class="ui left labeled input">
+                        <label  class="ui blue basic label">名称</label>
+                        <input type="text" name="name" placeholder="标签名称" th:value="*{name}" >
+                    </div>
+                </div>
+                <div class="ui error message"></div>
+                <!--/*/
+                <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+                    <i class="close icon"></i>
+                    <div class="header">验证失败</div>
+                    <p th:errors="*{name}">提交的信息不符合规则</p>
+                </div>
+                /*/-->
+
+
+                <div class="ui right aligned container">
+                    <!--window.history.go(-1) 返回上一个页面-->
+                    <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+                    <button class="ui blue submit button">提交</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!--置顶图标-->
+    <div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
+        <div class="ui vertical icon buttons ">
+            <div id="toTop-button" class="ui icon button" ><i class="chevron up icon"></i></div>
+        </div>
+    </div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+    <!--底部-->
+    <footer class="ui inverted vertical segment m-padded-tb-massive" style="opacity: 80%;">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="four wide column">
+                    <div class="item">
+                        <!--<img src="../static/images/vx.jpg" class="ui  rounded image" style="width: 110px">-->
+                        <div style="font-size: large;font-weight: bold" class="ui inverted header m-text-thin m-text-spaced m-margin-top-max" >博客信息</div>
+                    </div>
+                    <div id="blog-message">
+                        <div class="ui inverted link list" style="align-content: center;margin-top: 10px">
+                            <br>
+                            <div class="m-text-thin" style="text-align: left;margin-left: 75px;">
+                                <span style="color: wheat">当前正在编辑页面。。。</span>
+                            </div>
+                            <!--
+                            <div class="m-text-thin" style="text-align: left;margin-left: 75px;">
+                                文章总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;"> 14 </h2> 篇
+                            </div>
+                            <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                                访问总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;"> 14 </h2> 次
+                            </div>
+                            <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                                评论总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;"> 14 </h2> 条
+                            </div>
+                            <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                                留言总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;"> 14 </h2> 条
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+                <div class="four wide column ">
+                    <div>
+                        <a href="https://blog.csdn.net/Paracosm"><img src="../../static/images/tx.jpg" th:src="@{/images/tx.jpg}" alt="" style="width: 110px; border-radius:50%"></a>
+                        <h2 class="ui inverted header" style="font-family: 'Ink Free'">Paracosm</h2>
+                    </div>
+
+                    <div class="ui inverted link list">
+                        <a href="https://github.com/Ges0ng" target="_blank" class="ui github circular icon button" data-content="点击跳转到GitHub"  data-position="bottom center"><i class="github  icon"></i></a>
+                        <a href="https://gitee.com/Paracosm" target="_blank" class="ui github circular icon button" data-content="点击跳转到Gitee"  data-position="bottom center"><i class="gofore  icon"></i></a>
+                        <a href="https://blog.csdn.net/Paracosm" target="_blank" class="ui csdn circular icon button" data-content="点击跳转到CSDN" data-position="bottom center" ><i class="copyright outline icon"></i></a>
+                        <a href="#" target="_blank" class="ui wechat circular icon button" data-content="点击添加微信" data-position="bottom center"><i class="weixin icon"></i></a>
+                        <a href="https://qm.qq.com/cgi-bin/qm/qr?k=UOINSI1VWR4K7FWd_IH1M0qdimwAVJgA&noverify=0" class="ui qq circular icon button" data-content="704965520" data-position="bottom center"><i class="qq icon"></i></a>
+                        <a href="#" class="ui email circular icon button" data-content="704965520@qq.com" data-position="bottom center"><i class="envelope  icon"></i></a>
+                    </div>
+                    <div class="ui wechat-qr flowing top popup transition hidden">
+                        <img src="../../static/images/vx.png" th:src="@{/images/vx.png}" alt="" class="ui rounded image" style="width: 100px">
+                    </div>
+
+                    <div class="ui qq-qr flowing top popup transition hidden">
+                        <img src="../../static/images/qq.png" th:src="@{/images/qq.png}" alt="" class="ui rounded image" style="width: 600px">
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <div style="font-size: large;font-weight: bold" class="ui inverted header m-text-thin m-text-spaced m-margin-top-max" >联系我</div>
+                    <div class="ui inverted link list m-text-spaced">
+                        <a href="https://qm.qq.com/cgi-bin/qm/qr?k=UOINSI1VWR4K7FWd_IH1M0qdimwAVJgA&noverify=0" class="item">QQ: 704965520</a>
+                        <a href="#" class="item"><i class="envelope icon"></i>Email: 704965520@qq.com</a>
+                        <br/><br/>
+                        <a href="#" class="item">你有多久没有看过星星了</a>
+                    </div>
+                </div>
+                <div class="four wide column">
+
+                    <div style="font-size: large;font-weight: bold" class="ui inverted header m-text-thin m-text-spaced m-margin-top-max">^ ^</div>
+                    <div class="ui inverted link list">
+                    <h4 class="m-opacity-mini">兴尽悲来,欲吐还休。</h4>
+                    <h4 class="m-opacity-mini">人生百年,难有长久。</h4>
+                    <h4 class="m-opacity-mini">知音不赏,归卧山丘。</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <br/>
+            <div style="color: #F08047;margin-top: -18px" class="ui inverted m-text-thin m-text-spaced">博客走过的时间：<span id="htmer_time" class="item m-text-thin"></span>&nbsp;&nbsp;&nbsp;&nbsp;(●'◡'●)</div>
+            <br/>
+            <div style="color: #F08047;margin-top: -18px" class="ui inverted m-text-thin m-text-spaced">My Time：<span id="htmer_time1" class="item m-text-thin"></span>&nbsp;&nbsp;&nbsp;&nbsp;(●'◡'●)</div>
+
+            <a rel="nofollow" href="https://beian.miit.gov.cn/" target="_blank">备案号：闽ICP备2021000632号-1 &nbsp;&nbsp;@ 2020 - 2021</a>
+        </div>
+    </footer>
+<script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+<script src="../../static/lib/editormd/editormd.js" th:src="@{/lib/editormd/editormd.js}"></script>
+<script src="../../static/lib/waypoints/jquery.waypoints.js" th:src="@{/lib/waypoints/jquery.waypoints.js}"></script>
+
+<script>
+
+
+    /*初始化markdown编辑器*/
+    /*var contentEditor;
+    $(function() {
+        contentEditor = editormd("md-content", {
+            width   : "100%",
+            height  : 640,
+            syncScrolling : "single",
+            path    : "/lib/editormd/lib/"
+            /!*path    : "../../static/lib/editormd/lib/"*!/
+        });
+    });*/
+
+    /*表单验证*/
+    $('.ui.form').form({
+        fields: {
+            title : {
+                identifier: 'name',
+                /*验证规则*/
+                rules:[{
+                    type : 'empty', /*非空验证*/
+                    prompt: '请输入标签名称'
+                }]
+            },
+        }
+    });
+
+    $('.ui.dropdown').dropdown({
+        on:'hover',
+        });
+
+    // 显示QQ
+    $('.qq').popup({
+        popup : $('.qq-qr'),
+        on: 'hover',
+        position: 'bottom center'
+    });
+
+    // 显示邮箱
+    $('.email').popup();
+
+    // 显示CSDN
+    $('.csdn').popup();
+
+    // 显示github
+    $('.github').popup();
+
+
+    /*微信按钮*/
+    $('.wechat').popup({
+        popup : $('.wechat-qr'),
+        on: 'hover',
+        position: 'bottom center'
+    });
+
+
+    //移动端按钮
+    $('.menu.toggle').click(function (){
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    //全屏
+    $('.menu.quanping').click(function (){
+            if(this.fullscreen){    //进入全屏状态
+                //浏览器识别
+                if(document.exitFullscreen){
+                    document.exitFullscreen();
+                }else if(document.webkitCancelFullScreen){  //safari,chrome
+                    document.webkitCancelFullScreen();
+                }else if(document.mozCancelFullScreen){     //火狐
+                    document.mozCancelFullScreen();
+                }else if(document.msExitFullScreen){    //ie
+                    document.msExitFullScreen();
+                }
+            }else{  //非全屏状态
+                let element = document.documentElement; //整个页面元素
+                if(element.requestFullscreen){
+                    element.requestFullscreen();
+                }else if(element.webkitRequestFullScreen){//safari,chrome
+                    element.webkitRequestFullScreen();
+                }else if(element.mozRequestFullScreen){ //firefox
+                    element.mozRequestFullScreen();
+                }else if(element.msRequestFullScreen){  //ie
+                    element.msRequestFullScreen();
+                }
+            }
+            this.fullscreen =!this.fullscreen;
+    });
+
+    // 运行时间统计
+    function secondToDate(second) {
+        if (!second) {
+            return 0;
+        }
+        var time = new Array(0, 0, 0, 0, 0);
+        if (second >= 365 * 24 * 3600) {
+            time[0] = parseInt(second / (365 * 24 * 3600));
+            second %= 365 * 24 * 3600;
+        }
+        if (second >= 24 * 3600) {
+            time[1] = parseInt(second / (24 * 3600));
+            second %= 24 * 3600;
+        }
+        if (second >= 3600) {
+            time[2] = parseInt(second / 3600);
+            second %= 3600;
+        }
+        if (second >= 60) {
+            time[3] = parseInt(second / 60);
+            second %= 60;
+        }
+        if (second > 0) {
+            time[4] = second;
+        }
+        return time;
+    }
+
+    /*此处为网站的创建时间*/
+    function setTime() {
+
+        var create_time = Math.round(new Date(Date.UTC(2020, 11, 27, 15, 15, 15)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+    }
+
+    /* 我走过的时间 */
+    function setTime1() {
+
+        var create_time = Math.round(new Date(Date.UTC(1998, 12, 22, 12, 12, 12)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        document.getElementById("htmer_time1").innerHTML = currentTimeHtml;
+    }
+    /* 监控时间*/
+    setInterval(setTime, 1000);
+    setInterval(setTime1, 1000);
+
+    /*缓慢滑动*/
+    $('#toTop-button').click(function () {
+        $(window).scrollTo(0,500);
+    });
+
+    /*下滑弹出*/
+    var waypoint = new Waypoint({
+        element: document.getElementById('waypoint'),
+        handler: function(direction) {
+            if (direction == 'down') {
+                $('#toolbar').show(300);
+            } else {
+                $('#toolbar').hide(500);
+            }
+            console.log('Scrolled to waypoint!  ' + direction);
+        }
+    })
+
+
+
+
+</script>
+</body>
+</html>
+

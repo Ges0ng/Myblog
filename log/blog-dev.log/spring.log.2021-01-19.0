@@ -1,0 +1,57 @@
+2021-01-19 17:00:54.049  INFO 10408 --- [main] com.nmsl.BlogApplication                 : Starting BlogApplication on 从不玩游戏 with PID 10408 (C:\Users\2020\Project\blog\target\classes started by Paracosm in C:\Users\2020\Project\blog)
+2021-01-19 17:00:54.053 DEBUG 10408 --- [main] com.nmsl.BlogApplication                 : Running with Spring Boot v2.3.7.RELEASE, Spring v5.2.12.RELEASE
+2021-01-19 17:00:54.053  INFO 10408 --- [main] com.nmsl.BlogApplication                 : The following profiles are active: dev
+2021-01-19 17:00:54.118  INFO 10408 --- [main] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-01-19 17:00:54.118  INFO 10408 --- [main] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-01-19 17:00:55.063  INFO 10408 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-01-19 17:00:55.164  INFO 10408 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 89ms. Found 1 JPA repository interfaces.
+2021-01-19 17:00:56.128  INFO 10408 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-01-19 17:00:56.141  INFO 10408 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-01-19 17:00:56.142  INFO 10408 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-01-19 17:00:56.258  INFO 10408 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-01-19 17:00:56.258  INFO 10408 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2139 ms
+2021-01-19 17:00:56.753  INFO 10408 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-01-19 17:00:56.831  INFO 10408 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.25.Final
+2021-01-19 17:00:57.146  INFO 10408 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-01-19 17:00:57.283  INFO 10408 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-01-19 17:00:58.914  INFO 10408 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-01-19 17:00:58.943  INFO 10408 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2021-01-19 17:01:01.560  INFO 10408 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-01-19 17:01:01.592  INFO 10408 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-01-19 17:01:01.691  INFO 10408 --- [main] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-01-19 17:01:02.538  WARN 10408 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-01-19 17:01:02.900  INFO 10408 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-01-19 17:01:03.021  INFO 10408 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2021-01-19 17:01:03.765  INFO 10408 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-01-19 17:01:03.781  INFO 10408 --- [main] com.nmsl.BlogApplication                 : Started BlogApplication in 10.56 seconds (JVM running for 18.101)
+2021-01-19 17:01:05.889  INFO 10408 --- [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-01-19 17:01:05.889  INFO 10408 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-01-19 17:01:05.901  INFO 10408 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2021-01-19 17:01:05.936  INFO 10408 --- [http-nio-8080-exec-3] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.index, args=[])
+2021-01-19 17:03:04.868  INFO 10408 --- [http-nio-8080-exec-9] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/blogs1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.blogs1, args=[])
+2021-01-19 17:03:46.069  INFO 10408 --- [http-nio-8080-exec-4] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/blogs1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.blogs1, args=[])
+2021-01-19 17:06:18.429  INFO 10408 --- [http-nio-8080-exec-10] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/blogs1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.blogs1, args=[])
+2021-01-19 17:06:19.551  INFO 10408 --- [http-nio-8080-exec-9] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/blogs1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.blogs1, args=[])
+2021-01-19 17:06:20.482  INFO 10408 --- [http-nio-8080-exec-1] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/blogs1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.blogs1, args=[])
+2021-01-19 17:06:21.784  INFO 10408 --- [http-nio-8080-exec-4] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/blogs1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.blogs1, args=[])
+2021-01-19 17:06:39.031  INFO 10408 --- [http-nio-8080-exec-3] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:06:49.776  INFO 10408 --- [http-nio-8080-exec-5] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:06:51.701  INFO 10408 --- [http-nio-8080-exec-2] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:06:58.374  INFO 10408 --- [http-nio-8080-exec-3] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:07:00.373  INFO 10408 --- [http-nio-8080-exec-5] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:07:07.451  INFO 10408 --- [http-nio-8080-exec-6] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/blogs1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.blogs1, args=[])
+2021-01-19 17:07:11.535  INFO 10408 --- [http-nio-8080-exec-2] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:07:34.765  INFO 10408 --- [http-nio-8080-exec-9] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:07:37.753  INFO 10408 --- [http-nio-8080-exec-5] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:07:41.649  INFO 10408 --- [http-nio-8080-exec-4] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:08:26.780  INFO 10408 --- [http-nio-8080-exec-8] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:08:49.340  INFO 10408 --- [http-nio-8080-exec-1] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:10:36.370  INFO 10408 --- [http-nio-8080-exec-3] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:13:12.544  INFO 10408 --- [http-nio-8080-exec-4] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:13:50.290  INFO 10408 --- [http-nio-8080-exec-10] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:14:20.595  INFO 10408 --- [http-nio-8080-exec-1] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:14:25.243  INFO 10408 --- [http-nio-8080-exec-6] com.nmsl.aspect.LogAspect                : Request : LogAspect.RequestLog(url=http://localhost:8080/type1, id=0:0:0:0:0:0:0:1, classMethod=com.nmsl.controller.PageController.type1, args=[])
+2021-01-19 17:22:54.076  INFO 10408 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-01-19 17:22:54.077  INFO 10408 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-01-19 17:22:54.106  INFO 10408 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-01-19 17:22:54.125  INFO 10408 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

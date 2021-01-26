@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>paracosm</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/lib/music/css/zplayer.min.css" th:href="@{/lib/music/css/zplayer.min.css}" />
+    <script type="text/javascript" src="../static/lib/music/js/zplayer.min.js" th:src="@{/lib/music/js/zplayer.min.js}"></script>
+
+
+
+</head>
+<body>
+
+
+<!--导航-->
+<nav th:replace="_fragments :: menu(5)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small " style="opacity: 80%;">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <a href="#">
+                <h2 class="ui inverted header blue item" style="font-family: STSong">Paracosm Blog</h2>
+            </a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="inverted home icon"></i>首页</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="inverted idea icon"></i>分类</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="inverted tags icon"></i>标签</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="inverted clone icon"></i>归档</a>
+            <a href="#" class="active m-item item m-mobile-hide"><i class="inverted headphones icon"></i>音乐</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="inverted info icon"></i>关于我</a>
+            <div class="right item m-mobile-hide">
+                <div class="ui icon inverted transparent input">
+                    <input type="text" placeholder="搜索...">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+            <a href="#" class="ui menu quanping black icon button m-right-qp" title="全屏/取消">
+                <i class="expand arrows alternate icon" ></i>
+            </a>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon" ></i>
+    </a>
+</nav>
+
+<!--顶部图片-->
+<div class="m-bg-type_outer" style="width: 100%;height: 40%">
+    <div class="m-bg-class_cover">
+        <div class="ui container" style="position: relative ;bottom: -540px;">
+            <div class="m-font-size-title m-right-bottom" align="center" style="font-family:'STXingkai'">音乐盒</div>
+            <div class="m-font-size-text-init-title1 m-margin-top" align="center">我在贩卖日落,你像神明一样慷慨地将光撒向我,从此人间被点亮。</div>
+        </div>
+    </div>
+</div>
+
+<div id="waypoint" class="ui m-margin- m-opacity" align="center" >
+    <div class="ui container box-shadow-max" >
+        <div id="player2"></div>
+    </div>
+</div>
+<br><br><br><br><br><br>
+
+
+<!--置顶图标-->
+<div class="m-padded m-fixed m-right-bottom">
+    <div class="ui vertical icon buttons ">
+        <div id="toTop-button" class="ui icon button" ><i class="chevron up icon"></i></div>
+    </div>
+</div>
+
+
+<!--底部-->
+<footer th:replace="_fragments :: footer"  class="ui inverted vertical segment m-padded-tb-massive" style="opacity: 80%;">
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="four wide column">
+                <div class="item">
+                    <!--<img src="../static/images/vx.jpg" class="ui  rounded image" style="width: 110px">-->
+                    <div style="font-size: large;font-weight: bold" class="ui inverted header m-text-thin m-text-spaced m-margin-top-max" >博客信息</div>
+                </div>
+                <div id="blog-message">
+                    <div class="ui inverted link list" style="align-content: center;margin-top: 10px">
+                        <br>
+                        <div class="m-text-thin" style="text-align: left;margin-left: 75px;">
+                            文章总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogNum.size()}"> 14 </h2> 篇
+                        </div>
+                        <!--<div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                            访问总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;"> 14 </h2> 次
+                        </div>
+                        <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                            留言总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;"> 14 </h2> 条
+                        </div>-->
+                        <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                            评论总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${commentNum.size()}"> 14 </h2> 条
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                            您的ip地址为:
+                            <br/>
+                            <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${#request.getRemoteAddr()}"> 14 </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="four wide column ">
+                <div>
+                    <a href="https://blog.csdn.net/Paracosm"><img src="../static/images/tx.jpg" th:src="@{/images/tx.jpg}"  alt="" style="width: 110px; border-radius:50%"></a>
+                    <h2 class="ui inverted header" >Paracosm</h2>
+                </div>
+
+                <div class="ui inverted link list">
+                    <a href="https://github.com/Ges0ng" target="_blank" class="ui github circular icon button" data-content="点击跳转到GitHub"  data-position="bottom center"><i class="github  icon"></i></a>
+                    <a href="https://gitee.com/Paracosm" target="_blank" class="ui github circular icon button" data-content="点击跳转到Gitee"  data-position="bottom center"><i class="gofore  icon"></i></a>
+                    <a href="https://blog.csdn.net/Paracosm" target="_blank" class="ui csdn circular icon button" data-content="点击跳转到CSDN" data-position="bottom center" ><i class="copyright outline icon"></i></a>
+                    <a href="#" target="_blank" class="ui wechat circular icon button" data-content="点击添加微信" data-position="bottom center"><i class="weixin icon"></i></a>
+                    <a href="https://qm.qq.com/cgi-bin/qm/qr?k=UOINSI1VWR4K7FWd_IH1M0qdimwAVJgA&noverify=0" class="ui qq circular icon button" data-content="704965520" data-position="bottom center"><i class="qq icon"></i></a>
+                    <a href="#" class="ui email circular icon button" data-content="704965520@qq.com" data-position="bottom center"><i class="envelope  icon"></i></a>
+                </div>
+            </div>
+            <div class="four wide column">
+                <div style="font-size: large;font-weight: bold" class="ui inverted header m-text-thin m-text-spaced m-margin-top-max" >联系我</div>
+                <div class="ui inverted link list m-text-spaced">
+                    <a href="https://qm.qq.com/cgi-bin/qm/qr?k=UOINSI1VWR4K7FWd_IH1M0qdimwAVJgA&noverify=0" class="item">QQ: 704965520</a>
+                    <a href="#" class="item"><i class="envelope icon"></i>Email: 704965520@qq.com</a>
+                    <br/><br/>
+
+                </div>
+            </div>
+            <div class="four wide column">
+
+                <div style="font-size: large;font-weight: bold" class="ui inverted header m-text-thin m-text-spaced m-margin-top-max">^ ^</div>
+                <div class="ui inverted link list">
+                    <h4 class="m-opacity-mini">兴尽悲来,欲吐还休。</h4>
+                    <h4 class="m-opacity-mini">人生百年,难有长久。</h4>
+                    <h4 class="m-opacity-mini">知音不赏,归卧山丘。</h4>
+                </div>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <br/>
+        <div style="color: #F08047;margin-top: -18px" class="ui inverted m-text-thin m-text-spaced">博客走过的时间：<span id="htmer_time" class="item m-text-thin"></span>&nbsp;&nbsp;&nbsp;&nbsp;(●'◡'●)</div>
+        <br/>
+        <div style="color: #F08047;margin-top: -18px" class="ui inverted m-text-thin m-text-spaced">My Time：<span id="htmer_time1" class="item m-text-thin"></span>&nbsp;&nbsp;&nbsp;&nbsp;(●'◡'●)</div>
+
+        <a rel="nofollow" href="https://beian.miit.gov.cn/" target="_blank">备案号：闽ICP备2021000632号-1 &nbsp;&nbsp;@ 2020 - 2021</a>
+    </div>
+</footer>
+
+
+
+<script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+<script src="../static/lib/waypoints/jquery.waypoints.js" th:src="@{/lib/waypoints/jquery.waypoints.js}"></script>
+<script>
+
+    // 显示邮箱
+    $('.email').popup();
+
+    // 显示CSDN
+    $('.csdn').popup();
+
+    // 显示github
+    $('.github').popup();
+    // 显示QQ
+    $('.qq').popup({
+        popup : $('.qq-qr'),
+        on: 'hover',
+        position: 'bottom center'
+    });
+
+    /*微信按钮*/
+    $('.wechat').popup({
+        popup : $('.wechat-qr'),
+        on: 'hover',
+        position: 'bottom center'
+    });
+
+
+    //全屏
+    $('.menu.quanping').click(function (){
+        if(this.fullscreen){    //进入全屏状态
+            //浏览器识别
+            if(document.exitFullscreen){
+                document.exitFullscreen();
+            }else if(document.webkitCancelFullScreen){  //safari,chrome
+                document.webkitCancelFullScreen();
+            }else if(document.mozCancelFullScreen){     //火狐
+                document.mozCancelFullScreen();
+            }else if(document.msExitFullScreen){    //ie
+                document.msExitFullScreen();
+            }
+        }else{  //非全屏状态
+            let element = document.documentElement; //整个页面元素
+            if(element.requestFullscreen){
+                element.requestFullscreen();
+            }else if(element.webkitRequestFullScreen){//safari,chrome
+                element.webkitRequestFullScreen();
+            }else if(element.mozRequestFullScreen){ //firefox
+                element.mozRequestFullScreen();
+            }else if(element.msRequestFullScreen){  //ie
+                element.msRequestFullScreen();
+            }
+        }
+        this.fullscreen =!this.fullscreen;
+    });
+
+    // 运行时间统计
+    function secondToDate(second) {
+        if (!second) {
+            return 0;
+        }
+        var time = new Array(0, 0, 0, 0, 0);
+        if (second >= 365 * 24 * 3600) {
+            time[0] = parseInt(second / (365 * 24 * 3600));
+            second %= 365 * 24 * 3600;
+        }
+        if (second >= 24 * 3600) {
+            time[1] = parseInt(second / (24 * 3600));
+            second %= 24 * 3600;
+        }
+        if (second >= 3600) {
+            time[2] = parseInt(second / 3600);
+            second %= 3600;
+        }
+        if (second >= 60) {
+            time[3] = parseInt(second / 60);
+            second %= 60;
+        }
+        if (second > 0) {
+            time[4] = second;
+        }
+        return time;
+    }
+
+    /*此处为网站的创建时间*/
+    function setTime() {
+
+        var create_time = Math.round(new Date(Date.UTC(2020, 11, 27, 15, 15, 15)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+    }
+
+    /* 我走过的时间 */
+    function setTime1() {
+
+        var create_time = Math.round(new Date(Date.UTC(1998, 12, 22, 12, 12, 12)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        document.getElementById("htmer_time1").innerHTML = currentTimeHtml;
+    }
+    /* 监控时间*/
+    setInterval(setTime, 1000);
+    setInterval(setTime1, 1000);
+
+    var zp2 = new zplayer({
+        element: document.getElementById("player2"),
+        lrcStart: 1,/*是否开启歌词功能 ，默认false（为true时musics集合中需要传入lrc字段。）*/
+        musics: [
+            {
+                title: "Ghost (Acoustic)",
+                author: "Au/Ra",
+                url: "http://music.163.com/song/media/outer/url?id=1405069977.mp3",
+                pic: "http://p1.music.126.net/gQnfdBOdze_2RH-cQ7k81g==/109951164501201552.jpg?param=300x300",
+                lrc: "[00:00.000] 作词 : Jamie Aura Stenzel/Andrew Frampton/Max Farrar/Colton Avery/Alan Walker/Fredrick Borch Olsen/Marcus Ambekk[00:01.000] 作曲 : Jamie Aura Stenzel/Andrew Frampton/Max Farrar/Colton Avery/Alan Walker/Fredrick Borch Olsen/Marcus Ambekk[00:12.54]Today I'm kinda feelin' like a ghost[00:16.39]Call my friends but ain't nobody home[00:19.62]Tell myself I'm fine but I don't really know[00:23.68]I'm just scared that I'll end up[00:25.63]I'll end up I'll end up alone[00:28.03]I never let it show[00:30.79]But I feel like a missed call on a phone[00:34.58]Tryna live my life pay-as-you-go[00:38.01]But I'm so scared that I'll end up[00:40.14]I'll end up I'll end up alone[00:44.31]You know I'm like a ghost sometimes I have to fade[00:48.78]And it haunts me that I have to be this way[00:51.71]You say it's gone cold I say I'll do better[00:55.98]But I always seem to disappear again[00:59.00]You know I'm like a ghost I see it in your face[01:03.30]And it haunts me that I have to be this way[01:06.35]You say it's gone cold I say I'll do better[01:10.53]But I always seem to disappear again[01:16.26]You know I never meant to cut you off[01:19.56]Got phantom feelings I can never stop[01:23.72]Stranger things to worry 'bout I know[01:27.05]But I'm so scared that I'll end up[01:29.25]I'll end up I'll end up alone[01:31.78]I can't see myself in the mirror[01:35.34]Does that mean I'm not really here[01:38.18]I'm losin' touch with everything I know[01:41.63]But I'm so scared that I'll end up[01:43.81]I'll end up I'll end up alone[01:48.00]You know I'm like a ghost sometimes I have to fade[01:52.34]And it haunts me that I have to be this way[01:55.36]You say it's gone cold I say I'll do better[01:59.54]But I always seem to disappear again[02:02.65]You know I'm like a ghost I see it in your face[02:06.85]And it haunts me that I have to be this way[02:09.87]You say it's gone cold I say I'll do better[02:14.18]But I always seem to disappear again[02:18.34]Ooh I'll be okay I'll be alright I know[02:25.45]Ooh I'll be okay[02:32.89]Ooh I'll be okay I'll be alright I know[02:40.10]Ooh I'll be okay[02:43.80]I'm just scared that I'll end up alone[02:46.31]You know I'm like a ghost sometimes I have to fade[02:50.56]And it haunts me that I have to be this way[02:53.49]You say it's gone cold I say I'll do better[02:57.62]But I always seem to disappear again[03:00.84]You know I'm like a ghost I see it in your face[03:05.18]And it haunts me that I have to be this way[03:08.19]You say it's gone cold I say I'll do better[03:12.30]But I always seem to disappear again[03:22.58]You know I'm like a ghost"
+            }, {
+                title: "A Drop In An Ocean",
+                author: "北念_Cheng",
+                url: "http://music.163.com/song/media/outer/url?id=1450468861.mp3",
+                pic: "http://p2.music.126.net/I7_kL2KxNu2MdBqn3e11hQ==/109951165011985657.jpg?param=300x300",
+                lrc: "[00:00.00] 暂无歌词"
+            },{
+                title: "浮光 (The History)",
+                author: "Jannik",
+                url: "http://music.163.com/song/media/outer/url?id=1394601255.mp3",
+                pic: "http://p1.music.126.net/c55oo6_xrGMZP8vIrSGTZg==/109951164401545279.jpg?param=300x300",
+                lrc: "[00:00.00] 暂无歌词"
+            },{
+                title: "Merry Christmas Mr. Lawrence",
+                author: "坂本龍一",
+                url: "http://music.163.com/song/media/outer/url?id=4899152.mp3",
+                pic: "http://p1.music.126.net/woiqainQI-orV_RuUuOVRw==/716881581353216.jpg?param=300x300",
+                lrc: "[00:00.00] 暂无歌词"
+            }, {
+                title: "Grace",
+                author: "Jannik",
+                url: "http://music.163.com/song/media/outer/url?id=528423473.mp3",
+                pic: "http://p1.music.126.net/TY3o-xrOeL5l2ZcWZ-btcQ==/109951163100529767.jpg?param=300x300",
+                lrc: "[00:00.00] 暂无歌词"
+            },{
+                title: "飛行艇",
+                author: "King Gnu",
+                url: "http://music.163.com/song/media/outer/url?id=1382838382.mp3",
+                pic: "http://p2.music.126.net/kx4PTdsT1zg183wcsIEKzQ==/109951164274726823.jpg?param=300x300",
+                lrc: "[00:00.000] 作词 : 常田大希[00:01.000] 作曲 : 常田大希[00:26.96]どんな夢を見に行こうか[00:32.37]正しさばかりに恐れ戦かないで[00:38.86]自由自在に飛び回って[00:44.76]ステップ・バイ・ステップ　ビートを刻んで[00:47.86]果ての無いパーティーを　続けようか[00:51.39]この時代に飛び乗って[00:53.93]今夜この街を飛び立って[00:56.84]大空を飛び回って[00:59.81]命揺らせ　命揺らせ[01:03.46]この風に飛び乗って[01:05.91]今夜台風の目となって[01:08.85]大空を飛び回って[01:11.82]命揺らせ　命揺らせ[01:38.91]代わり映えしない日常の片隅で[01:45.87]無邪気に笑っていられたらいいよな[01:50.83]無意味な旅を続けようか[01:56.58]ワン・バイ・ワン　一歩ずつでいいさ[02:00.20]歓声も罵声も　呑み込んで[02:03.26]この時代に飛び乗って[02:05.96]今夜愚かな杭となって[02:08.78]過ちを恐れないで[02:11.79]命揺らせ　命揺らせ[02:15.38]この風に飛び乗って[02:17.91]今夜名も無き風となって[02:20.77]清濁を併せ呑んで[02:23.76]命揺らせ　命揺らせ[02:28.21]大雨降らせ　大地震わせ[02:32.77]過去を祝え　明日を担え[02:35.76]命揺らせ　命揺らせ[02:40.05]大雨降らせ　大地震わせ[02:44.61]過去を祝え　明日を担え[02:47.70]命揺らせ　命揺らせ[02:52.13]大雨降らせ　大地震わせ[02:56.76]過去を祝え　明日を担え[02:59.72]命揺らせ　命揺らせ[03:03.97]大雨降らせ　大地震わせ[03:08.82]過去を祝え　明日を担え[03:11.82]命揺らせ　命揺らせ[03:16.70]この時代に飛び乗って[03:19.44]今夜この街を飛び立って[03:22.25]大空を飛び回って[03:25.35]命揺らせ　命揺らせ[03:29.04]この風に飛び乗って[03:31.39]今夜台風の目となって[03:34.24]大空を飛び回って[03:37.26]命揺らせ　命揺らせ[03:40.35]貴女の期待に飛び乗って[03:43.35]今夜この羽根で飛びたくて[03:46.34]この大空を飛びたくて[03:49.38]命生まれ　命生まれ[03:52.96]この風に飛び乗って[03:55.51]今夜名も無き風となって[03:58.34]清濁を併せ呑んで[04:01.28]命揺らせ　命揺らせ"
+            },{
+                title: "S.T.A.Y. (Delta Heavy Tribute)",
+                author: "Delta Heavy,Hans Zimmer",
+                url: "http://music.163.com/song/media/outer/url?id=477933827.mp3",
+                pic: "http://p1.music.126.net/UxuyA7YL9TWtAuaH2H9eYQ==/18509178743889553.jpg?param=300x300",
+                lrc: "[00:00.00] 暂无歌词"
+            },{
+                title: "阿司匹林",
+                author: "王以太",
+                url: "http://music.163.com/song/media/outer/url?id=1396141677.mp3",
+                pic: "http://p2.music.126.net/PGgq1Jf2HY7R8u5Aw2d7iA==/109951164418089173.jpg?param=130y130",
+                lrc: "[00:00.000] 作曲 : 王以太\n" +
+                "[00:00.330] 作词 : 王以太\n" +
+                "[00:00.990]制作人/编曲 Producer: 王晓夫\n" +
+                "[00:15.234]凌晨回家的你好不好睡\n" +
+                "[00:16.734]生活的台词你好不好背\n" +
+                "[00:18.451]沾满酒精地板倒不倒胃口\n" +
+                "[00:20.335]失灵的指南针找不到北\n" +
+                "[00:21.902]觉得想要的东西都特别的贵\n" +
+                "[00:23.651]窗外的景色都特别的美\n" +
+                "[00:25.385]何时才能够公平得对比来自\n" +
+                "[00:26.801]里面的雾气和外面的灰\n" +
+                "[00:28.985]我用手指在雾气中画一幅画\n" +
+                "[00:30.802]画 有灰尘 高楼大厦\n" +
+                "[00:32.535]大厦的主人在打着电话\n" +
+                "[00:34.285]他们打了又打 挂了又挂\n" +
+                "[00:36.301]对着电话的那一头在咒骂\n" +
+                "[00:37.770]过了一阵子又轻言细语\n" +
+                "[00:39.568]下一通变成了感动涕零\n" +
+                "[00:41.352]情绪是人类最美的意境\n" +
+                "[00:43.135]然而语言永远都有弊端 ei\n" +
+                "[00:44.802]永远表达不完一半 没有\n" +
+                "[00:46.734]一句话能不留遗憾\n" +
+                "[00:48.351]没有 哪句话能不留遗憾\n" +
+                "[00:49.951]我尽量克制在陌生的城市不被三言和两语而左右喜悲\n" +
+                "[00:53.751]确实我没有一句歌词谁能够做到能完全领会\n" +
+                "[00:57.293]What cant i say\n" +
+                "[00:58.193]what cant i say\n" +
+                "[00:59.074]你问我在台上累或不累\n" +
+                "[01:00.774]绝情的决定悔或不悔\n" +
+                "[01:02.558]街边的担子你背或不背\n" +
+                "[01:04.308]我的位置暂时没人顶替\n" +
+                "[01:06.074]唱歌像醉因为没人清醒\n" +
+                "[01:07.841]再努把力 再努把力\n" +
+                "[01:09.658]下一句你一定能够听清\n" +
+                "[01:11.374]what can i say\n" +
+                "[01:13.089]你说我该反省配或不配\n" +
+                "[01:14.874]说我看不到你背后的泪\n" +
+                "[01:16.573]最后的陪也看不到尾\n" +
+                "[01:18.289]对不起亲爱的我会失误\n" +
+                "[01:20.223]专注在对抗这生活制度\n" +
+                "[01:22.073]沉默是病 对 沉默是病\n" +
+                "[01:23.739]也只有你才是阿斯匹林\n" +
+                "[01:25.553]你说我太有个性\n" +
+                "[01:26.786]一言不发却实在要命\n" +
+                "[01:28.638]我的表达从来不被特定\n" +
+                "[01:30.388]面对你质疑我伤透脑筋\n" +
+                "[01:32.203]在舞台说唱我轻点着头\n" +
+                "[01:33.887]路灯下有我摇头的倒影\n" +
+                "[01:35.720]你的感受我真的有听\n" +
+                "[01:37.403]遇见你真是我三生有幸\n" +
+                "[01:39.153]现在我能说出从来没说过的话\n" +
+                "[01:41.303]没音乐 怕被你误会\n" +
+                "[01:42.769]就别 揭示彼此原来的疤 彼此互掐 总有头无尾\n" +
+                "[01:46.486]轻松得聊聊 眼前的麻烦 关注下今天的天气\n" +
+                "[01:50.203]让我在无言中牵你 一起的足迹已是遍地\n" +
+                "[01:54.287]认真的编剧怎么会演戏 回答我\n" +
+                "[01:57.786]在你的眼里我怎么会骗你 回答我\n" +
+                "[02:01.219]你说我够了 交流不是在批奏折\n" +
+                "[02:03.537]感情不是学功课 说赢了谁记功德\n" +
+                "[02:08.038]你说要睡了你头疼\n" +
+                "[02:09.223]你说要睡了你头疼\n" +
+                "[02:11.006]真的要睡了你头疼\n" +
+                "[02:12.589]话语像断了的风筝\n" +
+                "[02:14.456]用什么来跟你谈和\n" +
+                "[02:16.256]不想跳拉扯的探戈\n" +
+                "[02:18.039]圆满的感情剩半个\n" +
+                "[02:19.789]用什么来伪装我忐忑\n" +
+                "[02:22.139]What cant i say\n" +
+                "[02:22.890]what cant i say\n" +
+                "[02:23.739]你问我在台上累或不累\n" +
+                "[02:25.472]绝情的决定悔或不悔\n" +
+                "[02:27.239]街边的担子你背或不背\n" +
+                "[02:28.806]我的位置暂时没人顶替\n" +
+                "[02:30.773]唱歌像醉因为没人清醒\n" +
+                "[02:32.456]再努把力 再努把力\n" +
+                "[02:34.289]下一句你一定能够听清\n" +
+                "[02:35.939]what can i say\n" +
+                "[02:37.773]你说我该反省配或不配\n" +
+                "[02:39.418]说我看不到你背后的泪\n" +
+                "[02:41.350]最后的陪也看不到尾\n" +
+                "[02:43.117]对不起亲爱的我会失误\n" +
+                "[02:44.916]专注在对抗这生活制度\n" +
+                "[02:46.700]沉默是病 对 沉默是病\n" +
+                "[02:48.350]也只有你才是阿斯匹林\n" +
+                "[03:08.203]混音 Mixing Engineer: 王晓夫\n" +
+                "[03:09.634]人声制作 Vocal Production: 王晓夫\n" +
+                "[03:10.751]录音 Recording: 小武 @Sync Studio\n" +
+                "[03:12.285]母带 Mastering Engineer: 王晓夫\n" +
+                "[03:13.819]监制 Music Supervisor: 王晓夫/陈令韬"
+        }, {
+            title: "YKEY-独行侠+他+爱如潮水（sea蕊 / Cookie L remix）",
+            author: "sea蕊,吴炳文Cookie",
+            url: "http://music.163.com/song/media/outer/url?id=1432968475.mp3",
+            pic: "http://p1.music.126.net/HhIFi0vhlL3BFnKdcIOOVw==/109951164827027175.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : YKEY/Namunong/GAI周延[00:01.000] 作曲 : YKEY/Namunong[00:11.992]星星还是那么亮[00:13.498]月亮还是在天上[00:15.008]似乎一切都没改变[00:16.547]只是他不在你身旁[00:18.304]记忆中的脸[00:19.308]已变得模糊抽象[00:20.813]而你也不再年轻[00:22.342]身材也有一些走样[00:23.846]如果再遇到爱的人[00:25.352]记住去拉着他的手[00:27.109]告诉他如果你没有他[00:28.613]你就一无所有[00:29.886]你现在在什么地方[00:31.390]你现在过得怎样[00:32.894]你是否跟我一样是否在外漂泊流浪[00:36.154]陪他从懂事到现在一直都没变[00:38.916]因为 他身边的人一直把他一直在骗[00:41.927]也想过自己要去改变[00:44.940]路过了街边那个小店[00:47.701]我在空荡荡的房间里[00:50.965]拖着疲惫不堪的身体[00:59.747]我在没有你的世界里[01:03.011]逐渐变成了最恨的自己"
+        }, {
+            title: "你啊你啊",
+            author: "魏如萱",
+            url: "http://music.163.com/song/media/outer/url?id=440208470.mp3",
+            pic: "http://p2.music.126.net/VA3kAvrg2YRrxCgDMJzHnw==/3265549618941178.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : 魏如萱[00:01.000] 作曲 : 魏如萱[00:06.18]编曲：董运昌，罗恩妮[00:31.78]我最喜欢和你一起发生的[00:38.94]是最平淡最简单的日常[00:47.32]面对面看着彼此咀嚼食物[00:54.21]是最平静最安心的时光[01:02.73]我不喜欢你和别人发生的[01:09.93]是最暧昧最不明的隐藏[01:17.95]面对面看着彼此假装正常[01:25.26]是最可怕最恶心的事啊[01:33.65]咦呜咦呜咦咦 呜呜呜喔喔[01:37.49]咿耶咿耶咦[01:39.82]呜呜呜喔喔 咿耶咿耶咦[01:43.66]呜喔喔 喔[01:48.85]咦呜咦呜咦咦 呜呜呜喔喔[01:52.99]咿耶咿耶咦[01:55.37]呜呜呜喔喔 咿耶咦[01:59.04]呜喔喔喔[02:03.55]咁讲你不知我爱的只有你[02:09.20]你啊你啊[02:11.41]哪会转头就要走[02:19.06]一个两个三个[02:23.12]你爱的到底有几个[02:27.36]麦搁讲白贼话[02:29.34]我的心就要[02:31.35]痛甲一直流血[03:07.04]咦呜咦呜咦咦 呜呜呜喔喔[03:10.99]咿耶咿耶咦[03:13.30]呜呜呜喔喔 咿耶咿耶咦[03:17.20]呜喔喔 喔[03:22.51]咦呜咦呜咦咦 呜呜呜喔喔[03:26.43]咿耶咿耶咦[03:28.75]呜呜呜喔喔 咿耶咦[03:32.68]呜喔喔喔[03:37.05]咁讲你不知我爱的只有你[03:42.57]你啊你啊[03:44.94]哪会转头就要走[03:52.69]一个两个三个[03:56.60]你爱的到底有几个[04:00.85]麦搁讲白贼话[04:02.79]我的心就要[04:04.81]痛甲一直流血[04:08.26]咁讲你不知我爱的只有你[04:13.50]你啊你啊[04:15.86]哪会憨甲安捏啦[04:23.56]一天两天三天[04:27.09]驾快你就爱着别人[04:31.68]想欲甲你作伙[04:33.75]想欲你是我的[04:35.84]拢是一场空[04:44.06]我最喜欢和你一起发生的[04:51.09]是最平淡最简单的日常[04:59.42]面对面看着彼此咀嚼食物[05:06.60]是最平静最安心的时光[05:09.96]制作人：陈建骐[05:10.25]配唱制作人：魏如萱[05:11.05]吉他：董运昌[05:11.54]和声编写：萧贺硕[05:11.84]和声：魏如萱[05:12.49]弦乐编写：罗恩妮[05:12.98]小提琴：苏子茵[05:13.34]中提琴：苏子茵[05:13.57]大提琴：范宗沛[05:13.87]录音工程师：陈以霖[05:14.33]录音室：大小眼录音室[05:14.80]混音工程师：林正忠[05:15.28]混音录音室：白金录音室[05:15.54]制作及经纪公司：好多音乐[05:15.76]监制：陈建骐[05:16.22]母带后期处理制作人：陈建骐[05:17.33]母带后期处理工程师：孙仲舒[05:18.14]母带后期处理录音室：钰德科技"
+        }, {
+            title: "随身汀",
+            author: "沙一汀EL",
+            url: "http://music.163.com/song/media/outer/url?id=1386038739.mp3",
+            pic: "http://p1.music.126.net/dYEI7vQiml4YfqOHTwrwrQ==/109951164315807816.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : 沙一汀EL[00:00.357] 作曲 : 沙一汀EL[00:00.714]编曲：dannyebtracks[00:04.475]Now把手头事情放下delay[00:06.732]冲凉之后裹上浴巾然后冲上咖啡[00:08.988]播放最爱的汀把声音放到最大如果逃避是个比赛那我可以摆满奖杯[00:13.509]太多太多不能解决的bull ****[00:16.017]老妈说过除了读书其他no way[00:18.026]Im a play boy 但我的脑子从来不想把妹溢出来的点子就能轻松control my fate[00:23.547]随心所欲不会有个度[00:25.554]剧情完结那就抬手换到下一部[00:27.812]跑到阳台点燃香烟望着青天吐出青烟每一帧的画面都能搬上大荧幕[00:32.330]过程大于结局I can  lose this game[00:34.842]你不懂我那就听歌  you can feel my flame[00:37.260]管你什么职业先把它忽略全新的世界 今夜的蜡烛不会熄灭   lets go[01:01.784]很多东西没有什么深度停留在了表象一千万个哈姆雷特总有一个红了眼眶[01:06.806]你说呸[01:07.561]深度就要无脑去追 自欺欺人摒弃内心才是真的可悲[01:11.325]毕竟生活不是高考的阅读题[01:13.083]别再揣摩作者爱下棋或吹竹笛[01:15.844]我想活的真实一点抛弃乖巧放肆一点再把火锅多吃一点手头闲钱再多一点[01:21.117]随心所欲不会有个度[01:23.130]剧情完结那就抬手换到下一部[01:25.386]跑到阳台点燃香烟望着青天吐出青烟每一帧的画面都能搬上大荧幕[01:29.903]过程大于结局I can  lose this game[01:32.414]你不懂我那就听歌  you can feel my flame[01:34.924]这首毫无深度随意地倾诉不被谁约束。      听听汀汀的歌觉得他唱的真酷[01:59.526]所以不要折磨自己觉得活的太丧[02:01.785]你不是孤独鲸鱼快点重新回到岸上[02:04.044]你可以变的虚伪虚伪其实并不丑陋[02:06.554]可怕的是一味跟风喊着keep it real[02:09.063]所以不要折磨自己觉得活的太丧[02:11.323]你不是孤独鲸鱼快点重新回到岸上[02:13.833]nobody cares 到底想要怎么活[02:16.343]他人眼光老子不管做我所想[02:18.602]总会开花结果[02:19.105]看[02:20.360]台下无人只是来得慢该来的总会来的放平心态名利看得淡[02:23.374]感什么叹[02:24.378]可能只是起点跑得慢一步一脚印做个别人眼里看开的笨蛋[02:28.144]欲望是永远不会满足的黑洞  迷失自己掉入深渊不会感觉痛[02:32.412]不被大流随意牵动道理并不全都受用  命运也能被你捉弄看你怎样播种"
+        }, {
+            title: "刺猬",
+            author: "YKEY,DiESi",
+            url: "http://music.163.com/song/media/outer/url?id=1356147224.mp3",
+            pic: "http://p1.music.126.net/Ph2M_Vn_tgWqOlkNf8Lm4A==/109951163970207594.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : YKEY[00:01.000] 作曲 : YKEY[00:03.794]录制：YKEY[00:06.217]编曲：DiESi[00:10.650]混音：h3R3[00:16.017]编曲分轨混音：KONG[00:21.338]我从小到大都在渴望被人赞美[00:24.001]孤独且懦弱承受自卑频繁忏悔[00:26.618]我慢慢发现人们不只都是善类[00:29.017]总讨厌这世界 害怕人生故事烂尾[00:32.017]我多么希望我的童年能够消失[00:34.705]我害怕社交因为恐惧情感交织[00:37.361]我把心交给她之后灵魂就丢了[00:39.833]像一场倾盆大雨将我从头到尾浇湿[00:42.433]被现实打破了头[00:44.217]麻木以后[00:44.961]找不到任何继续的理由[00:46.729]丧失比重[00:47.953]我没有办法去试着接纳其他陌生人[00:50.065]总在乎别人的看法最终紧闭了房门[00:52.841]我总是胡思乱想 无尽的盼望[00:56.001]油门被锁死的我就算拼命换挡[00:58.681]我奋力撑着每天能像常人一样[01:01.217]可谁又理解沉默已经成为我的习惯[01:03.297]所以我把自己关起来[01:06.529]我把自己关起来[01:09.185]我不想再被谁离开[01:11.809]我不想再承受伤害[01:13.630]（活的像个刺猬）[01:14.552]我把自己关起来[01:16.264]（活的像个刺猬）[01:17.272]我把自己关起来[01:18.856]（活的像个刺猬）[01:19.952]我把自己关起来[01:21.616]（活的像个刺猬）[01:22.624]我把自己关起来[01:24.320]（活的像个刺猬）[01:25.280]多少人笑着面对你其实他藏了很多戏[01:27.888]有毒的食物味道一般都像抹了蜜[01:30.527]想办法接近 把你当成玩具[01:32.832]多少人被人摧毁 因为有一颗纯真的心[01:35.784]你感到失望是因为你充满期待[01:38.304]你感到害怕是因为安全感不在[01:40.984]你感到痛苦是因为失去的太快[01:43.456]你感到一切都是折磨包括那所谓的爱[01:46.184]你真的受够了 嗓子被你吼破了[01:48.655]突然发现周围好多人原来是做作的[01:51.234]结局总是落魄的 有很多错过的[01:54.059]你始终搞不清楚自己哪里做错了[01:56.627]不想讲述 被自闭挡住[01:59.267]你睡不着觉原来是纠结的产物[02:01.826]你努力装的坚强 然后给所有人看[02:05.196]当回到一个人的世界又不知怎么办[02:07.604]所以你把自己关起来[02:10.540]你把自己关起来[02:13.204]你不想再被谁离开[02:15.660]你不想再承受伤害[02:17.571]（活的像个刺猬）[02:18.540]你把自己关起来[02:20.260]（活的像个刺猬）[02:21.251]你把自己关起来[02:23.124]（活的像个刺猬）[02:23.916]你把自己关起来[02:25.620]（活的像个刺猬）[02:26.548]你把自己关起来[02:28.188]（活的像个刺猬）"
+        }, {
+            title: "网易云",
+            author: "姜云升",
+            url: "http://music.163.com/song/media/outer/url?id=1307591526.mp3",
+            pic: "http://p1.music.126.net/bxhFwpSPBtL-4xKTCG-q6w==/109951163534963191.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : 姜云升[00:01.000] 作曲 : 姜云升[00:04.23]编曲 : 朴冉[00:05.28]混音 : 朴冉[00:06.18]录音工程师 : 王润天[00:07.33]制作人 : 朴冉[00:10.99]你今夜为了什么戴上耳机[00:13.47]直到路灯全部熄灭还没睡去[00:16.14]对失去感觉不舍还是可惜[00:18.74]期待着明天 又藏着几分畏惧[00:21.55]你说你已经慢慢学会狠心[00:24.04]尤其是把感情看的很轻[00:26.80]你说你只有这样才能快乐[00:29.10]那你回答我你此刻为何红了眼睛[00:31.91]过去那些伤口应该怎么样去治理[00:34.06]现在似乎只有钞票能够带来刺激[00:36.48]疲于人际关系 被卷入那些不相干的事里[00:39.81]只有关闭卧室房门以后你才是你自己[00:42.41]孤独是种状态 即便多么勤奋[00:45.16]出现在生活中你眼神某一刻的停顿[00:47.77]是谁在白天笑得开心 为人多么平顺[00:50.32]又是谁在网易云看了一整夜的评论[00:53.09]总说着别为我担心 我们装得顶天立地绝对不会退缩[00:57.79]我们总是说着别为我担心 可是今天为何泪水却打湿了被窝[01:03.00]那些是非对错你难以分清[01:05.65]变得成熟也不再真心[01:08.33]被子把头捂住 喉咙像被堵住[01:10.90]成年人的哭原来没有声音[01:13.60]不得不去告别 这结果早就认得[01:16.21]你知道她不爱你 只是不敢去承认吧[01:18.81]没必要去抱怨 也不用去讨论了[01:21.20]她都说了抱歉 那还有什么好问的[01:24.10]想要把电话线给 都掐断了[01:26.21]又是谁的心脏 碎成稀巴烂了[01:29.32]第二天的清晨 不留一点痕迹[01:31.81]除了垃圾桶里的 酒瓶和易拉罐子[01:34.37]你是为了什么总听一首歌[01:37.04]为了什么歇斯底里 为了什么不想说话 为了什么总听一首歌[01:42.58]为了什么让不喜欢喝酒的你 把酒当水喝[01:45.68]这微信把你我变成游子 浮躁且容易厌倦[01:50.79]沟通只需动动你的手指 连分手都不用见面[01:55.94]谁在私心戒备 把借口挑明[01:58.81]谁痴心绝对 被烈酒扫平[02:01.21]眷眷之心变味 把怨毒表明[02:03.77]明明撕心裂肺 你却又面无表情[02:06.37]希望可以等到那个她的来到[02:09.03]希望每次伸手都能得到怀抱[02:11.44]希望找到一种方式可以让你解脱[02:14.14]希望把过去所有不幸全部埋掉[02:17.29]你今夜为了什么带上耳机[02:19.79]直到路灯全部熄灭还没睡去[02:22.19]对失去感觉不舍还是可惜[02:24.68]期待着明天 又藏着几分畏惧[02:27.64]你说你已经慢慢学会狠心[02:30.25]尤其是把感情看得很轻[02:33.54]你说你只有这样才能快乐[02:35.80]那你回答我你此刻为何红了眼睛[02:38.90]你今夜为了什么带上耳机[02:41.41]即便过去糟糕到不敢去回看[02:44.40]的确感觉不舍还有可惜[02:46.51]但我相信未来有你陪伴[02:49.40]我也尝试学会所谓狠心[02:51.87]却不想让我自己 变得冷冰[02:54.62]愿每一个人都能得到快乐[02:57.02]愿你们今夜可以不再红着眼睛[03:00.18]"
+        }, {
+            title: "不后悔遇见你",
+            author: "姜云升,朴冉",
+            url: "http://music.163.com/song/media/outer/url?id=1351343058.mp3",
+            pic: "http://p2.music.126.net/hJl9ZSLihOyEvFwqQ5Wuyg==/109951163923675554.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : 姜云升/朴冉[00:01.000] 作曲 : 姜云升/朴冉[00:04.136]编曲 : 朴冉[00:05.782]录音工程师 : 夏坚[00:07.518]混音工程师 : 大眼炮[00:09.197]出品 : 大眼炮[00:13.962]你和他们都不同 初次见面的感受[00:17.452]完全改变了我一切 认识你的那晚后[00:20.906]一个眼神都能懂我 甚至都不用靠近[00:24.236]无法找到任何词语 形容你的重要性[00:27.769]是的 我也承认 我的确特别的花心[00:31.355]擅长用甜言蜜语 让那些女孩发晕[00:34.864]可是想到你会难过 内心深处就会发寒[00:38.231]为你下定了决心 洗心革面 再也不去 当渣男[00:41.644]疯一样去道歉 在赢回我的信用前[00:45.033]艰难的维持着感情的平衡 像个体操运动员[00:48.171]失去你的感觉 即便只是想想都要了命[00:51.605]你让我 感受到了爱 不只是 体会到了性[00:55.134]我早厌倦了没有你 厌倦装的多狠辣[00:58.506]厌倦明明痛的要死 还强撑着说狠话[01:01.895]你的心早离我而去 永无可能在连上我[01:05.251]可我还是想说我爱你 即便你没有原谅我[01:10.061]最后却没在一起[01:13.404]即使曾是如此的爱你[01:16.712]回忆成了碎玻璃[01:20.023]谁想要 听你说对不起[01:23.483]最后没能在一起[01:26.856]也做不到真心的祝福你[01:30.554]不要你说 对不起[01:33.772]我并不 后悔 遇见你[01:38.048]你说你要有更多的空间 忘记了过去的情谊[01:41.439]我的世界变成了冬天 正如寒风一样的凌厉[01:45.004]逝去的 不会再来 无论我怎么样疯狂的寻觅[01:48.358]你早删了我的电话 微信的朋友圈将我给屏蔽[01:51.638]那么他呢 你委屈的时候 是否站你身后[01:55.078]是否为了你拼命工作 是否为你而去争斗[01:58.587]是否短短几个月的感情 就像我们那般深厚[02:01.810]你难过无助害怕时 他又是否 会感同身受[02:05.266]其实我一直都能明辨 你像个骗子一直行骗[02:08.705]明知感情成了平行线 还被骗的心甘情愿[02:12.145]看透你的所有手段 还被你花招所刺激[02:15.543]其实喝了酒我也清醒 能骗我的只有我自己[02:18.966]那就一个人去到郊外 把照片全部都烧坏[02:22.698]这次不仅是为你 也为给自己一个交代[02:26.230]从咸阳机场出发追到浦东门口[02:29.490]你却和所有人说我们只是普通朋友[02:34.242]最后却没在一起[02:37.261]即使曾是如此的爱你[02:40.822]回忆成了碎玻璃[02:43.979]谁想要 听你说对不起[02:47.674]最后没能在一起[02:50.854]做不到真心的去祝福你[02:54.535]不要你说 对不起[02:57.790]我并不 后悔 遇见你"
+        }, {
+            title: "奈何",
+            author: "姜云升",
+            url: "http://music.163.com/song/media/outer/url?id=1414782722.mp3",
+            pic: "http://p2.music.126.net/tXYeuzm_JSQFcDI8l_RESA==/109951164608085811.jpg?param=300x300'",
+            lrc: "[00:00.000] 作词 : 姜云升[00:00.526] 作曲 : 姜云升[00:01.52]编曲：朴冉[00:04.33]混音：大眼炮[00:06.97]制作人：朴冉[00:08.53]出品人/监制：大眼炮[00:11.49][00:13.23]自丙申你我一别  算来已有三年[00:16.12]各种滋味如杯中杜康  愧不堪言[00:19.21]遥想当年 共君于山间把酒仗剑[00:22.45]昨日赴旧地  洛阳外桃花已漫过山檐[00:25.54]再斟 去年纵马江南，西湖灯红柳翠[00:28.51]城中有桂花糕 料想必如你口味[00:31.57]恐糕团难携，遇途中暑气将坏[00:34.77]故取花瓣风干 亲手制成桂花香袋[00:38.25]与温兄相见了，我心甚喜[00:41.09]嫂子贤惠，宴中有你爱的西湖醋鱼[00:44.17]成儿已周岁，所幸模样同嫂子更似[00:47.22]若你我成亲，子嗣年龄应也如此[00:50.23]除夕拜访伯父，仍是家门紧锁[00:53.43]我于雪中立了一夜，终也未曾见我[00:56.62]与令兄打听，伯父身体倒是硬朗[00:59.43]那就罢了，唯有托其将信送至府上[01:03.14][01:29.90]恩师已允我下山，我见其默然拭泪[01:32.68]门中昭告天下  将我革除字辈[01:35.42]我恨我不肖，又一次让师父失望[01:38.38]珈蓝剑碎了，师弟剑法已在我之上[01:41.56]倒是不痛，不足挂齿，你毋须牵挂[01:44.35]相反，左手使剑 招数添了不少变化[01:47.22]一路赶来 特意换了你绣的长袍[01:50.28]只是我让你等了三年，你不要怨我就好[01:53.13]正阳门武功不值一提，你大可心安[01:55.84]三年前在场的六十八人 尽已成京观[01:58.97]唯有几个不通武艺的幼童逃得外去[02:02.00]你素来喜欢孩子 想必也不会在意[02:05.01]当年我入得天象，读遍剑道经藏[02:07.70]剑法三千 寻不到一式能斩开阴阳[02:10.72]甲天下何用？ 亦不能以沫相濡[02:13.60]恨今生习武学剑   愿来世莫入江湖[02:17.17]后期混缩Mixd ：大眼炮@Pal Studio[02:19.12]母带处理Masterd ：大眼炮@Pal Studio[02:21.10]录音工程师Recorded：夏坚@三木Studio"
+        }, {
+            title: "Beautiful",
+            author: "IAN-T",
+            url: "http://music.163.com/song/media/outer/url?id=862460559.mp3",
+            pic: "http://p2.music.126.net/p8C15_hegRksD4NVtnT4Lg==/109951164841234692.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : IAN-T[00:01.000] 作曲 : IAN-T/何柏诚[00:07.705]编曲：何柏诚[00:13.706]她像是含苞待放的花骨朵[00:15.704]温柔当中还略带着一点娇羞[00:17.459]在那柔弱可爱的外表下[00:19.211]总将坚强和倔强深放心中[00:20.708]也是那寒冬夜里的俏佳人[00:22.462]将爱情的答案在深夜里找[00:24.203]可魂不守舍模样让我真心疼[00:25.957]梨花带雨的次数可真不少[00:27.708]总在猜想着过去和未来（摘自丸—夢）[00:29.451]问我爱飞鸟的鱼儿还会不会来[00:31.203]墙上的钟表上早已布满青苔[00:32.714]数着日子里的暮去朝来[00:34.455]my beautiful girl真是天真可爱得让人着迷[00:37.705]可你对爱情一窍不通真是让我十分着急[00:41.211](u so beautiful)[00:42.955]最美不过你的微笑[00:44.705](beautiful)[00:46.403]这次你是否能听到[00:48.404](u so beautiful)[00:49.898]依旧能触动我心跳[00:51.899](beautiful)[00:54.099](u so beautiful)[00:57.351]最美不过你的微笑[00:58.815](beautiful)[01:00.313]这次你是否能听到[01:02.063](u so beautiful)[01:03.807]依旧能触动我心跳[01:05.559]最美的花朵就藏在你嘴角[01:09.311]有我的路上你不会迷路[01:10.563]为你做只雪地里带路麋鹿[01:12.560]每天恋爱感觉都不会重复[01:14.058]甜蜜病毒的侵入让你分泌情愫[01:15.566]闭上眼睛脱下那层防备[01:17.309]如果是我那又怎会乏味[01:19.061]对你的爱意那是多么纯粹[01:20.816]世间或许只有我一个人会[01:22.568]别再深夜入睡继续依靠那淡然无味的酒精[01:25.808]touching my heart u can feel it我比那烈酒更加走心[01:29.057]别再害怕没肩膀给你靠[01:31.066]哭了没人能给你递纸巾[01:32.810]我有最暖的胸膛给你抱[01:34.561]所有情话全都讲给你听[01:36.059](u so beautiful)[01:38.066]最美不过你的微笑[01:39.565](beautiful)[01:41.308]这次你是否能听到[01:43.060](u so beautiful)[01:44.556]依旧能触动我心跳[01:46.565](beautiful)[01:49.306](u so beautiful)[01:51.557]最美不过你的微笑[01:53.313](beautiful)[01:55.309]这次你是否能听到[01:56.561](u so beautiful)[01:58.317]依旧能触动我心跳[02:00.313](beautiful)[02:01.312]最美的花朵就藏在你嘴角[02:03.807]浓浓的爱意你会满意[02:05.560]前方道路上不会有雨季[02:07.057]我会包容你性格和坏脾气[02:08.811]你的喜好全部我都牢记[02:10.309]甜蜜的味道还会入梦境[02:12.306]每次亲吻你呼吸真平静[02:14.058]我能感受你心里的动静[02:15.567]girl压抑自己总是你拿手戏[02:17.563]策划：牛雪吟/朱鹏辉/艾若兰[02:19.307]女Vocal：陈艺之[02:20.000]制作人：何柏诚[02:20.061]混音&母带：何柏诚"
+        }, {
+            title: "red lips",
+            author: "沙一汀EL",
+            url: "http://music.163.com/song/media/outer/url?id=1456659704.mp3",
+            pic: "http://p1.music.126.net/7GqAsbBPco1M9wzXU5cJCg==/109951165073551935.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : 沙一汀EL[00:01.000] 作曲 : 沙一汀EL[00:04.572]混音录音：杨秋儒[00:06.036]和声：杨秋儒[00:07.716]微博：沙一汀EL[00:08.172]怎样才能被我蒙对[00:10.236]I wanna feeling your feeling[00:12.348]你的出击让我崩溃[00:14.508]我的心欢迎你光临[00:16.980]没人比你更加般配[00:19.188]在夜里弹奏着钢琴[00:21.348]You came to me[00:23.652]I love ya[00:24.732](I love your red lips)[00:26.676]自我介绍很累[00:27.468]我的时间很贵[00:28.452]但我想把过去拍成电影[00:29.268]给你看[00:30.420]四百万朵玫瑰[00:31.428]都浓缩成了一滴挂在睫毛[00:32.940]站在阳光下面太阳都变暗[00:35.028]我可能不会搭讪[00:36.084]你脸红就是答案[00:37.092]这不是我的幻想[00:38.220]但你美得像虚构[00:39.324]在你之前[00:40.116]什么叫做心事[00:41.004]根本没有这个概念[00:41.988]你的心情就是我的天气[00:43.284]所以总有彩虹[00:44.436]Wow ～[00:45.564]Red lips[00:46.476]我不需要太多[00:47.244]我只需要一个 Kiss[00:48.348]我想知道你的嘴唇[00:49.548]到底什么味道[00:50.508]用的什么配料[00:51.324]给我一次机会[00:52.116]Oh Please[00:53.076]我给很多人发过晚安[00:54.468]但我唯独夜里[00:55.908]对你说过喜欢[00:57.156]我的所有才气[00:58.044]是你给的灵感[00:59.244]怀里没你不叫圆满[00:59.964]只要你能开口[01:00.828]所有的问题都能变的简单[01:02.292]怎样才能被我蒙对[01:03.924]I wanna feeling your feeling[01:06.060]你的出击让我崩溃[01:08.244]我的心欢迎你光临[01:10.524]没人比你更加般配[01:12.876]在夜里弹奏着钢琴[01:15.012]You came to me[01:17.436]I love ya[01:18.372]I love your red lips[01:22.068]其实我一直都不敢和你说话[01:25.428]我不敢看你的眼睛[01:27.420]我不敢像其他人一样站在你的旁边[01:31.020]但是我还是很期待下次的见面[01:33.660]希望......[01:34.668]希望下次我能勇敢一点吧[01:36.708]希望下次我能抱你亲上嘴巴[01:39.540]我的光芒盖掉你的前任别再想他[01:41.916]我的双子配你狮子七月份的尾巴[01:44.100]先到巴黎散步然后飞到托斯卡纳赏花[01:46.332]以后你的口红全都被我包了[01:48.564]每天还我一点[01:49.236]这样我的世界全是口红印[01:51.108]虽然现在还在暗恋[01:52.260]但绝对不会失恋[01:53.460]有天你会听到这封给你写的信[01:55.620]不如踮起脚尖[01:56.340]来听我讲话[01:57.876]我有很多时间[01:58.932]可以陪你长大[02:00.276]我是未来Rap Star[02:01.452]不要接受其他人的表白[02:02.676]他会被我踩在脚下[02:03.972]你是我的女帝[02:05.796]我爱你美丽比例[02:06.780]我每天非常努力[02:07.932]是海贼王的料[02:09.204]这次航行如果没你[02:10.164]我也不去[02:11.412]只要你来[02:11.940]我的小船变成泰坦尼克号[02:13.716]怎样才能被我蒙对[02:15.588]I wanna feeling your feeling[02:17.868]你的出击让我崩溃[02:20.028]我的心欢迎你光临[02:22.260]没人比你更加般配[02:24.684]在夜里弹奏着钢琴[02:26.700]You came to me[02:29.196]I love ya[02:30.156]I love your red lips[02:31.884]怎样才能被我蒙对[02:33.396]I wanna feeling your feeling[02:35.652]你的出击让我崩溃[02:38.004]我的心欢迎你光临[02:40.236]没人比你更加般配[02:42.588]在夜里弹奏着钢琴[02:44.700]You came to me[02:47.124]I love ya[02:47.964]I love you[02:48.996]Yeah[02:49.812]自我介绍很累[02:50.988]我的时间很贵[02:51.996]但我想把过去拍成电影[02:53.004]给你看[02:53.916]四百万朵玫瑰[02:54.996]都浓缩成了一滴挂在睫毛[02:56.508]站在阳光下面太阳都变暗[02:58.452]我可能不会搭讪[02:59.604]你脸红就是答案[03:00.708]这不是我的幻想[03:01.788]但你美得像虚构[03:02.892]在你之前[03:03.708]什么叫做心事[03:04.572]根本没有这个概念[03:05.580]你的心情就是我的天气[03:06.804]所以总有彩虹[03:08.076]Wow ～"
+        }, {
+            title: "孤独演说家",
+            author: "南游记乐队",
+            url: "http://music.163.com/song/media/outer/url?id=534970579.mp3",
+            pic: "http://p1.music.126.net/6-vlQQOfHtf2n4b8a-zSHA==/109951163414836402.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : 王乾[00:01.000] 作曲 : 王乾[00:02.490]编曲：李心一[00:03.490]录音师/混音师：郭子敬[00:04.490]演唱：王乾[00:05.490]和声/和声编写：唐羽[00:06.490]**********[00:28.490]聚光灯下的我[00:32.490]听到掌声响过[00:35.000]偌大的舞台短暂的沉默[00:43.000]害怕眼神交错[00:46.490]却又神情自若[00:49.490]用幽默去掩饰手足无措[00:57.000]总是在黎明追逐悲伤的晚霞[01:04.000]却忘记每个黑夜来临的代价[01:10.490]我是孤独演说家[01:14.000]戴着面具去表达[01:18.000]用演技去赢得所有的掌声与鲜花[01:25.000]摘去面具的挣扎[01:28.000]懦弱的像个笑话[01:32.000]躲在黑暗里捂住伤疤[01:49.000]不愿承认脆弱[01:52.490]却总失魂落魄[01:56.000]拉下的帷幕撕扯的没落[02:03.000]坚强也曾来过[02:06.490]勇敢也曾听说[02:10.000]用伤口去划破麻木的我[02:17.000]总想在风中驱散遍野的黄沙[02:24.000]却忽略狂风肆虐应有的惩罚[02:31.000]我是孤独演说家[02:34.000]戴着面具去表达[02:37.490]用演技去赢得所有的掌声与鲜花[02:45.000]摘去面具的挣扎[02:48.000]懦弱的像个笑话[02:52.000]躲在黑暗里捂住伤疤[02:59.000]我是孤独演说家[03:02.000]戴着面具去表达[03:05.490]用演技去赢得所有的掌声与鲜花[03:12.490]摘去面具的挣扎[03:16.000]懦弱的像个笑话[03:19.000]躲在黑暗里捂住伤疤[03:26.000]无处遮挡的汹涌烈火[03:30.000]燃烧殆尽的所谓执着[03:33.490]黑色绷带包裹故作自我[03:40.490]期待许愿的流星划过[03:44.000]哪有那么多动人传说[03:47.000]恰巧那个角落有人路过"
+        }, {
+            title: "我原本",
+            author: "南游记乐队",
+            url: "http://music.163.com/song/media/outer/url?id=1341333984.mp3",
+            pic: "http://p2.music.126.net/z9BCvfkgPwHlc1frzG1w-w==/109951163809635305.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : 王乾[00:00.597] 作曲 : 王乾/李心一[00:01.195]编曲：李心一[00:02.192]录音师/混音师：郭子敬[00:03.190]我原本应该可以放荡不羁[00:10.438]我原本应该可以光彩熠熠[00:18.191]我原本应该可以把目光集齐[00:27.688]为何平凡的毫无痕迹[01:04.934]曾经以为努力就会了不起[01:12.189]梦想是通往巅峰的阶梯[01:17.692]从小就听到最多的是聪明优秀有潜力[01:24.938]为何却这样的不争气[01:34.190]曾经以为付出就会在一起[01:41.689]爱情是厮守一生的意义[01:47.194]一直在耳边承诺的是彼此永远不分离[01:54.439]为何却要各自奔东西[02:02.880]我原本应该可以放荡不羁[02:10.127]我原本应该可以光彩熠熠[02:17.627]我原本应该可以把目光集齐[02:26.378]为何平凡的毫无痕迹[02:54.124]曾经拼尽全力去证明自己[03:01.624]挫折是上天赐予的惊喜[03:07.128]每天都满怀憧憬的是有束光在黑暗里[03:14.628]为何却从没等到奇迹[03:22.885]我原本应该可以放荡不羁[03:30.384]我原本应该可以光彩熠熠[03:37.627]我原本应该可以把目光集齐[03:46.382]为何平凡的毫无痕迹[03:52.627]我原本就是这样平凡无奇[04:00.127]我原本就是这样懦弱无比[04:07.374]我原本就是习惯把自己看低[04:16.126]原本就是普通人而已[04:22.128]我原本只顾奔跑却丢掉自己[04:32.381]却忘记平凡才是意义[04:39.629]制作人：李心一/郭子敬[04:40.880]演唱：王乾[04:42.132]小提琴：张涵修[04:43.131]中提琴：仓金[04:44.129]大提琴：蒋玉笛[04:45.385]录音/混音/母带：郭子敬[04:46.383]录音棚：南京沁音坊音乐工作室[04:47.381]封面设计：刘慧[04:48.634]母带/词曲版权：南京南游文化传媒有限公司"
+        }, {
+            title: "南游记",
+            author: "南游记乐队",
+            url: "http://music.163.com/song/media/outer/url?id=863824287.mp3",
+            pic: "http://p2.music.126.net/z9BCvfkgPwHlc1frzG1w-w==/109951163809635305.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : 王乾[00:01.000] 作曲 : 王乾[00:03.490]编曲：李心一[00:04.490]录音师/混音师：郭子敬[00:05.490]演唱：王乾[00:06.490]***********[00:37.490]失落的 失望的 失心的 失败的[00:42.490]无味的 哀怨的 痛楚的 麻木的[00:46.490]沉默的 畏缩的 暴躁又懦弱的人[00:54.490]留下几成[00:58.490]在黑暗降临后拷问[01:04.490]记忆是否有封存[01:13.490]孤单的 孤独的 孤傲的 孤癖的[01:17.490]冷漠的 自私的 狂妄的 恐惧的[01:22.490]支配的 矛盾的 可恨又可怜的魂[01:30.490]灰飞几分[01:34.490]在光明来临后翻滚[01:40.490]片刻幻化成浮尘[01:56.490]神魔颤栗[02:00.490]悲极生喜[02:04.490]轮回 不过是一场游戏[02:14.490]转世记忆[02:18.490]三界游离[02:22.490]修行 是孤独的南游记[02:36.490]无声的 无妄的 无情的 无耻的[02:41.490]仁义的 道德的 绝俗的 优雅的[02:45.490]暴戾的 贪婪的 高尚却虚伪的神[02:52.490]蜕变几层[02:57.490]在烈日灼伤后蒸腾[03:03.490]凡俗何须成箴[03:15.000]洒下一杯 浊酒的叹息[03:17.490]烈火弥漫中重新回到身体[03:20.490]总是在无尽的轮回里游离[03:22.490]只是那些若即若离的鬼把戏[03:24.000]承载 最原始的记忆[03:33.490]我悲戚 我迷离[03:35.490]拥有那么多未知美好却还不能满足自己[03:37.000]总虚伪  总哭泣[03:38.490]总是把忧伤变成最坚固枷锁困住自己[03:42.000]踏上 远行的南游记"
+        }, {
+            title: "着陆 (Unplugged)",
+            author: "白举纲",
+            url: "http://music.163.com/song/media/outer/url?id=1368001544.mp3",
+            pic: "http://p2.music.126.net/1rMSO68eztuhbi-sM94bCQ==/109951164103792843.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : 白举纲[00:00.837] 作曲 : 白举纲[00:01.674]编曲、制作人：郭小峰[00:04.493][00:16.634]会伤人的毒舌 飘散在干净云朵 生长出的恶果 成了生存法则[00:32.588]对拳头说拜托 下起了雪色滂沱 怎么了[00:40.892]坠落有些空洞 扭曲了 唾弃着 嘲笑着 软弱的[00:47.759]我就躲在角落 看着黑色漠过我双眸[00:55.519]颤抖地拉着我自己的手 假装自己闭着眼梦游[01:03.982]病得有点重 模仿着剪断每支花朵[01:11.501]浇灭了充斥全身的火热 却说目前为止还不错[01:20.128][01:20.367]什么上帝 什么道理 麻木神经在游离[01:28.292]什么谷底 什么正义 亲手埋葬我自己[01:35.234][01:36.161]愤怒在燃烧着 灼伤的成灰散落 后来呢[01:44.619]像冒险像赌博 锁住了 叛逆着 冷漠着 最爱的[01:51.668]我就躲在角落 看着黑色漠过我双眸[01:59.509]颤抖地拉着我自己的手 假装自己闭着眼梦游[02:07.903]病得有点重 模仿着剪断每支花朵[02:15.641]浇灭了充斥全身的火热 却说目前为止还不错[02:24.099][02:24.441]什么上帝 什么道理 麻木神经在游离[02:32.155]什么谷底 什么正义 亲手埋葬我自己[02:39.292]看你扣动盘棋 什么结局[02:44.065][03:04.277]什么上帝 什么道理 麻木神经在游离[03:12.192]什么谷底 什么正义 亲手埋葬我自己[03:20.122]看你扣动盘棋 什么结局[03:27.521][03:28.283]混音：郑仕伟[03:28.970]母带：Ted Jensen[03:29.576]吉他、贝斯：郭小峰、郭凌峰、郑仕伟[03:30.166]鼓：殷之豪"
+        }, {
+            title: "口袋宝贝",
+            author: "AnsrJ",
+            url: "http://music.163.com/song/media/outer/url?id=1365915822.mp3",
+            pic: "http://p2.music.126.net/6NIjLCj4430J_SSO1uJAlA==/109951164080257118.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : 刘静宁[00:01.000] 作曲 : 刘静宁[00:02.081]编曲：ocean beat[00:19.275]girl 你航行在我脑海 尽管海浪在澎湃[00:31.432]流星随他Falling baby[00:36.226]就淡出视线 fade  fade[00:39.555]Yee im rocking with you[00:40.947]woo 悄悄捉住它[00:43.333]aye now come get inside[00:45.713]ahh 像口袋宝贝[00:48.162]Yee im rocking with you[00:51.398]woo 悄悄捉住它[00:52.983]aye now come get inside[00:55.406]ahh 像口袋宝贝[00:58.650]you so fine to me  turnt 皮卡丘[01:03.0]你发出的信号达到十万伏[01:07.906]限量版的valentino[01:10.324]over gucci for you[01:12.448]not a ocean[01:13.463]not a kudi[01:14.001]even im so high but im on it[01:17.194]girl 你航行在我脑海[01:24.100]尽管海浪在澎湃[01:29.101]流星随他Falling baby[01:33.709]就淡出视线 fade  fade[01:36.260]Yee im rocking with you[01:38.536]woo 悄悄捉住它[01:40.738]aye now come get inside[01:43.310]ahh 像口袋宝贝[01:45.702]Yee im rocking with you[01:48.041]woo 悄悄捉住它[01:50.607]aye now come get inside[01:53.168]ahh 像口袋宝贝[01:55.846]也许手中会有那么多的精灵球我决定是你跑遍满世界的炫耀[01:55.256][02:00.3]为了探索神奇宝贝指南针它向西跟随新干线的轨迹钻进隧道[02:05.635]baby be ready  shall we dance[02:10.288]baby be ready  you know i got a sauce[02:15.068]you not a kind girl baby[02:17.024]想要跟你海边打个ber baby[02:19.024]对你爱不释手粉色包装cheeto[02:21.452]调和新的口味叫它卡布奇诺nono[02:24.7]cross over 一个假动作我骗过所有对手[02:26.599]把你收入囊中lets pokemon go[02:28.359]遨游太空十万光年后你旁边是我大可不必担心[02:31.873]cuz thats my solo[02:33.665]girl 你航行在我脑海[02:40.765]尽管海浪在澎湃[02:45.198]流星随他Falling baby[02:50.310]就淡出视线 fade  fade[02:52.2]Yee im rocking with you[02:55.341]woo 悄悄捉住它[02:57.607]aye now come get inside[03:00.020]ahh 像口袋宝贝[03:02.348]Yee im rocking with you[03:04.784]woo 悄悄捉住它[03:07.094]aye now come get inside[03:09.457]ahh 像口袋宝贝[03:20.714]混缩：xxxronan"
+        }, {
+            title: "自救",
+            author: "Swang多雷,黄霄雲",
+            url: "http://music.163.com/song/media/outer/url?id=1447848928.mp3",
+            pic: "http://p2.music.126.net/Ip5LwGHfqW-txmSAI6jVeg==/109951165031850072.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : Swang多雷[00:01.000] 作曲 : 黄霄雲/Swang多雷[00:12.17]Young boyz like to swang[00:19.98]我不想年纪轻轻就把自己未来贩卖[00:22.39]不想混迹于推杯换盏变成酒囊饭袋[00:24.74]时间过得太快[00:26.04]谁都想活得畅快[00:27.25]无论你在旋转着老板椅或者是送着外卖[00:30.06]Living My Life[00:30.79]不管谁用钱让我闭嘴[00:32.29]曾经让我后退的人现在都非常后悔[00:34.99]我在拼命地努力 他们沉迷斗嘴[00:37.18]我在成为着英雄他们看着英雄救美[00:39.97]所以我丢掉那些关于面子的买卖[00:42.36]玉盘珍馐不过是一双碗筷[00:44.24]进步会更快 享受现在的状态[00:46.79]把赌注押在了未来而不是拘泥于现在[00:49.41]My Life is Mine[00:50.63]不再等待 No Betray No Lie[00:52.35]热爱存在于通心脏的动脉[00:54.75]我活的就是自己就要自作自受[00:57.00]与其坐等着别人救我[00:58.44]我更擅长自救[00:59.81][01:00.11]自救[01:01.44]我依然在逞强[01:02.90]拖着残缺翅膀[01:07.00]闯荡[01:08.82]泪痕写满了我心之所向[01:12.83]就在夜未央[01:16.52]望穿远山[01:17.73]彼方微微亮[01:18.49][01:19.44]如果让我别来硬的我偏偏会硬来[01:21.71]从不爱冷板凳我会和伟大的人并排[01:24.55]学不会顺受我天生就更爱逆来[01:26.73]你方还没唱罢就该我登上这片戏台[01:29.43]把耳朵捂住走路就会习惯讥笑[01:31.71]如果前面是暴风雨那我就是团风暴[01:34.39]如果一人面对团战我就是战团[01:36.45]长风破浪里驶出一条沙漠里的战船[01:39.40]听 又是多少被钞票锁住的哀鸣[01:41.96]比起梵高大家更喜欢麻木地欣赏花瓶[01:44.65]最无聊的八卦全部吞下而且都要加急[01:47.14]尊严全部贱卖只要皮包乳液来自巴黎[01:49.64]所谓的过来人还在用失败唬谁[01:52.08]庆幸我没用钞票金条替换了我的骨髓[01:54.17]被同化的羔羊谁还能把错过的青春找回[01:56.52]同龄人里只有我还在用这白日梦守擂[01:58.14][01:58.76]自救[01:59.89]我依然在逞强[02:02.07]拖着残缺翅膀[02:06.07]闯荡[02:07.99]泪痕写满了我心之所向[02:12.22]就在夜未央[02:15.64]望穿远山[02:16.98]彼方微微亮[02:17.52][02:19.55]还有很多兄弟吃的半饱[02:21.88]他们依然相信我能办到[02:24.48]听够了陈词滥调和讪笑[02:26.13]属于天空的心不会在我肚子里烂掉[02:29.17]当韵脚把衣服浸地湿透[02:31.32]歌词记作我手臂的刺绣[02:33.99]人情的摆布我早已受够[02:36.14]我早已学会只有自己能把自己拯救[02:37.56][02:38.53]自救[02:39.63]我依然在逞强[02:41.74]拖着残缺翅膀[02:45.89]闯荡[02:47.72]泪痕写满了我心之所向[02:51.42]就在夜未央[02:54.91]望穿远山[02:56.54]彼方微微亮[02:57.20][02:58.42]编曲：Veysigz[02:59.02]混音：杨秋儒[02:59.48]母带：杨秋儒[02:59.97]和声：周琼浦[03:00.46]录音：郭凯敏[03:02.49]录音棚：Maxteam[03:02.55]特别鸣谢：梦响强音文化传播（上海）有限公司"
+        }, {
+            title: "夜动",
+            author: "Bo Peep",
+            url: "http://music.163.com/song/media/outer/url?id=1396001466.mp3",
+            pic: "http://p1.music.126.net/opTHGDuRdwtLUHisPo3daw==/109951164418031423.jpg?param=300x300",
+            lrc: "[00:00.000] 作词 : Bo Peep/恍[00:01.000] 作曲 : Bo Peep[00:23.847]后期：幽柔 / 编曲：Syndrome[00:24.779]我看见夜昼[00:27.029]在光影的偏颇里奔走[00:36.715]风远道而来[00:38.965]把云端上的梦境都吹动[00:44.466]/[00:46.466]她抬起眼眸[00:48.413]日月星辰尽流转在其中[00:52.412]倾泻的过往[00:54.663]被时光惠赠了一分温柔[00:58.913]烈风穷冬[01:00.663]将她所有的荣光都消融[01:04.913]叹息是空[01:06.663]长发是暗夜中的梦[01:08.913]//[01:11.413]风吹起了长发[01:12.866]把所有思念兑换成空[01:14.865]这世间偌大[01:15.865]竟容不下 简单的相拥[01:17.615]把回忆冰封[01:19.365]她轻声坠 入无尽的虚空[01:20.866]在那一秒钟[01:22.115]像风里捕捉平庸的梦[01:23.866]这世间规矩有太多[01:25.116]所以有太多不得已[01:26.365]多嘴的喉舌总爱说[01:28.366]自由的边界不由你[01:29.366]多少次在梦里用力也记不起你[01:31.367]要如何不去在意[01:32.616]才发现原来是一直在 骗 自己[01:34.116]所有的坠落都悄无声息[01:35.366]/[01:37.616]我看见夜昼[01:39.116]在时光的罅隙里奔走[01:49.056]刺痛的夜空[01:51.306]把所有哀愁与你都朦胧[01:58.307]她抬起眼眸[02:00.557]日月星辰尽流转在其中[02:04.306]倾泻的过往[02:06.557]被时光惠赠了一分温柔[02:10.807]烈风穷冬[02:13.057]将她所有的荣光都消融[02:16.807]叹息是空[02:18.557]长发是暗夜中的梦她抬起眼眸[02:24.557]日月星辰尽流转在其中[02:28.307]倾泻的过往[02:30.808]被时光惠赠了一分温柔[02:34.557]烈风穷冬[02:36.490]将她所有的荣光都消融[02:40.990]叹息是空[02:42.990]长发是暗夜中的梦[02:46.490]//[02:50.741]喑哑喉咙[02:56.741]万物空洞[03:02.741]平静面孔[03:07.741]为谁而鸣的丧钟"
+        }, {
+            title: "只要平凡",
+            author: "张杰/张碧晨",
+            url: "http://music.163.com/song/media/outer/url?id=574919767.mp3",
+            pic: "http://p1.music.126.net/CjGoliP3xOB0gcCUaeTTBg==/109951163375727336.jpg?param=300x300",
+            lrc: "[ti:只要平凡]\n" +
+                "[ar:张杰/张碧晨]\n" +
+                "[al:只要平凡]\n" +
+                "[by:天龙888]\n" +
+                "\n" +
+                "[00:00.00]只要平凡 - 张杰/张碧晨\n" +
+                "[00:01.00]\n" +
+                "[00:02.54]电影《我不是药神》主题曲\n" +
+                "[00:03.00]作词：格格\n" +
+                "[00:03.50]作曲：黄超\n" +
+                "[00:04.39]\n" +
+                "[00:04.86]也许很远或是昨天\n" +
+                "[00:08.56]在这里或在对岸\n" +
+                "[00:12.48]长路辗转离合悲欢\n" +
+                "[00:16.67]人聚又人散\n" +
+                "[00:20.62]放过对错才知答案\n" +
+                "[00:25.14]活着的勇敢\n" +
+                "[00:28.75]没有神的光环\n" +
+                "[00:33.19]你我生而平凡\n" +
+                "[00:36.51]\n" +
+                "[00:37.89]在心碎中认清遗憾\n" +
+                "[00:41.55]生命漫长也短暂\n" +
+                "[00:45.40]跳动心脏长出藤蔓\n" +
+                "[00:49.60]愿为险而战\n" +
+                "[00:53.49]跌入灰暗坠入深渊\n" +
+                "[00:58.04]沾满泥土的脸\n" +
+                "[01:01.88]没有神的光环\n" +
+                "[01:06.22]握紧手中的平凡\n" +
+                "[01:10.18]此心此生无憾\n" +
+                "[01:14.66]生命的火已点燃\n" +
+                "[01:17.66]\n" +
+                "[01:19.10]有一天也许会走远\n" +
+                "[01:24.77]也许还能再相见\n" +
+                "[01:28.82]无论在人群在天边\n" +
+                "[01:33.23]让我再看清你的脸\n" +
+                "[01:37.00]任泪水铺满了双眼\n" +
+                "[01:42.01]虽无言泪满面\n" +
+                "[01:45.79]不要神的光环\n" +
+                "[01:49.72]只要你的平凡\n" +
+                "[01:53.40]\n" +
+                "[01:54.79]音乐制作人：黄超\n" +
+                "[01:55.41]编曲：黄超\n" +
+                "[01:56.26]吉他：黄超\n" +
+                "[01:57.01]单簧管：刘峤\n" +
+                "[01:57.82]和音编写：黄超\n" +
+                "[01:58.57]和音演唱：张杰 张碧晨\n" +
+                "[01:59.31]人声录音师：汝文博 ,朱玉婷\n" +
+                "[02:00.05]录音工作室：BIG.J Studio,香蕉计划录音棚\n" +
+                "[02:00.71]混音师：周天澈\n" +
+                "[02:01.36]母带工程师：周天澈\n" +
+                "[02:02.05]母带工作室：TC Faders\n" +
+                "[02:02.73]\n" +
+                "[02:39.88]在心碎中认清遗憾\n" +
+                "[02:43.57]生命漫长也短暂\n" +
+                "[02:48.05]跳动心脏长出藤蔓\n" +
+                "[02:51.85]愿为险而战\n" +
+                "[02:56.06]跌入灰暗坠入深渊\n" +
+                "[02:59.98]沾满泥土的脸\n" +
+                "[03:03.86]没有神的光环\n" +
+                "[03:08.28]握紧手中的平凡\n" +
+                "[03:11.85]\n" +
+                "[03:12.79]有一天也许会走远\n" +
+                "[03:16.57]也许还能再相见\n" +
+                "[03:20.54]无论在人群在天边\n" +
+                "[03:24.84]让我再看清你的脸\n" +
+                "[03:29.01]任泪水铺满了双眼\n" +
+                "[03:33.22]虽无言泪满面\n" +
+                "[03:37.01]不要神的光环\n" +
+                "[03:41.59]只要你的平凡\n" +
+                "[03:45.78]此心此生无憾\n" +
+                "[03:49.64]生命的火已点燃\n" +
+                "[03:52.88]\n" +
+                "[03:53.55]lrc歌词编辑：天龙 QQ：26092798"
+        },{
+            title: "我从崖边跌落",
+            author: "谢春花",
+            url: "http://music.163.com/song/media/outer/url?id=415086030.mp3",
+            pic: "http://p2.music.126.net/Eg4cy0_HIF2nrX2gMCsWkQ==/17967119509636556.jpg?param=300y300",
+            lrc: "[00:00.000] 作曲 : 谢春花\n" +
+                "[00:01.000] 作词 : 谢春花\n" +
+                "[00:03.48]编曲：小皮\n" +
+                "[00:04.04]我从崖边跌落\n" +
+                "[00:06.49]落入星空辽阔\n" +
+                "[00:08.96]银河不清不浊\n" +
+                "[00:11.33]不知何以摆脱\n" +
+                "[00:13.72]我从崖边跌落\n" +
+                "[00:16.13]落入丛山万座\n" +
+                "[00:18.54]呼声不烈不弱\n" +
+                "[00:20.96]梦门何故紧锁\n" +
+                "[00:26.78]谁引我入明火\n" +
+                "[00:29.00]谁推我入筐箩\n" +
+                "[00:31.44]谁割去我耳朵\n" +
+                "[00:33.85]谁圈我以绳索\n" +
+                "[00:36.17]谁耻笑我执着\n" +
+                "[00:38.60]谁把岁月蹉跎\n" +
+                "[00:41.00]谁碾碎了泡沫\n" +
+                "[00:43.74]谁心已成魔\n" +
+                "[00:49.76]撕破 我从崖边跌落\n" +
+                "[00:59.26]为何 是梦还是解脱\n" +
+                "[01:09.00]我从崖边跌落\n" +
+                "[01:11.32]落入星空辽阔\n" +
+                "[01:13.77]银河不清不浊\n" +
+                "[01:16.13]不知何以摆脱\n" +
+                "[01:18.55]我从崖边跌落\n" +
+                "[01:20.97]落入丛山万座\n" +
+                "[01:23.40]呼声不烈不弱\n" +
+                "[01:25.74]梦门何故紧锁\n" +
+                "[01:53.12]谁低头只沉默\n" +
+                "[01:55.34]谁迟疑难定夺\n" +
+                "[01:57.67]谁把美梦捕捉\n" +
+                "[01:59.99]谁将画卷涂抹\n" +
+                "[02:02.43]谁结束这折磨\n" +
+                "[02:04.67]谁轻柔的抚摸\n" +
+                "[02:07.08]谁纵身入湖泊\n" +
+                "[02:09.56]换温暖魂魄\n" +
+                "[02:15.44]我从崖边跌落\n" +
+                "[02:17.79]落入星空辽阔\n" +
+                "[02:20.15]银河不清不浊\n" +
+                "[02:22.47]不知何以摆脱\n" +
+                "[02:24.79]我从崖边跌落\n" +
+                "[02:27.12]落入丛山万座\n" +
+                "[02:29.47]呼声不烈不弱\n" +
+                "[02:31.78]梦门何故\n" +
+                "[02:36.57]我从崖边跌落\n" +
+                "[02:38.81]落入星空辽阔\n" +
+                "[02:41.11]银河不清不浊\n" +
+                "[02:43.42]不知何以摆脱\n" +
+                "[02:45.78]我从崖边跌落\n" +
+                "[02:48.08]落入丛山万座\n" +
+                "[02:50.47]呼声不烈不弱\n" +
+                "[02:52.75]梦门何故紧锁\n" +
+                "[03:01.22]谁引我入明火\n" +
+                "[03:04.17]谁推我入筐箩\n" +
+                "[03:07.09]谁把美梦捕捉\n" +
+                "[03:10.20]谁心已成魔\n" +
+                "[03:18.80]"
+        },{
+            title: "十点半的地铁",
+            author: "李健",
+            url: "http://music.163.com/song/media/outer/url?id=466333788.mp3",
+            pic: "http://p2.music.126.net/64oU_90n8lR7pEJ_dExIPw==/109951163903238311.jpg?param=300y300",
+            lrc: "[00:00.000] 作曲 : 刘锦泽\n" +
+                "[00:01.000] 作词 : 于歌\n" +
+                "[00:05.00]编曲：刘卓\n" +
+                "[00:06.00]Program：刘卓\n" +
+                "[00:06.60]竖琴吉他：向嵬\n" +
+                "[00:07.15]钢琴：刘卓\n" +
+                "[00:08.63]\n" +
+                "[00:51.55]十点半的地铁\n" +
+                "[00:54.41]终于每个人都有了座位\n" +
+                "[00:57.73]温热的风\n" +
+                "[00:59.52]终于能轻轻地静静地吹\n" +
+                "[01:03.31]\n" +
+                "[01:05.12]身边的姑娘 胖胖的她\n" +
+                "[01:09.84]重重地 靠着我睡\n" +
+                "[01:13.03]我没有推 我不忍心推\n" +
+                "[01:16.87]她看起来 好累\n" +
+                "[01:19.50]\n" +
+                "[01:20.86]矮下了身子 向后仰\n" +
+                "[01:25.39]我懒散地 伸长了腿\n" +
+                "[01:28.28]\n" +
+                "[01:29.17]对面的 大叔\n" +
+                "[01:30.96]在鼾声之中 张大了嘴\n" +
+                "[01:34.54]\n" +
+                "[01:36.22]旁边的阿姨 左摇右晃\n" +
+                "[01:40.65]她睡得 找不到北\n" +
+                "[01:43.84]\n" +
+                "[01:44.54]身边的 妹妹 和朋友谈谁\n" +
+                "[01:48.25]是是非非\n" +
+                "[01:50.55]\n" +
+                "[01:51.97]我也 疲倦了\n" +
+                "[01:54.50]\n" +
+                "[01:56.01]这是我唯一 不失眠的地方\n" +
+                "[01:59.35]\n" +
+                "[02:00.54]悲伤的 难过的\n" +
+                "[02:03.48]\n" +
+                "[02:04.05]在这里 我没有力气去想\n" +
+                "[02:07.36]\n" +
+                "[02:08.24]城市的夜 在头上 沉默经过\n" +
+                "[02:12.80]它的心上\n" +
+                "[02:14.62]尽管它 千疮百孔\n" +
+                "[02:17.71]仍在夜里 笑得冷艳漂亮\n" +
+                "[02:22.47]\n" +
+                "[02:24.10]十点半的 地铁\n" +
+                "[02:26.69]\n" +
+                "[02:27.37]终于每个人 都有了座位\n" +
+                "[02:30.24]\n" +
+                "[02:30.77]温热的 风\n" +
+                "[02:32.07]\n" +
+                "[02:32.63]终于能 轻轻地静静地吹\n" +
+                "[02:36.50]\n" +
+                "[02:38.50]对面的阿姨 醒了又睡\n" +
+                "[02:42.07]\n" +
+                "[02:42.61]她没什么 可依偎\n" +
+                "[02:45.61]\n" +
+                "[02:46.49]身边的 妹妹\n" +
+                "[02:48.41]不知道为谁 流着眼泪\n" +
+                "[02:52.09]\n" +
+                "[03:24.97]我也 疲倦了\n" +
+                "[03:27.15]\n" +
+                "[03:28.62]这是我唯一 不失眠的地方\n" +
+                "[03:32.27]\n" +
+                "[03:33.04]悲伤的 难过的\n" +
+                "[03:36.86]在这里 我没有力气去想\n" +
+                "[03:40.20]\n" +
+                "[03:41.14]城市的夜 在头上\n" +
+                "[03:44.57]沉默经过 它的心上\n" +
+                "[03:47.33]\n" +
+                "[03:47.96]尽管它 千疮百孔\n" +
+                "[03:50.65]仍在夜里 笑得冷艳漂亮\n" +
+                "[03:54.88]\n" +
+                "[03:55.96]我也 疲倦了\n" +
+                "[03:58.34]\n" +
+                "[03:59.85]这是我唯一不失眠的地方\n" +
+                "[04:03.18]\n" +
+                "[04:04.36]沉重的 烫手的\n" +
+                "[04:07.88]在这里 都可以暂时放放\n" +
+                "[04:11.14]\n" +
+                "[04:11.87]等到了站 下了车\n" +
+                "[04:15.40]余下的路 还有好长\n" +
+                "[04:22.37]\n" +
+                "[04:24.91]不去想 管它呢\n" +
+                "[04:28.82]\n" +
+                "[04:29.39]让风 吹在我脸上\n" +
+                "[04:34.77]\n" +
+                "[04:36.78]十点半的地铁\n" +
+                "[04:38.73]\n" +
+                "[04:39.36]终于每个人 都有了座位\n" +
+                "[04:42.62]温柔的风\n" +
+                "[04:44.69]轻轻地轻轻地吹"
+        },{
+            title: "天亮以前说再见",
+            author: "曲肖冰",
+            url: "http://music.163.com/song/media/outer/url?id=1336789644.mp3",
+            pic: "http://p2.music.126.net/_P71psYXWlTrEWEuyyN7QA==/109951163770392080.jpg?param=300y300",
+            lrc: "[00:00.000] 作曲 : 康梓峰\n" +
+                "[00:00.699] 作词 : 康梓峰\n" +
+                "[00:02.97]编曲：王柏鸿\n" +
+                "[00:27.60]水花只能开在雨天\n" +
+                "[00:33.44]烟花要绽放在黑夜\n" +
+                "[00:39.51]雪花多舍不得冬天\n" +
+                "[00:45.54]像我舍不得和说你再见\n" +
+                "[00:51.40]谎言并不代表欺骗\n" +
+                "[00:57.46]诺言也不一定兑现\n" +
+                "[01:03.43]誓言就都留给时间\n" +
+                "[01:09.49]就请把从前留在今天\n" +
+                "[01:16.31]天亮以前说再见\n" +
+                "[01:19.14]笑着泪流满面\n" +
+                "[01:22.17]去迎接\n" +
+                "[01:23.24]应该你的\n" +
+                "[01:25.21]更好的明天\n" +
+                "[01:28.19]昙花若只一现\n" +
+                "[01:31.13]更要开的耀眼\n" +
+                "[01:34.21]别回头去拥有\n" +
+                "[01:36.50]属于你更好的世界\n" +
+                "[01:40.24]天亮以前说再见\n" +
+                "[01:43.12]让我留在今天\n" +
+                "[01:46.31]去保护\n" +
+                "[01:47.22]我和你的\n" +
+                "[01:49.19]最好的夏天\n" +
+                "[01:52.08]情丝若水三千\n" +
+                "[01:55.17]只取一瓢眷恋\n" +
+                "[01:57.75]当你来过的纪念\n" +
+                "[02:03.57]水花只能开在雨天\n" +
+                "[02:09.49]烟花要绽放在黑夜\n" +
+                "[02:15.40]雪花多舍不得冬天\n" +
+                "[02:21.37]像我舍不得和说你再见\n" +
+                "[02:27.39]谎言并不代表欺骗\n" +
+                "[02:33.46]诺言也不一定兑现\n" +
+                "[02:39.43]誓言就都留给时间\n" +
+                "[02:45.35]就请把从前留在今天\n" +
+                "[02:52.29]天亮以前说再见\n" +
+                "[02:55.22]笑着泪流满面\n" +
+                "[02:58.31]去迎接\n" +
+                "[02:59.27]应该你的\n" +
+                "[03:01.24]更好的明天\n" +
+                "[03:04.28]昙花若只一现\n" +
+                "[03:07.16]更要开的耀眼\n" +
+                "[03:09.84]别回头去拥有\n" +
+                "[03:12.48]属于你更好的世界\n" +
+                "[03:16.07]天亮以前说再见\n" +
+                "[03:19.26]让我留在今天\n" +
+                "[03:22.39]去保护\n" +
+                "[03:23.36]我和你的\n" +
+                "[03:25.22]最好的夏天\n" +
+                "[03:28.26]情丝若水三千\n" +
+                "[03:31.24]只取一瓢眷恋\n" +
+                "[03:33.92]当你来过的纪念\n" +
+                "[03:55.33]录音：浔浔\n" +
+                "[03:56.68]缩混：张栩赫（Ethan）\n" +
+                "[03:57.99]和声：Kent王健\n" +
+                "[03:58.29]和声编写：Kent王健\n" +
+                "[03:59.59]制作人：浔浔\n" +
+                "[04:00.85]配唱制作人：浔浔\n" +
+                "[04:01.16]录音室：1803 Studio\n" +
+                "[04:02.52]混音室：Hot Music Studio\n" +
+                "[04:03.87]制作团队：KingStar音乐社团/柏鸿工作室\n" +
+                "[04:04.17]企划营销：梦童娱乐\n" +
+                "[04:05.64]监制：三千\n" +
+                "[04:06.25]ＯＰ：千和世纪\n"
+        },{
+            title: "起风了",
+            author: "买辣椒也用券",
+            url: "http://music.163.com/song/media/outer/url?id=1330348068.mp3",
+            pic: "http://p1.music.126.net/diGAyEmpymX8G7JcnElncQ==/109951163699673355.jpg?param=300y300",
+            lrc: "[00:00.000] 作曲 : 高橋優\n" +
+                "[00:00.464] 作词 : 米果\n" +
+                "[00:01.394] 编曲：池窪浩一 (Kouichi Ikekubo)\n" +
+                "[00:03.742]\n" +
+                "[00:26.137] 这一路上走走停停\n" +
+                "[00:29.192] 顺着少年漂流的痕迹\n" +
+                "[00:32.281] 迈出车站的前一刻\n" +
+                "[00:35.395] 竟有些犹豫\n" +
+                "[00:38.394] 不禁笑这近乡情怯\n" +
+                "[00:41.791] 仍无可避免\n" +
+                "[00:44.419] 而长野的天\n" +
+                "[00:45.734] 依旧那么暖\n" +
+                "[00:47.284] 风吹起了从前\n" +
+                "[00:50.053] 从前初识这世间\n" +
+                "[00:52.785] 万般流连\n" +
+                "[00:54.562] 看着天边似在眼前\n" +
+                "[00:57.698] 也甘愿赴汤蹈火去走它一遍\n" +
+                "[01:02.570] 如今走过这世间\n" +
+                "[01:05.605] 万般流连\n" +
+                "[01:07.236] 翻过岁月不同侧脸\n" +
+                "[01:10.466] 措不及防闯入你的笑颜\n" +
+                "[01:16.113] 我曾难自拔于世界之大\n" +
+                "[01:20.207] 也沉溺于其中梦话\n" +
+                "[01:23.441] 不得真假 不做挣扎 不惧笑话\n" +
+                "[01:29.101] 我曾将青春翻涌成她\n" +
+                "[01:32.530] 也曾指尖弹出盛夏\n" +
+                "[01:35.881] 心之所动 且就随缘去吧\n" +
+                "[01:42.357] 逆着光行走 任风吹雨打\n" +
+                "[01:58.630] 短短的路走走停停\n" +
+                "[02:01.771] 也有了几分的距离\n" +
+                "[02:04.841] 不知抚摸的是故事 还是段心情\n" +
+                "[02:11.318] 也许期待的不过是 与时间为敌\n" +
+                "[02:17.098] 再次看到你\n" +
+                "[02:18.594] 微凉晨光里\n" +
+                "[02:20.161] 笑得很甜蜜\n" +
+                "[02:22.723] 从前初识这世间\n" +
+                "[02:25.542] 万般流连\n" +
+                "[02:27.270] 看着天边似在眼前\n" +
+                "[02:30.220] 也甘愿赴汤蹈火去走它一遍\n" +
+                "[02:35.313] 如今走过这世间\n" +
+                "[02:38.262] 万般流连\n" +
+                "[02:39.991] 翻过岁月不同侧脸\n" +
+                "[02:42.962] 措不及防闯入你的笑颜\n" +
+                "[02:48.870] 我曾难自拔于世界之大\n" +
+                "[02:52.942] 也沉溺于其中梦话\n" +
+                "[02:56.145] 不得真假 不做挣扎 不惧笑话\n" +
+                "[03:01.742] 我曾将青春翻涌成她\n" +
+                "[03:05.839] 也曾指尖弹出盛夏\n" +
+                "[03:08.669] 心之所动 且就随缘去吧\n" +
+                "[03:40.529] 晚风吹起你鬓间的白发\n" +
+                "[03:44.178] 抚平回忆留下的疤\n" +
+                "[03:47.391] 你的眼中 明暗交杂 一笑生花\n" +
+                "[03:52.900] 暮色遮住你蹒跚的步伐\n" +
+                "[03:56.932] 走进床头藏起的画\n" +
+                "[04:00.146] 画中的你 低着头说话\n" +
+                "[04:05.680] 我仍感叹于世界之大\n" +
+                "[04:09.391] 也沉醉于儿时情话\n" +
+                "[04:12.756] 不剩真假 不做挣扎 无谓笑话\n" +
+                "[04:18.529] 我终将青春还给了她\n" +
+                "[04:22.281] 连同指尖弹出的盛夏\n" +
+                "[04:25.609] 心之所动 就随风去了\n" +
+                "[04:31.204] 以爱之名 你还愿意吗\n" +
+                "[04:39.145]\n" +
+                "[04:39.982] 吉他： 池窪浩一 (Kouichi Ikekubo)\n" +
+                "[04:40.994] 贝斯：小島剛広 (Takehiro Kojima)\n" +
+                "[04:41.661] 鼓：吉田佳史 (TRICERATOPS) (Yoshifumi Yoshida(TRICERATOPS))\n" +
+                "[04:42.463] 键盘：平畑徹也 (Tetsuya Hirahata)\n" +
+                "[04:43.341] 小提琴：須磨和声 (Wasei Suma)\n" +
+                "[04:44.211] 弦乐：須磨和声、池窪浩一\n" +
+                "[04:45.258]\n" +
+                "[04:46.105] 录音工程：玉乃井光紀 (Mitsunori Tamanoi) - studioFine\n" +
+                "[04:46.760] 发行公司：Negia Entertainment Inc.\n" +
+                "[04:47.476] 特别支持：中村光雄(Mitsuo Nakamura)\n" +
+                "[04:51.019]"
+        },{
+            title: "遥远的你",
+            author: "不靠谱组合",
+            url: "http://music.163.com/song/media/outer/url?id=1333192765.mp3",
+            pic: "http://p1.music.126.net/j_MOk-u1iEtYWHs-QId41Q==/109951163703802494.jpg?param=300y300",
+            lrc: "[00:00.000] 作曲 : 王明明\n" +
+                "[00:00.015] 作词 : 王明明/李亚然\n" +
+                "[00:00.46]编曲：明锐\n" +
+                "[00:02.08]七月的风 八月的雨\n" +
+                "[00:05.76]卑微的我喜欢遥远的你\n" +
+                "[00:10.37]你的过去 无法参与\n" +
+                "[00:16.29]但我还是 喜欢你\n" +
+                "[00:23.36]\n" +
+                "[00:31.31]眼角闪起的泪光\n" +
+                "[00:34.96]无边无际地游荡\n" +
+                "[00:39.02]眉下的一记荒唐\n" +
+                "[00:43.18]庸俗地写在脸上\n" +
+                "[00:47.31]犹如一缕阳光\n" +
+                "[00:51.27]但却觉得感伤\n" +
+                "[00:55.77]记忆挥散不去\n" +
+                "[00:59.61]却藏进了 我的诗句\n" +
+                "[01:07.09]七月的风 八月的雨\n" +
+                "[01:10.99]卑微的我喜欢遥远的你\n" +
+                "[01:15.09]你还未来 怎敢老去\n" +
+                "[01:19.29]未来的我和你奉陪到底\n" +
+                "[01:23.37]你若同意 我一定去\n" +
+                "[01:27.46]可你并不在意我的出席\n" +
+                "[01:31.44]你的过去 无法参与\n" +
+                "[01:36.50]但我还是 喜欢你\n" +
+                "[01:43.88]\n" +
+                "[02:04.96]我有一把钥匙\n" +
+                "[02:08.83]能解开你的故事\n" +
+                "[02:12.79]单纯的像个孩子\n" +
+                "[02:16.73]偏藏进了 我的诗句\n" +
+                "[02:24.46]七月的风 八月的雨\n" +
+                "[02:28.29]卑微的我喜欢遥远的你\n" +
+                "[02:32.48]你还未来 怎敢老去\n" +
+                "[02:36.61]未来的我和你奉陪到底\n" +
+                "[02:40.59]你若同意 我一定去\n" +
+                "[02:44.65]可你并不在意我的出席\n" +
+                "[02:48.77]你的过去 无法参与\n" +
+                "[02:53.59]但我还是 喜欢你\n" +
+                "[03:01.87]但我还是 喜欢你\n" +
+                "[03:11.973]\n" +
+                "[03:15.673] 制作人：明锐\n" +
+                "[03:16.374] 混音：廖国钺\n" +
+                "[03:17.057] 吉他：齐成刚\n" +
+                "[03:17.723] 和声编写：廖国钺\n" +
+                "[03:18.407] 和声：不靠谱组合\n" +
+                "[03:19.140] 监制：张雯杰\n" +
+                "[03:19.862] 制作公司：Hikoon Music\n" +
+                "[03:20.573] 发行公司：鲸鱼向海（北京）文化有限公司\n"
+
+        },{
+            title: "尘土",
+            author: "安朕宇",
+            url: "http://music.163.com/song/media/outer/url?id=865021614.mp3",
+            pic: "http://p1.music.126.net/ssXglUifx_l0Ncv6dORQWQ==/109951163402130495.jpg?param=300y300",
+            lrc: "[00:00.000] 作曲 : 安朕宇\n" +
+                "[00:01.000] 作词 : 安朕宇\n" +
+                "[00:17.88]我从未想过我会高傲的存在\n" +
+                "[00:21.16]只想放低姿态 欣赏你 每天的自拍\n" +
+                "[00:25.88]灯光下你不能忽视 我的占据\n" +
+                "[00:29.97]每次散场 我也只能悄悄的离开\n" +
+                "[00:33.99]你伸出双手每次我都看得见\n" +
+                "[00:37.50]我过去热情围绕你却 视而不见\n" +
+                "[00:41.94]到最后我才明白只是 透明存在\n" +
+                "[00:45.67]证明着陪伴才是我最深情告白\n" +
+                "[00:51.46]即使一粒尘土 我也要漫天飞舞\n" +
+                "[00:55.44]从我的角度审视你的世界的孤独\n" +
+                "[00:59.27]任凭 疾风暴雨 再三凌辱\n" +
+                "[01:03.85]围绕着你 是来到这个人间的意义\n" +
+                "[01:07.66]即使一粒尘土 我也要漫天飞舞\n" +
+                "[01:10.94]用我的生命证明其实你并不孤独\n" +
+                "[01:15.35]任凭 疾风暴雨 再三凌辱\n" +
+                "[01:19.84]用我的方式 证明着自己的幸福\n" +
+                "[01:39.93]我从未想过我会高傲的存在\n" +
+                "[01:43.29]只想放低姿态 欣赏你 每天的自拍\n" +
+                "[01:47.57]灯光下你不能忽视 我的占据\n" +
+                "[01:51.54]每次散场 我也只能悄悄的离开\n" +
+                "[01:55.71]你伸出双手每次我都看得见\n" +
+                "[01:59.48]我过去热情围绕你却 视而不见\n" +
+                "[02:03.42]到最后我才明白只是 透明存在\n" +
+                "[02:07.34]证明着陪伴才是我最深情告白\n" +
+                "[02:13.00]即使一粒尘土 我也要漫天飞舞\n" +
+                "[02:17.03]从我的角度审视你的世界的孤独\n" +
+                "[02:21.01]任凭 疾风暴雨 再三凌辱\n" +
+                "[02:25.44]围绕着你 是来到 这个人间的意义\n" +
+                "[02:29.07]即使一粒尘土 我也要漫天飞舞\n" +
+                "[02:32.69]用我的生命证明其实你并不孤独\n" +
+                "[02:36.91]任凭 疾风暴雨 再三凌辱\n" +
+                "[02:41.45]用我的方式 证明着自己的幸福\n" +
+                "[03:01.31]我从未想过我会高傲的离开\n" +
+                "[03:04.93]直到朋友圈看到你们幸福的节拍\n" +
+                "[03:09.55]有天他会牵你的手 步入教堂\n" +
+                "[03:13.58]那时我会带微笑 祝福着 被风 吹散\n" +
+                "[03:22.12]不孤独\n" +
+                "[03:25.45]不清楚\n" +
+                "[03:29.58]不会哭 哦\n"
+        },{
+            title: "夜来故事多",
+            author: "RAiNBOW计划",
+            url: "http://music.163.com/song/media/outer/url?id=35625826.mp3",
+            pic: "http://p1.music.126.net/W_srVOtG_DKS1-txPLqNQQ==/3273246117001205.jpg?param=300y300",
+            lrc: "[00:00.000] 作曲 : 林展秋\n" +
+                "[00:01.000] 作词 : 林展秋\n" +
+                "[00:06.31]演唱：陈樱梓\n" +
+                "[00:07.41]编曲：雷雨心/朱沁怡\n" +
+                "[00:08.35]制作人：林展秋\n" +
+                "[00:09.60]钢琴：雷雨心\n" +
+                "[00:11.04]录音师：周龙\n" +
+                "[00:12.33]录音室：第三弦音乐工作室\n" +
+                "[00:13.32]混音师：周龙\n" +
+                "[00:14.51]混音室：起点音乐Origin Music\n" +
+                "[00:15.38]歌词制作：王智杰\n" +
+                "[00:16.23]\n" +
+                "[00:24.35]这时代脚步仓促 无论贫富 都在赶路\n" +
+                "[00:31.35]有时候分不清楚 阑珊的是意兴 还是灯火\n" +
+                "[00:42.35]一扇门窗一把锁 一人一本故事书\n" +
+                "[00:48.48]你有多久用苦笑代替了哭\n" +
+                "[00:53.69]人前的欢颜 有多少发自肺腑\n" +
+                "[01:00.35]是数不胜数 还是屈指可数\n" +
+                "[01:04.92]\n" +
+                "[01:05.32]超载的是行囊 负荷的脑容量\n" +
+                "[01:11.07]蒙尘的肉身和欲望 多不堪\n" +
+                "[01:16.85]一刻不晴朗 便对自己为难\n" +
+                "[01:22.04]要到几时方觉察 阴影底下 才得乘凉\n" +
+                "[01:28.26]\n" +
+                "[01:28.94]洗掉今日的污染 留给明天再弄脏\n" +
+                "[01:34.60]多少次在花洒下才卸了妆\n" +
+                "[01:39.94]明明门窗灯都关上 缄口的心却突然\n" +
+                "[01:46.57]在此刻长出了嘴巴\n" +
+                "[01:50.75]\n" +
+                "[01:51.57]除非你不曾一个人 在夜深\n" +
+                "[01:57.16]否则你怎么可能 逃过心事的追问\n" +
+                "[02:03.01]委屈了自己躯壳 又成全了什么\n" +
+                "[02:08.82]夜来故事多的 让人慌神\n" +
+                "[02:14.54]\n" +
+                "[02:14.92]除非你不曾一个人 在夜深\n" +
+                "[02:20.29]否则你怎么可能 不偶遇你的灵魂\n" +
+                "[02:26.42]往事莫追 它只是一路跟\n" +
+                "[02:32.00]动词千万种 而今才懂得\n" +
+                "[02:37.99]浮现和回响 最是折磨人\n" +
+                "[02:43.40]\n" +
+                "[03:06.80]谁眼波如文火 煎沸暧昧的错\n" +
+                "[03:12.61]蒸发出空虚和寂寞 求寄托\n" +
+                "[03:18.14]都想要浅尝 又为何虎咽\n" +
+                "[03:24.02]速食的甜言 是比长情 不需要咀嚼\n" +
+                "[03:29.70]\n" +
+                "[03:29.88]所谓聚散的滋味 也有了几番体会\n" +
+                "[03:35.69]只要拿记忆 不在夜深里翻箱倒柜\n" +
+                "[03:41.41]又何妨把自己麻醉 翻江倒海的胃\n" +
+                "[03:47.13]说得好既往不咎 无关勇敢和惭愧\n" +
+                "[03:53.07]但到要原谅自己 又有几个真的无畏\n" +
+                "[04:02.72]\n" +
+                "[04:03.44]除非你不曾一个人 在夜深\n" +
+                "[04:10.19]否则你怎么可能 逃过心事的追问\n" +
+                "[04:16.07]委屈了自己躯壳 又成全了什么\n" +
+                "[04:21.97]夜来故事多的 叫人慌神\n" +
+                "[04:27.63]\n" +
+                "[04:27.84]除非你不曾一个人 在夜深\n" +
+                "[04:33.41]否则你怎么可能 不偶遇你的灵魂\n" +
+                "[04:39.93]往事莫追 它只是一路跟\n" +
+                "[04:45.28]动词千万种 而今才懂得\n" +
+                "[04:51.05]浮现和回响 最是折磨人\n" +
+                "[04:56.89]夜来故事怎叫人 不心疼\n" +
+                "[05:02.83]\n"
+        },{
+            title: "夜空中最亮的星",
+            author: "逃跑计划",
+            url: "http://music.163.com/song/media/outer/url?id=25706282.mp3",
+            pic: "http://p1.music.126.net/d541jx7SqoDzVkenhmtg6g==/19193074974743620.jpg?param=300y300",
+            lrc: "[00:00.000] 作曲 : 逃跑计划\n" +
+                "[00:00.226] 作词 : 逃跑计划\n" +
+                "[00:00.680]编曲：Giles Tully / 李赤\n" +
+                "[00:01.680]制作人：Giles Tully / 李赤\n" +
+                "[00:02.680]缩混：Giles Tully / Patrick Weyer-Brown / 姜北生\n" +
+                "[00:03.680]Engineered by Hyperbolic Productions (Patrick Weyer-Brown & Giles Tully)\n" +
+                "[00:04.680]Acoustic Guitar & Drum recorded by Hyperbolic Productions (Patrick Weyer-Brown) at YUM music\n" +
+                "[00:05.680]Guitar Bass Vocal recorded by Hyperbolic Productions (Patrick Weyer-Brown & Giles Tully)\n" +
+                "[00:06.680]其他录音：时俊峰 福达录音棚 / 姜北生 环球唱片录音棚 / 方岩 Funky Studio\n" +
+                "[00:07.680]人声和声：逃跑计划\n" +
+                "[00:08.680]女声和声：孙亮亮\n" +
+                "[00:09.680]弦乐制作：朱金泰\n" +
+                "[00:10.680]弦乐编写：朱金泰 / 陈迪\n" +
+                "[00:11.680]弦乐：中国国家交响乐团\n" +
+                "[00:12.680]首席小提琴：董智敏\n" +
+                "[00:13.680]录音棚：有沐录音棚 YUM Studio\n" +
+                "[00:14.680]弦乐录音：杨杰、郑昊杰\n" +
+                "[00:15.680]制作助理：哈斯瑚必来\n" +
+                "[00:16.680]母带处理：Patrick Weyer-Brown (FR) 法国SAE Paris 录音棚\n" +
+                "[00:17.680]夜空中最亮的星 能否听清\n" +
+                "[00:26.230] 那仰望的人 心底的孤独和叹息\n" +
+                "[00:35.650] 夜空中最亮的星 能否记起\n" +
+                "[00:44.210] 曾与我同行 消失在风里的身影\n" +
+                "[00:52.540] 我祈祷拥有一颗透明的心灵\n" +
+                "[00:57.640]和会流泪的眼睛\n" +
+                "[01:01.880] 给我再去相信的勇气\n" +
+                "[01:06.400]越过谎言去拥抱你\n" +
+                "[01:10.420] 每当我找不到存在的意义\n" +
+                "[01:15.300] 每当我迷失在黑夜里\n" +
+                "[01:20.160] 夜空中最亮的星\n" +
+                "[01:24.270] 请指引我靠近你\n" +
+                "[01:37.880]夜空中最亮的星 是否知道\n" +
+                "[01:46.450] 曾与我同行的身影 如今在哪里\n" +
+                "[01:55.450] 夜空中最亮的星 是否在意\n" +
+                "[02:03.950] 是等太阳升起 还是意外先来临\n" +
+                "[02:12.370] 我宁愿所有痛苦都留在心里\n" +
+                "[02:17.690] 也不愿忘记你的眼睛\n" +
+                "[02:22.270] 给我再去相信的勇气\n" +
+                "[02:26.400] 越过谎言去拥抱你\n" +
+                "[02:30.350] 每当我找不到存在的意义\n" +
+                "[02:35.270] 每当我迷失在黑夜里\n" +
+                "[02:40.720] 夜空中最亮的星 请照亮我前行\n" +
+                "[03:05.420]我祈祷拥有一颗透明的心灵\n" +
+                "[03:10.870]和会流泪的眼睛\n" +
+                "[03:15.930] 给我再去相信的勇气\n" +
+                "[03:19.660]越过谎言去拥抱你\n" +
+                "[03:23.600] 每当我找不到存在的意义\n" +
+                "[03:28.760] 每当我迷失在黑夜里\n" +
+                "[03:33.540] 夜空中最亮的星\n" +
+                "[03:37.590]请照亮我前行\n" +
+                "[03:50.890]夜空中最亮的星 能否听清\n" +
+                "[03:59.810]那仰望的人 心底的孤独和叹息"
+        },{
+            title: "理想不大",
+            author: "RAiNBOW计划",
+            url: "http://music.163.com/song/media/outer/url?id=465921645.mp3",
+            pic: "http://p1.music.126.net/yRgTfVXGbey72ou_49CtVA==/18931391207076094.jpg?param=300y300",
+            lrc: "[00:00.000] 作曲 : 林展秋\n" +
+                "[00:01.000] 作词 : 林展秋\n" +
+                "[00:04.89]演唱：朱冠学\n" +
+                "[00:06.30]编曲：林少聪\n" +
+                "[00:07.49]制作人：林展秋\n" +
+                "[00:08.76]录音师：周龙\n" +
+                "[00:10.09]录音室：2496 Top Music\n" +
+                "[00:11.37]混音师：周龙\n" +
+                "[00:12.43]混音室：起点音乐 Origin Music\n" +
+                "[00:13.01]歌词制作：王智杰\n" +
+                "[00:13.56]\n" +
+                "[00:14.88]你是否也厌倦了 日复一日的庸常？\n" +
+                "[00:22.45]你是否也害怕了 陷入琐事的循环？\n" +
+                "[00:30.20]我知道你也想 挣脱无谓的捆绑\n" +
+                "[00:36.77]却越用力 越不得动弹\n" +
+                "[00:43.22]\n" +
+                "[00:44.54]你是否也着急了 潮水一般的流向？\n" +
+                "[00:51.87]你是否也惊慌了 瞬息万变的气象？\n" +
+                "[00:59.53]我知道你会怪 这个时代太嘈杂\n" +
+                "[01:06.93]没看见你 内心的不安\n" +
+                "[01:12.62]\n" +
+                "[01:13.35]理想不大 何时沦为 几尺床板上的辗转？\n" +
+                "[01:21.16]身躯虽小 衣也蔽体 奈何薄薄的盔甲\n" +
+                "[01:28.31]你多渴望 有人穿过 你肉身应接不暇\n" +
+                "[01:35.82]看见你 浮沉的 灵魂 正努力 上岸\n" +
+                "[01:43.77]\n" +
+                "[02:04.12]你是否也忘记了 自己生猛的模样？\n" +
+                "[02:11.12]你是否也调低了 原本呼喊的音量？\n" +
+                "[02:18.85]我知道你不想 奔波声势的排场\n" +
+                "[02:26.17]分不清 是合群 是识相\n" +
+                "[02:32.00]\n" +
+                "[02:32.63]理想不大 何时沦为 镜中人浮肿的面庞？\n" +
+                "[02:40.37]身躯虽小 衣裳易短 奈何冷暖都漫长\n" +
+                "[02:47.85]你多渴望 有人穿过 五花八门的斑斓\n" +
+                "[02:55.16]看见你 那扇窗 几片叶子 待 浇灌\n" +
+                "[03:03.43]\n" +
+                "[03:03.92]如果我说 「生命 不止前进倒退还有上下」\n" +
+                "[03:11.76]你可懂我 希望你也 向左向右 看？\n" +
+                "[03:21.07]\n" +
+                "[03:24.43]\n"
+        },{
+            title: "世间美好与你环环相扣",
+            author: "柏松",
+            url: "http://music.163.com/song/media/outer/url?id=1363948882.mp3",
+            pic: "http://p2.music.126.net/DK1_4sP_339o5rowMdPXdw==/109951164071024476.jpg?param=300x300",
+            lrc: "[00:00.000] 作曲 : 柏松\n" +
+                "[00:01.000] 作词 : 尹初七\n" +
+                "[00:15.854]编曲：彭圣杰\n" +
+                "[00:28.354]偏偏秉烛夜 游\n" +
+                "[00:31.354]午夜星辰 似奔走之友\n" +
+                "[00:34.854]爱你每个结痂伤口\n" +
+                "[00:37.854]酿成的陈年烈酒\n" +
+                "[00:41.104]\n" +
+                "[00:42.104]入喉尚算可口\n" +
+                "[00:45.103]怎么泪水 还偶尔失守\n" +
+                "[00:48.853]邀你细看心中缺口\n" +
+                "[00:51.353]裂缝中留存 温柔\n" +
+                "[00:56.104]\n" +
+                "[00:57.853]此时已莺飞草长 爱的人正在路上\n" +
+                "[01:02.103]我知他风雨兼程 途经日暮不赏\n" +
+                "[01:05.853]穿越人海 只为与你相拥\n" +
+                "[01:11.853]此刻已皓月当空 爱的人手捧星光\n" +
+                "[01:15.603]我知他乘风破浪 去了黑暗一趟\n" +
+                "[01:19.353]感同身受 给你救赎热 望\n" +
+                "[01:25.602]\n" +
+                "[01:26.353]知道你不能 还要你感受\n" +
+                "[01:30.102]让星光加了一点彩虹\n" +
+                "[01:33.102]让樱花偷偷 吻你额头\n" +
+                "[01:36.853]让世间美好 与你环环相扣\n" +
+                "[01:41.603]\n" +
+                "[01:42.352]此时已莺飞草长 爱的人正在路上\n" +
+                "[01:46.602]我知他风雨兼程 途经日暮不赏\n" +
+                "[01:50.602]穿越人海 只为与你相拥\n" +
+                "[01:56.102]此刻已皓月当空 爱的人手捧星光\n" +
+                "[02:00.102]我知他乘风破浪 去了黑暗一趟\n" +
+                "[02:04.352]感同身受 给你救赎热 望\n" +
+                "[02:09.352]\n" +
+                "[02:09.852]此时已莺飞草长 爱的人正在路上\n" +
+                "[02:13.851]我知他风雨兼程 途经日暮不赏\n" +
+                "[02:18.102]穿越人海 只为与你相拥\n" +
+                "[02:23.602]此刻已皓月当空 爱的人手捧星光\n" +
+                "[02:27.851]我知他乘风破浪 去了黑暗一趟\n" +
+                "[02:31.852]感同身受 给你救赎热 望\n" +
+                "[02:37.352]\n" +
+                "[02:38.601]知道你不能 还要你感受\n" +
+                "[02:41.601]让星光加了一点彩虹\n" +
+                "[02:45.101]当樱花开的纷纷扬扬\n" +
+                "[02:48.602]当世间美好 与你环环相扣\n" +
+                "[02:58.601]特别鸣谢：槿葵，我们的海报制作妹妹。\n" +
+                "[03:05.854]原唱：柏松\n" +
+                "[03:06.355]吉他：柏松\n" +
+                "[03:07.354]和声：柏松\n" +
+                "[03:08.104]录音：柏松\n" +
+                "[03:09.104]混音：张强\n"
+        }, {
+            title: "云烟成雨",
+            author: "房东的猫",
+            url: "http://music.163.com/song/media/outer/url?id=513360721.mp3",
+            pic: "http://p1.music.126.net/DSTg1dR7yKsyGq4IK3NL8A==/109951163046050093.jpg?param=300x300",
+            lrc: "[00:00] 作曲 : 少年佩\n[00:01] 作词 : 墨鱼丝\n[00:11]制作人：黎偌天\n[00:12]编曲：黎偌天\n[00:13]监制：李纤橙\n[00:14]\n[00:18]你的晚安 是下意识的恻隐\n[00:24]我留至夜深 治疗失眠梦呓\n[00:30]那封手写信 留在行李箱底\n[00:36]来不及 赋予它旅途的意义\n[00:43]若一切 都已云烟成雨\n[00:49]我能否 变成淤泥\n[00:52]再一次 沾染你\n[00:55]若生命 如过场电影\n[01:01]Oh让我再一次 甜梦里惊醒\n[01:13]我多想再见你\n[01:15]哪怕匆匆一眼就别离\n[01:19]路灯下昏黄的剪影\n[01:22]越走越漫长的林径\n[01:25]我多想再见你\n[01:28]至少玩笑话还能说起\n[01:32]街巷初次落叶的秋分\n[01:35]渐行渐远去的我们\n[01:53]若一切 都已云烟成雨\n[01:59]我能否 变成淤泥\n[02:01]再一次 沾染你\n[02:05]若生命 如过场电影\n[02:10]Oh让我再一次 甜梦里惊醒\n[02:19]我多想再见你\n[02:21]哪怕匆匆一眼就别离\n[02:26]路灯下昏黄的剪影\n[02:28]越走越漫长的林径\n[02:32]我多想再见你\n[02:34]至少玩笑话还能说起\n[02:38]街巷初次落叶的秋分\n[02:41]渐行渐远去的我们\n[02:49]站台 汽笛响起\n[02:52]想念是你的声音\n[02:55]我们提着过去 走入人群\n[03:02]寻找着一个位置 安放自己\n[03:13]我多想再见你\n[03:15]哪怕匆匆一眼就别离\n[03:19]路灯下昏黄的剪影\n[03:22]越走越漫长的林径\n[03:25]我多想再见你\n[03:28]至少玩笑话还能说起\n[03:31]街巷初次落叶的秋分\n[03:35]渐行渐远去的我们\n[03:41]\n[03:43]主唱：红鼻子小黑\n[03:44]制作人：黎偌天\n[03:46]监制：李纤橙\n"
+        }
+        ]
+
+    })
+    zp2.init();
+
+    /*移动端*/
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    /*缓慢滑动*/
+    $('#toTop-button').click(function () {
+        $(window).scrollTo(0,500);
+    });
+
+    /*下滑弹出*/
+    var waypoint = new Waypoint({
+        element: document.getElementById('waypoint'),
+        handler: function(direction) {
+            if (direction == 'down') {
+                $('#toolbar').show(300);
+            } else {
+                $('#toolbar').hide(500);
+            }
+            console.log('Scrolled to waypoint!  ' + direction);
+        }
+    })
+</script>
+</body>
+</html>
