@@ -15,6 +15,6 @@
         mvc:
                 static-path-pattern: /**
         profiles:
-            active: pro
+            active: dev
 
     comment.avatar: /images/cstx.jpg
