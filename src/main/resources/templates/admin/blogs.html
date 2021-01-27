@@ -103,7 +103,7 @@
                     <th>推荐</th>
                     <th>状态</th>
                     <th>更新时间</th>
-                    <th>操作</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -115,6 +115,7 @@
                     <td th:text="${blog.published} ? '发布':'草稿'">草稿</td>
                     <td th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02 09:45</td>
                     <td>
+                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" class="ui mini teal basic button">查看</a>
                         <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini blue basic button">编辑</a>
                         <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" class="ui mini red basic button">删除</a>
                     </td>
