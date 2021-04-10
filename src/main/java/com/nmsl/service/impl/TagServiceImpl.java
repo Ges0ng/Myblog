@@ -1,9 +1,9 @@
 package com.nmsl.service.impl;
 
 
-import com.nmsl.Exception.NotFoundException;
+import com.nmsl.exception.NotFoundException;
 import com.nmsl.dao.TagRepository;
-import com.nmsl.domain.Tag;
+import com.nmsl.entity.Tag;
 import com.nmsl.service.TagService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;

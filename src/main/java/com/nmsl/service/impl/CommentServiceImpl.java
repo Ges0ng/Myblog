@@ -1,7 +1,7 @@
 package com.nmsl.service.impl;
 
 import com.nmsl.dao.CommentRepository;
-import com.nmsl.domain.Comment;
+import com.nmsl.entity.Comment;
 import com.nmsl.service.CommentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Sort;

@@ -1,9 +1,8 @@
 package com.nmsl.service.impl;
 
 import com.nmsl.dao.UserRepository;
-import com.nmsl.domain.User;
+import com.nmsl.entity.User;
 import com.nmsl.service.UserService;
-import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

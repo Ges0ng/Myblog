@@ -1,13 +1,13 @@
 package com.nmsl.service.impl;
 
-import com.nmsl.Exception.NotFoundException;
+import com.nmsl.exception.NotFoundException;
 import com.nmsl.dao.BlogRepository;
-import com.nmsl.domain.Blog;
-import com.nmsl.domain.Type;
+import com.nmsl.entity.Blog;
+import com.nmsl.entity.Type;
 import com.nmsl.service.BlogService;
 import com.nmsl.utils.MarkdownUtils;
 import com.nmsl.utils.MyBeanUtils;
-import com.nmsl.vo.BlogQuery;
+import com.nmsl.controller.model.BlogQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -1,7 +1,6 @@
 package com.nmsl.dao;
 
-import com.nmsl.domain.Type;
-import org.springframework.data.domain.Page;
+import com.nmsl.entity.Type;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

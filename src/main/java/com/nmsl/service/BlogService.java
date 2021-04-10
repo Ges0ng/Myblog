@@ -1,7 +1,7 @@
 package com.nmsl.service;
 
-import com.nmsl.domain.Blog;
-import com.nmsl.vo.BlogQuery;
+import com.nmsl.entity.Blog;
+import com.nmsl.controller.model.BlogQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

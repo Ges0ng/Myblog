@@ -1,6 +1,6 @@
 package com.nmsl.dao;
 
-import com.nmsl.domain.Comment;
+import com.nmsl.entity.Comment;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -2,6 +2,8 @@ package com.nmsl.controller;
 
 import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import javax.annotation.Resource;
  * @Version 1.0
  */
 @Controller
+@Api(tags = "音乐模块")
 public class MusicController {
 
     @Resource
@@ -32,6 +35,7 @@ public class MusicController {
     }
 
     @GetMapping("/music")
+    @ApiOperation(value = "跳转到音乐界面")
     public String music(Model model){
         BLOG_MSG_NUM(model);
         return "music";

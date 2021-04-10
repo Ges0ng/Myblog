@@ -1,8 +1,8 @@
 package com.nmsl.service.impl;
 
-import com.nmsl.Exception.NotFoundException;
+import com.nmsl.exception.NotFoundException;
 import com.nmsl.dao.TypeRepository;
-import com.nmsl.domain.Type;
+import com.nmsl.entity.Type;
 import com.nmsl.service.TypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;

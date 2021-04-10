@@ -1,4 +1,4 @@
-package com.nmsl.vo;
+package com.nmsl.controller.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

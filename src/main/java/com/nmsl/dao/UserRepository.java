@@ -1,6 +1,6 @@
 package com.nmsl.dao;
 
-import com.nmsl.domain.User;
+import com.nmsl.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

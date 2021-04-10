@@ -193,7 +193,7 @@
 2021-01-21 00:35:59.213  INFO 16508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
 2021-01-21 00:35:59.346 ERROR 16508 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
 
-java.lang.TypeNotPresentException: Type com.nmsl.domain.Type not present
+java.lang.TypeNotPresentException: Type com.nmsl.entity.Type not present
 	at sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:117)
 	at sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:125)
 	at sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49)
@@ -240,7 +240,7 @@ java.lang.TypeNotPresentException: Type com.nmsl.domain.Type not present
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
-Caused by: java.lang.ClassNotFoundException: com.nmsl.domain.Type
+Caused by: java.lang.ClassNotFoundException: com.nmsl.entity.Type
 	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
@@ -397,7 +397,7 @@ Caused by: java.lang.ClassNotFoundException: com.nmsl.domain.Type
 2021-01-21 00:40:17.400  INFO 16508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
 2021-01-21 00:40:17.443 ERROR 16508 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
 
-java.lang.TypeNotPresentException: Type com.nmsl.domain.Type not present
+java.lang.TypeNotPresentException: Type com.nmsl.entity.Type not present
 	at sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:117)
 	at sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:125)
 	at sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49)
@@ -444,7 +444,7 @@ java.lang.TypeNotPresentException: Type com.nmsl.domain.Type not present
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
-Caused by: java.lang.ClassNotFoundException: com.nmsl.domain.Type
+Caused by: java.lang.ClassNotFoundException: com.nmsl.entity.Type
 	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
@@ -2344,7 +2344,7 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving template [redic
 2021-01-21 02:10:56.889  INFO 6216 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
 2021-01-21 02:10:57.345  INFO 6216 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
 2021-01-21 02:10:57.346  INFO 6216 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
-2021-01-21 02:10:57.352  WARN 6216 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is java.lang.TypeNotPresentException: Type com.nmsl.domain.Tag not present
+2021-01-21 02:10:57.352  WARN 6216 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is java.lang.TypeNotPresentException: Type com.nmsl.entity.Tag not present
 2021-01-21 02:10:57.352  INFO 6216 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
 2021-01-21 02:10:57.353  INFO 6216 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
 2021-01-21 02:10:57.353  INFO 6216 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
@@ -2353,7 +2353,7 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving template [redic
 Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
 2021-01-21 02:10:57.491 ERROR 6216 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
 
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is java.lang.TypeNotPresentException: Type com.nmsl.domain.Tag not present
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is java.lang.TypeNotPresentException: Type com.nmsl.entity.Tag not present
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1794)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
@@ -2377,7 +2377,7 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
-Caused by: java.lang.TypeNotPresentException: Type com.nmsl.domain.Tag not present
+Caused by: java.lang.TypeNotPresentException: Type com.nmsl.entity.Tag not present
 	at sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:117)
 	at sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:125)
 	at sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49)
@@ -2405,7 +2405,7 @@ Caused by: java.lang.TypeNotPresentException: Type com.nmsl.domain.Tag not prese
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1790)
 	... 22 common frames omitted
-Caused by: java.lang.ClassNotFoundException: com.nmsl.domain.Tag
+Caused by: java.lang.ClassNotFoundException: com.nmsl.entity.Tag
 	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
@@ -2746,10 +2746,10 @@ Caused by: java.lang.ClassNotFoundException: com.nmsl.domain.Tag
 2021-01-21 23:03:20.163  INFO 20608 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-01-21 23:03:20.163  INFO 20608 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2021-01-21 23:03:20.173  INFO 20608 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 10 ms
-2021-01-21 23:06:41.760 ERROR 20608 --- [http-nio-8080-exec-6] c.n.handler.ControllerExceptionHandler   : Request URL : /admin/blogs/search, Exception : Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]
-2021-01-21 23:06:41.760  WARN 20608 --- [http-nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]]
-2021-01-21 23:28:32.678 ERROR 20608 --- [http-nio-8080-exec-8] c.n.handler.ControllerExceptionHandler   : Request URL : /admin/blogs/search, Exception : Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]
-2021-01-21 23:28:32.679  WARN 20608 --- [http-nio-8080-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]]
+2021-01-21 23:06:41.760 ERROR 20608 --- [http-nio-8080-exec-6] c.n.handler.ControllerExceptionHandler   : Request URL : /admin/blogs/search, Exception : Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]
+2021-01-21 23:06:41.760  WARN 20608 --- [http-nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]]
+2021-01-21 23:28:32.678 ERROR 20608 --- [http-nio-8080-exec-8] c.n.handler.ControllerExceptionHandler   : Request URL : /admin/blogs/search, Exception : Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]
+2021-01-21 23:28:32.679  WARN 20608 --- [http-nio-8080-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]]
 2021-01-21 23:31:46.643  INFO 20608 --- [Thread-12] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2021-01-21 23:31:46.645  INFO 20608 --- [Thread-12] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2021-01-21 23:31:46.655  INFO 20608 --- [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
@@ -2780,10 +2780,10 @@ Caused by: java.lang.ClassNotFoundException: com.nmsl.domain.Tag
 2021-01-21 23:32:34.306  INFO 20608 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-01-21 23:32:34.306  INFO 20608 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2021-01-21 23:32:34.313  INFO 20608 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
-2021-01-21 23:38:03.489 ERROR 20608 --- [http-nio-8080-exec-7] c.n.handler.ControllerExceptionHandler   : Request URL : /admin/blogs/search, Exception : Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]
-2021-01-21 23:38:03.490  WARN 20608 --- [http-nio-8080-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]]
-2021-01-21 23:38:44.467 ERROR 20608 --- [http-nio-8080-exec-7] c.n.handler.ControllerExceptionHandler   : Request URL : /admin/blogs/search, Exception : Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]
-2021-01-21 23:38:44.467  WARN 20608 --- [http-nio-8080-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]]
+2021-01-21 23:38:03.489 ERROR 20608 --- [http-nio-8080-exec-7] c.n.handler.ControllerExceptionHandler   : Request URL : /admin/blogs/search, Exception : Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]
+2021-01-21 23:38:03.490  WARN 20608 --- [http-nio-8080-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]]
+2021-01-21 23:38:44.467 ERROR 20608 --- [http-nio-8080-exec-7] c.n.handler.ControllerExceptionHandler   : Request URL : /admin/blogs/search, Exception : Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]
+2021-01-21 23:38:44.467  WARN 20608 --- [http-nio-8080-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]]
 2021-01-21 23:38:48.937  WARN 20608 --- [http-nio-8080-exec-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@fc8e494 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
 2021-01-21 23:40:14.435  INFO 20608 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2021-01-21 23:40:14.436  INFO 20608 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
@@ -2818,10 +2818,10 @@ Caused by: java.lang.ClassNotFoundException: com.nmsl.domain.Tag
 2021-01-21 23:40:29.577  INFO 18820 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-01-21 23:40:29.577  INFO 18820 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2021-01-21 23:40:29.586  INFO 18820 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
-2021-01-21 23:40:46.627 ERROR 18820 --- [http-nio-8080-exec-6] c.n.handler.ControllerExceptionHandler   : Request URL : /admin/blogs/search, Exception : Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]
-2021-01-21 23:40:46.628  WARN 18820 --- [http-nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]]
-2021-01-21 23:41:45.028 ERROR 18820 --- [http-nio-8080-exec-11] c.n.handler.ControllerExceptionHandler   : Request URL : /admin/blogs/search, Exception : Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]
-2021-01-21 23:41:45.029  WARN 18820 --- [http-nio-8080-exec-11] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.domain.Blog]]
+2021-01-21 23:40:46.627 ERROR 18820 --- [http-nio-8080-exec-6] c.n.handler.ControllerExceptionHandler   : Request URL : /admin/blogs/search, Exception : Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]
+2021-01-21 23:40:46.628  WARN 18820 --- [http-nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]]
+2021-01-21 23:41:45.028 ERROR 18820 --- [http-nio-8080-exec-11] c.n.handler.ControllerExceptionHandler   : Request URL : /admin/blogs/search, Exception : Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]
+2021-01-21 23:41:45.029  WARN 18820 --- [http-nio-8080-exec-11] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.InvalidDataAccessApiUsageException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]; nested exception is java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [recommend] on this ManagedType [com.nmsl.entity.Blog]]
 2021-01-21 23:43:07.633  INFO 18820 --- [Thread-18] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2021-01-21 23:43:07.634  INFO 18820 --- [Thread-18] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2021-01-21 23:43:07.637  INFO 18820 --- [Thread-18] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...

@@ -1,4 +1,4 @@
-package com.nmsl.domain;
+package com.nmsl.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -535,13 +535,13 @@ java.lang.ArithmeticException: / by zero
 2020-12-30 20:33:38.722  INFO 17596 --- [http-nio-8080-exec-2] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
 2020-12-30 20:33:38.726  INFO 17596 --- [http-nio-8080-exec-2] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4ms. Found 0 JPA repository interfaces.
 2020-12-30 20:33:38.754 ERROR 17596 --- [http-nio-8080-exec-2] c.n.handler.ControllerExceptionHandler   : Request URL : /, Exception : 博客不存在
-2020-12-30 20:33:38.754  WARN 17596 --- [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.nmsl.Exception.NotFoundException: 博客不存在]
+2020-12-30 20:33:38.754  WARN 17596 --- [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.nmsl.exception.NotFoundException: 博客不存在]
 2020-12-30 20:36:51.319  INFO 17596 --- [http-nio-8080-exec-4] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
 2020-12-30 20:36:51.323  INFO 17596 --- [http-nio-8080-exec-4] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3ms. Found 0 JPA repository interfaces.
 2020-12-30 20:36:51.351 ERROR 17596 --- [http-nio-8080-exec-4] c.n.handler.ControllerExceptionHandler   : Request URL : /, Exception : 博客不存在
-2020-12-30 20:36:51.354  WARN 17596 --- [http-nio-8080-exec-4] .w.s.m.a.ResponseStatusExceptionResolver : Resolved [com.nmsl.Exception.NotFoundException: 博客不存在]
+2020-12-30 20:36:51.354  WARN 17596 --- [http-nio-8080-exec-4] .w.s.m.a.ResponseStatusExceptionResolver : Resolved [com.nmsl.exception.NotFoundException: 博客不存在]
 2020-12-30 20:36:52.621 ERROR 17596 --- [http-nio-8080-exec-1] c.n.handler.ControllerExceptionHandler   : Request URL : /, Exception : 博客不存在
-2020-12-30 20:36:52.621  WARN 17596 --- [http-nio-8080-exec-1] .w.s.m.a.ResponseStatusExceptionResolver : Resolved [com.nmsl.Exception.NotFoundException: 博客不存在]
+2020-12-30 20:36:52.621  WARN 17596 --- [http-nio-8080-exec-1] .w.s.m.a.ResponseStatusExceptionResolver : Resolved [com.nmsl.exception.NotFoundException: 博客不存在]
 2020-12-30 20:37:13.223  INFO 17596 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2020-12-30 20:37:13.223  INFO 17596 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2020-12-30 20:37:13.228  INFO 17596 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
@@ -576,7 +576,7 @@ java.lang.ArithmeticException: / by zero
 2020-12-30 20:37:28.107  INFO 5508 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2020-12-30 20:37:28.115  INFO 5508 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
 2020-12-30 20:37:28.205 ERROR 5508 --- [http-nio-8080-exec-1] c.n.handler.ControllerExceptionHandler   : Request URL : /, Exception : 博客不存在
-2020-12-30 20:37:28.208  WARN 5508 --- [http-nio-8080-exec-1] .w.s.m.a.ResponseStatusExceptionResolver : Resolved [com.nmsl.Exception.NotFoundException: 博客不存在]
+2020-12-30 20:37:28.208  WARN 5508 --- [http-nio-8080-exec-1] .w.s.m.a.ResponseStatusExceptionResolver : Resolved [com.nmsl.exception.NotFoundException: 博客不存在]
 2020-12-30 20:37:28.727  WARN 5508 --- [http-nio-8080-exec-6] o.s.web.servlet.PageNotFound             : No mapping for GET /favicon.ico
 2020-12-30 20:58:32.985  INFO 5508 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2020-12-30 20:58:32.986  INFO 5508 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'

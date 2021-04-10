@@ -1,12 +1,14 @@
 package com.nmsl.controller.admin;
 
-import com.nmsl.domain.Blog;
-import com.nmsl.domain.User;
+import com.nmsl.entity.Blog;
+import com.nmsl.entity.User;
 import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
 import com.nmsl.service.TagService;
 import com.nmsl.service.TypeService;
-import com.nmsl.vo.BlogQuery;
+import com.nmsl.controller.model.BlogQuery;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -20,12 +22,14 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
+ * 后台博客管理
  * @Author Paracosm
  * @Date 2021/1/18 16:53
  * @Version 1.0
  */
 @Controller
 @RequestMapping("/admin")
+@Api(tags = "后台博客管理模块")
 public class BlogController {
 
     private String BLOGS = "admin/blogs";
@@ -61,6 +65,7 @@ public class BlogController {
      * @return
      */
     @GetMapping("/blogs")
+    @ApiOperation(value = "博客信息")
     public String blogs(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         BlogQuery blog, Model model) {
         model.addAttribute("types", typeService.listType());
@@ -79,6 +84,7 @@ public class BlogController {
      * @return
      */
     @PostMapping("/blogs/search")
+    @ApiOperation(value = "根据关键字搜索")
     public String search(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                          BlogQuery blog, Model model) {
         BLOG_MSG_NUM(model);
@@ -93,6 +99,7 @@ public class BlogController {
      * @return
      */
     @GetMapping("/blogs/input")
+    @ApiOperation(value = "查看博客内容")
     public String input(Model model){
 
         setTypeAndTag(model);
@@ -110,6 +117,7 @@ public class BlogController {
      * @return
      */
     @GetMapping("/blogs/{id}/input")
+    @ApiOperation(value = "根据id编辑博客")
     public String editInput(@PathVariable Long id, Model model){
         setTypeAndTag(model);
         Blog blog = blogService.getBlog(id);
@@ -125,6 +133,7 @@ public class BlogController {
      * @return
      */
     @PostMapping("/blogs")
+    @ApiOperation(value = "编辑博客内容")
     public String post(@Valid Blog blog, HttpSession session, RedirectAttributes attributes) {
 
         blog.setUser((User) session.getAttribute("user"));
@@ -138,7 +147,6 @@ public class BlogController {
         } else {
             b = blogService.updateBlog(blog.getId(), blog);
         }
-
 
         if (b == null) {
             //没保存成功
@@ -154,16 +162,27 @@ public class BlogController {
 
 
     @GetMapping("/blogs/{id}/delete")
+    @ApiOperation(value = "根据id删除博客")
     public String delete(@PathVariable Long id,RedirectAttributes attributes){
-        blogService.deleteBlog(id);
-        attributes.addFlashAttribute("msg", "删除成功!");
+
+//        List<Comment> comments = commentService.listCommentByBlogId(id);
+//        if (comments != null) {
+//            //如果该博客底下有评论，则级联删除所有评论，才可以删除博客
+//        }
+
+        if (id == null) {
+            attributes.addFlashAttribute("msg", "操作失败,请重试!");
+        } else {
+            blogService.deleteBlog(id);
+            attributes.addFlashAttribute("msg", "删除成功!");
+        }
         return BLOGS_REDIRECT;
     }
+
 
     private void setTypeAndTag(Model model){
         model.addAttribute("types", typeService.listType());
         model.addAttribute("tags", tagService.listTag());
-
     }
 
 

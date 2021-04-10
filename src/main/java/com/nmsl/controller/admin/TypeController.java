@@ -1,8 +1,9 @@
 package com.nmsl.controller.admin;
 
-import com.nmsl.Exception.NotFoundException;
-import com.nmsl.domain.Type;
+import com.nmsl.entity.Type;
 import com.nmsl.service.TypeService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 /**
+ * 分类管理
  * @Author Paracosm
  * @Date 2021/1/19 21:07
  * @Version 1.0
@@ -26,6 +28,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
+@Api(tags = "后台分类管理模块")
 public class TypeController {
 
     private String TYPES = "admin/types";
@@ -42,6 +45,7 @@ public class TypeController {
      * @return
      */
     @GetMapping("/types")
+    @ApiOperation(value = "分页查询按照id的倒序排序")
     public String types(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.DESC)
                                 Pageable pageable, Model model) {
         model.addAttribute("typeNum", typeService.listType());
@@ -54,6 +58,7 @@ public class TypeController {
      * @return
      */
     @GetMapping("/types/input")
+    @ApiOperation(value = "新增分类页面")
     public String input(Model model){
         model.addAttribute("type",new Type());
         return TYPES_INPUT;
@@ -64,6 +69,7 @@ public class TypeController {
      * 修改分类名称
      */
     @GetMapping("/types/{id}/input")
+    @ApiOperation(value = "修改分类名称")
     public String editInput(@PathVariable Long id, Model model) {
 
         model.addAttribute("type",typeService.getType(id));
@@ -77,6 +83,7 @@ public class TypeController {
      * @return
      */
     @PostMapping("/types")
+    @ApiOperation(value = "新增分类提交")
     public String post(@Valid Type type, BindingResult result, RedirectAttributes attributes){
 
         Type typeName = typeService.getTypeByName(type.getName());
@@ -111,6 +118,7 @@ public class TypeController {
      * @return
      */
     @PostMapping("/types/{id}")
+    @ApiOperation(value = "更新分类名称")
     public String editPost(@Valid Type type, BindingResult result, @PathVariable Long id, RedirectAttributes attributes) {
 
         Type typeName = typeService.getTypeByName(type.getName());
@@ -118,7 +126,6 @@ public class TypeController {
             /*说明已经存在,自定义错误*/
             result.rejectValue("name", "nameError", "不能使用重复的分类");
         }
-
         /*非空验证*/
         if (result.hasErrors()) {
             return TYPES_INPUT;
@@ -128,7 +135,6 @@ public class TypeController {
         if (typeUpdate == null) {
             //没保存成功
             attributes.addFlashAttribute("msg", "更新失败,请重试!");
-
         } else {
             //保存成功
             attributes.addFlashAttribute("msg", "更新成功!");
@@ -136,7 +142,14 @@ public class TypeController {
         return TYPES_REDIRECT;
     }
 
+    /**
+     * 根据id删除标签
+     * @param id
+     * @param attributes
+     * @return
+     */
     @GetMapping("/types/{id}/delete")
+    @ApiOperation(value = "根据id删除标签")
     public String delete(@PathVariable Long id,RedirectAttributes attributes){
         typeService.deleteType(id);
         attributes.addFlashAttribute("msg", "删除成功!");

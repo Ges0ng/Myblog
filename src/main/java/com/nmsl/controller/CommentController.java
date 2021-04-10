@@ -1,9 +1,11 @@
 package com.nmsl.controller;
 
-import com.nmsl.domain.Comment;
-import com.nmsl.domain.User;
+import com.nmsl.entity.Comment;
+import com.nmsl.entity.User;
 import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +23,9 @@ import javax.servlet.http.HttpSession;
  * @Version 1.0
  */
 @Controller
+@Api(tags = "评论模块")
 public class CommentController {
-
+    
     @Resource
     private CommentService commentService;
 
@@ -48,6 +51,7 @@ public class CommentController {
      * @return
      */
     @GetMapping("/comments/{blogId}")
+    @ApiOperation(value = "查询博客下的评论")
     public String comments(@PathVariable Long blogId, Model model){
         BLOG_MSG_NUM(model);
         model.addAttribute("comments",commentService.listCommentByBlogId(blogId));
@@ -55,6 +59,7 @@ public class CommentController {
     }
 
     @PostMapping("/comments")
+    @ApiOperation(value = "评论")
     public String post(Comment comment, HttpSession session){
         Long blogId = comment.getBlog().getId();
         comment.setBlog(blogService.getBlog(blogId));
@@ -69,8 +74,6 @@ public class CommentController {
         } else {
             comment.setAvatar(avatar);
         }
-
-
         commentService.saveComment(comment);
         return "redirect:/comments/" + blogId;
     }

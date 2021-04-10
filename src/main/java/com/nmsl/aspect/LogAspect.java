@@ -105,7 +105,7 @@ public class LogAspect {
     @AllArgsConstructor
     private class RequestLog{
         private String url;
-        private String id;
+        private String ip;
         private String classMethod;
         private Object[] args;
 

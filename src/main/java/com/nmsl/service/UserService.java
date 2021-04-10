@@ -1,6 +1,6 @@
 package com.nmsl.service;
 
-import com.nmsl.domain.User;
+import com.nmsl.entity.User;
 
 /**
  * @Author Paracosm

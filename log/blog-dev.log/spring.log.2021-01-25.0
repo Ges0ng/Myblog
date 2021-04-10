@@ -6718,7 +6718,7 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving template [index
 2021-01-25 18:03:04.675  INFO 16016 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 464 ms
 2021-01-25 18:03:04.686 ERROR 16016 --- [restartedMain] o.a.catalina.session.StandardManager     : Exception loading sessions from persistent storage
 
-java.lang.ClassNotFoundException: com.nmsl.domain.User
+java.lang.ClassNotFoundException: com.nmsl.entity.User
 	at org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedWebappClassLoader.loadClass(TomcatEmbeddedWebappClassLoader.java:72)
 	at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1188)
 	at java.lang.Class.forName0(Native Method)
@@ -8143,7 +8143,7 @@ org.springframework.expression.spel.SpelEvaluationException: EL1011E: Method cal
 2021-01-25 18:58:35.096  INFO 20544 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
 2021-01-25 18:58:35.555 ERROR 20544 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
 
-java.lang.TypeNotPresentException: Type com.nmsl.domain.Comment not present
+java.lang.TypeNotPresentException: Type com.nmsl.entity.Comment not present
 	at sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:117)
 	at sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:125)
 	at sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49)
@@ -8190,7 +8190,7 @@ java.lang.TypeNotPresentException: Type com.nmsl.domain.Comment not present
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
-Caused by: java.lang.ClassNotFoundException: com.nmsl.domain.Comment
+Caused by: java.lang.ClassNotFoundException: com.nmsl.entity.Comment
 	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
@@ -8212,7 +8212,7 @@ Caused by: java.lang.ClassNotFoundException: com.nmsl.domain.Comment
 2021-01-25 18:58:40.523  INFO 20544 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
 2021-01-25 18:58:40.553 ERROR 20544 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
 
-java.lang.TypeNotPresentException: Type com.nmsl.domain.Comment not present
+java.lang.TypeNotPresentException: Type com.nmsl.entity.Comment not present
 	at sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:117)
 	at sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:125)
 	at sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49)
@@ -8259,7 +8259,7 @@ java.lang.TypeNotPresentException: Type com.nmsl.domain.Comment not present
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
-Caused by: java.lang.ClassNotFoundException: com.nmsl.domain.Comment
+Caused by: java.lang.ClassNotFoundException: com.nmsl.entity.Comment
 	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
 	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
@@ -8289,8 +8289,8 @@ Caused by: java.lang.ClassNotFoundException: com.nmsl.domain.Comment
 2021-01-25 18:58:44.476  INFO 20544 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
 2021-01-25 18:58:44.926  INFO 20544 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
 2021-01-25 18:58:44.926  INFO 20544 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
-2021-01-25 18:58:45.047 ERROR 20544 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: Use of @OneToMany or @ManyToMany targeting an unmapped class: com.nmsl.domain.Blog.comments[com.nmsl.domain.Comment]
-2021-01-25 18:58:45.048  WARN 20544 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.AnnotationException: Use of @OneToMany or @ManyToMany targeting an unmapped class: com.nmsl.domain.Blog.comments[com.nmsl.domain.Comment]
+2021-01-25 18:58:45.047 ERROR 20544 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: Use of @OneToMany or @ManyToMany targeting an unmapped class: com.nmsl.entity.Blog.comments[com.nmsl.entity.Comment]
+2021-01-25 18:58:45.048  WARN 20544 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.AnnotationException: Use of @OneToMany or @ManyToMany targeting an unmapped class: com.nmsl.entity.Blog.comments[com.nmsl.entity.Comment]
 2021-01-25 18:58:45.048  INFO 20544 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown initiated...
 2021-01-25 18:59:06.314  INFO 20544 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown completed.
 2021-01-25 19:05:48.790  INFO 19232 --- [restartedMain] com.nmsl.BlogApplication                 : Starting BlogApplication on 从不玩游戏 with PID 19232 (C:\Users\2020\Project\blog\target\classes started by Paracosm in C:\Users\2020\Project\blog)

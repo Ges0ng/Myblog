@@ -892,7 +892,7 @@ Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Exception evalu
 	at org.attoparser.MarkupParser.parseBuffer(MarkupParser.java:725)
 	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:301)
 	... 50 common frames omitted
-Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'discription' cannot be found on object of type 'com.nmsl.domain.Blog' - maybe not public or not valid?
+Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'discription' cannot be found on object of type 'com.nmsl.entity.Blog' - maybe not public or not valid?
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:217)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:104)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.access$000(PropertyOrFieldReference.java:51)
@@ -905,7 +905,7 @@ Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E:
 
 2021-01-23 18:11:56.716 ERROR 20028 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/index.html]")] with root cause
 
-org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'discription' cannot be found on object of type 'com.nmsl.domain.Blog' - maybe not public or not valid?
+org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'discription' cannot be found on object of type 'com.nmsl.entity.Blog' - maybe not public or not valid?
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:217)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:104)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.access$000(PropertyOrFieldReference.java:51)
@@ -1117,7 +1117,7 @@ Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Exception evalu
 	at org.attoparser.MarkupParser.parseBuffer(MarkupParser.java:725)
 	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:301)
 	... 50 common frames omitted
-Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'discription' cannot be found on object of type 'com.nmsl.domain.Blog' - maybe not public or not valid?
+Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'discription' cannot be found on object of type 'com.nmsl.entity.Blog' - maybe not public or not valid?
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:217)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:104)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.access$000(PropertyOrFieldReference.java:51)
@@ -1130,7 +1130,7 @@ Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E:
 
 2021-01-23 18:12:14.986 ERROR 19204 --- [http-nio-8080-exec-5] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/index.html]")] with root cause
 
-org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'discription' cannot be found on object of type 'com.nmsl.domain.Blog' - maybe not public or not valid?
+org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'discription' cannot be found on object of type 'com.nmsl.entity.Blog' - maybe not public or not valid?
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:217)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:104)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.access$000(PropertyOrFieldReference.java:51)
@@ -3602,7 +3602,7 @@ Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Exception evalu
 	at org.attoparser.MarkupParser.parseBuffer(MarkupParser.java:725)
 	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:301)
 	... 50 common frames omitted
-Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'com.nmsl.domain.Blog' - maybe not public or not valid?
+Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'com.nmsl.entity.Blog' - maybe not public or not valid?
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:217)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:104)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.access$000(PropertyOrFieldReference.java:51)
@@ -3615,7 +3615,7 @@ Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E:
 
 2021-01-23 18:33:49.558 ERROR 9840 --- [http-nio-8080-exec-10] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/index.html]")] with root cause
 
-org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'com.nmsl.domain.Blog' - maybe not public or not valid?
+org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'com.nmsl.entity.Blog' - maybe not public or not valid?
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:217)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:104)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.access$000(PropertyOrFieldReference.java:51)
@@ -3787,7 +3787,7 @@ Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Exception evalu
 	at org.attoparser.MarkupParser.parseBuffer(MarkupParser.java:725)
 	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:301)
 	... 50 common frames omitted
-Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'com.nmsl.domain.Blog' - maybe not public or not valid?
+Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'com.nmsl.entity.Blog' - maybe not public or not valid?
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:217)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:104)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.access$000(PropertyOrFieldReference.java:51)
@@ -3800,7 +3800,7 @@ Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E:
 
 2021-01-23 18:34:20.036 ERROR 9840 --- [http-nio-8080-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/index.html]")] with root cause
 
-org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'com.nmsl.domain.Blog' - maybe not public or not valid?
+org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'com.nmsl.entity.Blog' - maybe not public or not valid?
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:217)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:104)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.access$000(PropertyOrFieldReference.java:51)
@@ -3972,7 +3972,7 @@ Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Exception evalu
 	at org.attoparser.MarkupParser.parseBuffer(MarkupParser.java:725)
 	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:301)
 	... 50 common frames omitted
-Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'com.nmsl.domain.Blog' - maybe not public or not valid?
+Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'com.nmsl.entity.Blog' - maybe not public or not valid?
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:217)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:104)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.access$000(PropertyOrFieldReference.java:51)
@@ -3985,7 +3985,7 @@ Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E:
 
 2021-01-23 18:34:36.852 ERROR 9840 --- [http-nio-8080-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/index.html]")] with root cause
 
-org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'com.nmsl.domain.Blog' - maybe not public or not valid?
+org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'com.nmsl.entity.Blog' - maybe not public or not valid?
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:217)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:104)
 	at org.springframework.expression.spel.ast.PropertyOrFieldReference.access$000(PropertyOrFieldReference.java:51)

@@ -1,10 +1,12 @@
 package com.nmsl.controller;
 
-import com.nmsl.domain.Tag;
+import com.nmsl.entity.Tag;
 import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
 import com.nmsl.service.TagService;
-import com.nmsl.vo.BlogQuery;
+import com.nmsl.controller.model.BlogQuery;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -23,6 +25,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Controller
+@Api(tags = "标签模块")
 public class TagsController {
 
     @Resource
@@ -44,6 +47,7 @@ public class TagsController {
     }
 
     @GetMapping("/tags/{id}")
+    @ApiOperation("根据标签跳转")
     public String tags(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         @PathVariable Long id, Model model) {
         BLOG_MSG_NUM(model);

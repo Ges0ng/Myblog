@@ -1,11 +1,11 @@
 package com.nmsl.controller;
 
-import com.nmsl.domain.Blog;
 import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
 import com.nmsl.service.TagService;
 import com.nmsl.service.TypeService;
-import org.springframework.data.domain.Page;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -25,6 +25,7 @@ import javax.annotation.Resource;
  * @Version 1.0
  */
 @Controller
+@Api(tags = "首页模块")
 public class IndexController {
 
     @Resource
@@ -48,8 +49,14 @@ public class IndexController {
          model.addAttribute("commentNum", commentService.listComment());
     }
 
-
+    /**
+     * 首页
+     * @param pageable
+     * @param model
+     * @return
+     */
     @GetMapping(value = {"/","/index"})
+    @ApiOperation(value = "跳转到博客首页")
     public String index(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         Model model){
         BLOG_MSG_NUM(model);
@@ -61,7 +68,15 @@ public class IndexController {
         return "index";
     }
 
+    /**
+     * 搜索
+     * @param pageable
+     * @param query
+     * @param model
+     * @return
+     */
     @PostMapping("/search")
+    @ApiOperation(value = "根绝关键字搜索")
     public String search(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                          @RequestParam String query, Model model) {
         BLOG_MSG_NUM(model);
@@ -72,7 +87,14 @@ public class IndexController {
         return "search";
     }
 
+    /**
+     * 根据id进入博客
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/blog/{id}")
+    @ApiOperation(value = "根据id查看博客信息")
     public String blog(@PathVariable Long id,Model model){
         BLOG_MSG_NUM(model);
 

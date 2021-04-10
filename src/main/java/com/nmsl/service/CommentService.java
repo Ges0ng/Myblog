@@ -1,6 +1,6 @@
 package com.nmsl.service;
 
-import com.nmsl.domain.Comment;
+import com.nmsl.entity.Comment;
 
 import java.util.List;
 

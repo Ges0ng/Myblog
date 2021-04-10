@@ -1,7 +1,6 @@
 package com.nmsl.dao;
 
-import com.nmsl.domain.Blog;
-import com.nmsl.domain.Tag;
+import com.nmsl.entity.Blog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

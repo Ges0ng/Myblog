@@ -1,6 +1,6 @@
 package com.nmsl.service;
 
-import com.nmsl.domain.Tag;
+import com.nmsl.entity.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
