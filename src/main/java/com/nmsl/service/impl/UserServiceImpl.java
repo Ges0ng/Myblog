@@ -23,6 +23,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User checkUser(String username, String password) {
         User user = userRepository.findByUsernameAndPassword(username, password);
+
+        //验证成功后将密码设为null再传回前台
+        user.setPassword(null);
+
         return user;
     }
 }

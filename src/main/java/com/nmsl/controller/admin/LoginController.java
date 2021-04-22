@@ -3,6 +3,7 @@ package com.nmsl.controller.admin;
 import com.nmsl.entity.User;
 import com.nmsl.service.*;
 import com.nmsl.utils.Md5Utils;
+import com.wf.captcha.utils.CaptchaUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -63,19 +65,25 @@ public class LoginController {
     @ApiOperation(value = "登陆验证")
     public String login(@RequestParam String username,
                         @RequestParam String password,
+                        @RequestParam String verCode,
                         HttpSession session,
                         RedirectAttributes attributes,
-                        Model model) {
+                        Model model,
+                        HttpServletRequest request) {
+
+        //校对验证码
+        if (!CaptchaUtil.ver(verCode, request)) {
+            CaptchaUtil.clear(request);  // 清除session中的验证码
+            attributes.addFlashAttribute("message", "验证码不正确");
+            return REDIRECT_ADMIN;
+        }
+
+        //校对用户
         User user = userService.checkUser(username, Md5Utils.string2Md5(password));
         if (user != null) {
-            //验证成功后将密码设为null再传回前台
-            user.setPassword(null);
             session.setAttribute("user",user);
 
-            model.addAttribute("blogNum", blogService.listBlog());
-            model.addAttribute("tagNum", tagService.listTag());
-            model.addAttribute("typeNum", typeService.listType());
-
+            BLOG_MSG_NUM(model);
             return "admin/index";
         } else {
             attributes.addFlashAttribute("message", "用户名和密码错误");
@@ -93,6 +101,13 @@ public class LoginController {
     public String logout(HttpSession session){
         session.removeAttribute("user");
         return REDIRECT_ADMIN;
+    }
+
+    //博客相关信息
+    private void BLOG_MSG_NUM(Model model){
+        model.addAttribute("blogNum", blogService.listBlog());
+        model.addAttribute("tagNum", tagService.listTag());
+        model.addAttribute("typeNum", typeService.listType());
     }
 
 }
