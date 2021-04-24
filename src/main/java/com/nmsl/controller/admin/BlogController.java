@@ -1,6 +1,7 @@
 package com.nmsl.controller.admin;
 
 import com.nmsl.entity.Blog;
+import com.nmsl.entity.Url;
 import com.nmsl.entity.User;
 import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
@@ -31,10 +32,6 @@ import javax.validation.Valid;
 @RequestMapping("/admin")
 @Api(tags = "后台博客管理模块")
 public class BlogController {
-
-    private String BLOGS = "admin/blogs";
-    private String BLOGS_INPUT = "admin/blogs-input";
-    private String BLOGS_REDIRECT = "redirect:/admin/blogs";
 
     @Resource
     private BlogService blogService;
@@ -73,7 +70,7 @@ public class BlogController {
 
         BLOG_MSG_NUM(model);
 
-        return BLOGS;
+        return Url.BLOGS;
     }
 
     /**
@@ -106,7 +103,7 @@ public class BlogController {
         model.addAttribute("blog",new Blog());
 
 
-        return BLOGS_INPUT;
+        return Url.BLOGS_INPUT;
     }
 
 
@@ -124,7 +121,7 @@ public class BlogController {
         blog.init();
         model.addAttribute("blog",blog);
 
-        return BLOGS_INPUT;
+        return Url.BLOGS_INPUT;
     }
 
     /**
@@ -157,7 +154,7 @@ public class BlogController {
             attributes.addFlashAttribute("msg", "操作成功!");
         }
 
-        return BLOGS_REDIRECT;
+        return Url.BLOGS_REDIRECT;
     }
 
 
@@ -176,7 +173,7 @@ public class BlogController {
             blogService.deleteBlog(id);
             attributes.addFlashAttribute("msg", "删除成功!");
         }
-        return BLOGS_REDIRECT;
+        return Url.BLOGS_REDIRECT;
     }
 
 

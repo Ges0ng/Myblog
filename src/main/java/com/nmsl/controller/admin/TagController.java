@@ -1,5 +1,6 @@
 package com.nmsl.controller.admin;
 
+import com.nmsl.entity.Url;
 import com.nmsl.entity.Tag;
 import com.nmsl.service.TagService;
 import io.swagger.annotations.Api;
@@ -31,10 +32,6 @@ import javax.validation.Valid;
 @Api(tags = "标签后台管理模块")
 public class TagController {
 
-    private String TAGS = "admin/tags";
-    private String TAGS_INPUT = "admin/tags-input";
-    private String TAGS_REDIRECT = "redirect:/admin/tags";
-
     @Resource
     private TagService tagService;
 
@@ -50,7 +47,7 @@ public class TagController {
                                 Pageable pageable, Model model) {
         model.addAttribute("tagNum", tagService.listTag());
         model.addAttribute("page", tagService.listTag(pageable));
-        return TAGS;
+        return Url.TAGS;
     }
 
     /**
@@ -61,7 +58,7 @@ public class TagController {
     @ApiOperation("新增标签页面")
     public String input(Model model){
         model.addAttribute("tag",new Tag());
-        return TAGS_INPUT;
+        return Url.TAGS_INPUT;
     }
 
 
@@ -73,7 +70,7 @@ public class TagController {
     public String editInput(@PathVariable Long id, Model model) {
 
         model.addAttribute("tag",tagService.getTag(id));
-        return TAGS_INPUT;
+        return Url.TAGS_INPUT;
     }
 
 
@@ -94,7 +91,7 @@ public class TagController {
 
         /*非空验证*/
         if (result.hasErrors()){
-            return TAGS_INPUT;
+            return Url.TAGS_INPUT;
         }
 
         Tag tagSave = tagService.saveTag(tag);
@@ -106,7 +103,7 @@ public class TagController {
             //保存成功
             attributes.addFlashAttribute("msg","添加成功!" );
         }
-        return TAGS_REDIRECT;
+        return Url.TAGS_REDIRECT;
     }
 
     /**
@@ -129,7 +126,7 @@ public class TagController {
 
         /*非空验证*/
         if (result.hasErrors()) {
-            return  TAGS_INPUT;
+            return  Url.TAGS_INPUT;
         }
 
         Tag tagUpdate = tagService.updateTag(id,tag);
@@ -141,7 +138,7 @@ public class TagController {
             //保存成功
             attributes.addFlashAttribute("msg", "更新成功!");
         }
-        return TAGS_REDIRECT;
+        return Url.TAGS_REDIRECT;
     }
 
     /**
@@ -155,7 +152,7 @@ public class TagController {
     public String delete(@PathVariable Long id,RedirectAttributes attributes){
         tagService.deleteTag(id);
         attributes.addFlashAttribute("msg", "删除成功!");
-        return TAGS_REDIRECT;
+        return Url.TAGS_REDIRECT;
     }
 
 }

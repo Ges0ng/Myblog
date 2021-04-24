@@ -1,9 +1,11 @@
 package com.nmsl.controller;
 
 import com.nmsl.entity.Comment;
+import com.nmsl.entity.Url;
 import com.nmsl.entity.User;
 import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
+import com.nmsl.utils.MailUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 
 /**
  * 评论
@@ -35,14 +40,7 @@ public class CommentController {
     @Value("${comment.avatar}")
     private String avatar;
 
-    /**
-     * 博客信息
-     * @param model
-     */
-    private void BLOG_MSG_NUM(Model model){
-        model.addAttribute("blogNum", blogService.listBlog());
-        model.addAttribute("commentNum", commentService.listComment());
-    }
+    private String toMail = "1473713606@qq.com";    //默认通知邮箱
 
     /**
      * 评论内容局部刷新
@@ -60,13 +58,15 @@ public class CommentController {
 
     @PostMapping("/comments")
     @ApiOperation(value = "评论")
-    public String post(Comment comment, HttpSession session){
+    public String post(Comment comment, HttpSession session) throws MessagingException, GeneralSecurityException, UnsupportedEncodingException {
         Long blogId = comment.getBlog().getId();
         comment.setBlog(blogService.getBlog(blogId));
 
-        /*评论时候的管理员判断*/
+        /*评论时候的判断是否是管理员*/
         User user = (User) session.getAttribute("user");
         if (user != null) {
+            toMail = user.getEmail();
+
             comment.setAvatar(user.getAvatar());
             comment.setAdminComment(true);
             comment.setNickname(user.getNickname());
@@ -75,9 +75,26 @@ public class CommentController {
             comment.setAvatar(avatar);
         }
         commentService.saveComment(comment);
-        return "redirect:/comments/" + blogId;
+
+        //发送邮件通知
+        MailUtil mailUtil = new MailUtil();
+        //假如回复的用户存在，则发邮件通知被回复用户
+        if (comment.getParentComment() != null) {
+            toMail = comment.getParentComment().getEmail();
+        }
+        //发送邮件
+        mailUtil.sendMail("您的博客有新评论","您有新的评论："+comment.getContent(), toMail);
+
+        return Url.COMMENTS + "/" + blogId;
     }
 
-
+    /**
+     * 博客信息
+     * @param model
+     */
+    private void BLOG_MSG_NUM(Model model){
+        model.addAttribute("blogNum", blogService.listBlog());
+        model.addAttribute("commentNum", commentService.listComment());
+    }
 
 }

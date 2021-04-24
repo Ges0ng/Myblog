@@ -19,7 +19,7 @@ import java.awt.*;
  */
 
 @Controller
-@Api(tags = "验证码模块，暂时无法使用")
+@Api(tags = "验证码模块")
 public class CaptchaController {
 
     /**

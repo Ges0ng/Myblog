@@ -27,19 +27,24 @@ public class AboutController {
     private CommentService commentService;
 
     /**
+     * 跳转到关于我页面
+     * @param model
+     * @return
+     */
+    @GetMapping("/about")
+    @ApiOperation(value = "跳转到'关于我'页面")
+    public String about(Model model){
+        BLOG_MSG_NUM(model);
+        return "about";
+    }
+
+    /**
      * 博客信息
      * @param model
      */
     private void BLOG_MSG_NUM(Model model){
         model.addAttribute("blogNum", blogService.listBlog());
         model.addAttribute("commentNum", commentService.listComment());
-    }
-
-    @GetMapping("/about")
-    @ApiOperation(value = "跳转到'关于我'页面")
-    public String about(Model model){
-        BLOG_MSG_NUM(model);
-        return "about";
     }
 
 }

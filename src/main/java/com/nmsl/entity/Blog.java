@@ -53,7 +53,7 @@ public class Blog implements Serializable {
     /*转载声明是否开启*/
     private boolean shareStatement;
 
-    /*评论*/
+    /*评论是否开启*/
     private boolean commentabled;
 
     /*是否推荐*/
