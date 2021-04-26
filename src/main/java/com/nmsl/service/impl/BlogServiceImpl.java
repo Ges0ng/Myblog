@@ -1,5 +1,6 @@
 package com.nmsl.service.impl;
 
+import com.nmsl.cache.RedisCache;
 import com.nmsl.exception.NotFoundException;
 import com.nmsl.dao.BlogRepository;
 import com.nmsl.entity.Blog;
@@ -9,11 +10,14 @@ import com.nmsl.utils.MarkdownUtils;
 import com.nmsl.utils.MyBeanUtils;
 import com.nmsl.controller.model.BlogQuery;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,11 +31,13 @@ import java.util.*;
  * @Version 1.0
  */
 @Service
-
 public class BlogServiceImpl implements BlogService {
 
     @Resource
     private BlogRepository blogRepository;
+
+    @Resource
+    private RedisCache redisCache;
 
     /**
      * 查询blog对象
@@ -40,6 +46,7 @@ public class BlogServiceImpl implements BlogService {
      */
     @Override
     public Blog getBlog(Long id) {
+
         return blogRepository.findById(id).get();
     }
 
@@ -64,6 +71,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Page<Blog> listBlog(Pageable pageable) {
+
         return blogRepository.findAll(pageable);
     }
 
@@ -175,6 +183,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+//    @Cacheable(cacheNames = "findBlogAll")
     public List<Blog> listBlog() {
         return blogRepository.findAll();
     }
@@ -194,5 +203,14 @@ public class BlogServiceImpl implements BlogService {
 
 
         return map;
+    }
+
+    /**
+     * 所有查看
+     * @return
+     */
+    @Override
+    public int allViews () {
+        return blogRepository.findAllByViews();
     }
 }

@@ -10,11 +10,36 @@
         prefix: classpath:/templates/
         suffix: .html
 
+    comment.avatar: /images/cstx.jpg
+    email.from: paracosm@foxmail.com
 
     spring:
         mvc:
                 static-path-pattern: /**
         profiles:
             active: dev
+        redis:
+            #地址
+            host: local
+            #端口，默认6379。。
+            port: 6377
+            #数据库索引 默认0
+            database: 0
+            #密码
+            password:
+            #连接超时时间
+            timeout: 10s
+            #Lettuce 是 一种可伸缩，线程安全，完全非阻塞的Redis客户端，多个线程可以共享一个RedisConnection,
+            #它利用Netty NIO 框架来高效地管理多个连接，从而提供了异步和同步数据访问方式，用于构建非阻塞的反应性应用程序。
+            lettuce:
+              pool:
+                # 连接池中的最小空闲连接
+                min-idle: 0
+                # 连接池中的最大空闲连接
+                max-idle: 8
+                # 连接池的最大数据库连接数
+                max-active: 8
+                # #连接池最大阻塞等待时间（使用负值表示没有限制）
+                max-wait: -1ms
 
-    comment.avatar: /images/cstx.jpg
+

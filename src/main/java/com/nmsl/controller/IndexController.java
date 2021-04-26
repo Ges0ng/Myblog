@@ -6,6 +6,7 @@ import com.nmsl.service.TagService;
 import com.nmsl.service.TypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -40,13 +41,15 @@ public class IndexController {
     @Resource
     private CommentService commentService;
 
+
     /**
      * 博客信息
      * @param model
      */
     private void BLOG_MSG_NUM(Model model){
         model.addAttribute("blogNum", blogService.listBlog());
-         model.addAttribute("commentNum", commentService.listComment());
+        model.addAttribute("viewsNum", blogService.allViews());
+        model.addAttribute("commentNum", commentService.listComment());
     }
 
     /**
@@ -89,13 +92,14 @@ public class IndexController {
 
     /**
      * 根据id进入博客
+     *
      * @param id
      * @param model
      * @return
      */
-    @GetMapping("/blog/{id}")
-    @ApiOperation(value = "根据id查看博客信息")
-    public String blog(@PathVariable Long id,Model model){
+    @GetMapping ("/blog/{id}")
+    @ApiOperation (value = "根据id查看博客信息")
+    public String blog (@PathVariable Long id, Model model) {
         BLOG_MSG_NUM(model);
 
         if (!blogService.getBlog(id).isPublished()) {

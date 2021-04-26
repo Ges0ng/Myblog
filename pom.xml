@@ -15,35 +15,85 @@
         <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
         <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
         <thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
+        <spring-aspects.version>5.3.2</spring-aspects.version>
+        <oshi.version>5.7.0</oshi.version>
+        <easy-captcha.version>1.6.2</easy-captcha.version>
+        <knife4j.version>2.0.7</knife4j.version>
+        <commonmark.version>0.17.0</commonmark.version>
+        <commons-email.version>1.4</commons-email.version>  <!--1.4-->
+        <javax.mail-api.version>1.5.6</javax.mail-api.version>  <!--1.5.6-->
+        <javax.mail.version>1.5.3</javax.mail.version>
+        <druid.version>1.2.4</druid.version>
+        <redis.version>2.4.5</redis.version>
+
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.76</version>
+        </dependency>
+
+        <!--Redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>${redis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+        <!--测试-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--durid连接池-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+
+        <!-- 获取系统信息 -->
+<!--        <dependency>-->
+<!--            <groupId>com.github.oshi</groupId>-->
+<!--            <artifactId>oshi-core</artifactId>-->
+<!--            <version>${oshi.version}</version>-->
+<!--        </dependency>-->
+
         <!--easy-captcha 验证码-->
         <dependency>
             <groupId>com.github.whvcse</groupId>
             <artifactId>easy-captcha</artifactId>
-            <version>1.6.2</version>
+            <version>${easy-captcha.version}</version>
         </dependency>
 
         <!--knife4j-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.7</version>
+            <version>${knife4j.version}</version>
         </dependency>
 
         <!--邮件-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-email</artifactId>
-            <version>1.4</version>
+            <version>${commons-email.version}</version>
         </dependency>
 
         <!-- 发送邮件依赖的 jar 包-->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
-            <version>1.5.6</version>
+            <version>${javax.mail-api.version}</version>
         </dependency>
 
         <!-- MailSSLSocketFactory 加密的 jar 包 -->
@@ -51,47 +101,44 @@
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
-            <version>1.5.3</version>
+            <version>${javax.mail.version}</version>
         </dependency>
 
-
+        <!--aspects-->
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-aspects -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
-            <version>5.3.2</version>
+            <version>${spring-aspects.version}</version>
         </dependency>
 
         <!--markdown编辑器-->
         <dependency>
             <groupId>org.commonmark</groupId>
             <artifactId>commonmark</artifactId>
-            <version>0.17.0</version>
+            <version>${commonmark.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.commonmark/commonmark-ext-gfm-tables -->
         <dependency>
             <groupId>org.commonmark</groupId>
             <artifactId>commonmark-ext-gfm-tables</artifactId>
-            <version>0.17.0</version>
+            <version>${commonmark.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.commonmark</groupId>
             <artifactId>commonmark-ext-heading-anchor</artifactId>
-            <version>0.17.0</version>
+            <version>${commonmark.version}</version>
         </dependency>
+
+
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-
-        <!--<dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.2.3</version>
-        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -101,6 +148,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
        <!-- <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -144,7 +192,6 @@
             <artifactId>hibernate-validator</artifactId>
             <version>6.1.5.Final</version>
         </dependency>
-
 
     </dependencies>
     <dependencyManagement>

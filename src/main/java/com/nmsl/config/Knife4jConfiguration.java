@@ -10,6 +10,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 /**
+ * knife4j配置
  * @author paracosm
  * @version 1.0
  * @date 2021/4/5 16:11
@@ -28,6 +29,7 @@ public class Knife4jConfiguration {
                         .contact("704965520@qq.com")
                         .version("1.3")
                         .build())
+
                 //分组名称
                 .groupName("1.3版本")
                 .select()

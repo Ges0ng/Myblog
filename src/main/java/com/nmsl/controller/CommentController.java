@@ -94,6 +94,7 @@ public class CommentController {
      */
     private void BLOG_MSG_NUM(Model model){
         model.addAttribute("blogNum", blogService.listBlog());
+        model.addAttribute("viewsNum", blogService.allViews());
         model.addAttribute("commentNum", commentService.listComment());
     }
 

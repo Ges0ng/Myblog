@@ -1,9 +1,55 @@
 spring:
     datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
-        username: username
-        password: password
+        druid:
+            url: jdbc:mysql://local:3306/blog?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+            username: root
+            password:
+
+            # 初始连接数
+            initialSize: 5
+            # 最小连接池数量
+            minIdle: 10
+            # 最大连接池数量
+            maxActive: 20
+            # 配置获取连接等待超时的时间
+            maxWait: 60000
+            # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+            timeBetweenEvictionRunsMillis: 60000
+            # 配置一个连接在池中最小生存的时间，单位是毫秒
+            minEvictableIdleTimeMillis: 300000
+            # 配置一个连接在池中最大生存的时间，单位是毫秒
+            maxEvictableIdleTimeMillis: 900000
+            # 配置检测连接是否有效
+            validationQuery: SELECT 1 FROM DUAL
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            webStatFilter:
+                enabled: true
+            statViewServlet:
+                enabled: true
+                # 设置白名单，不填则允许所有访问
+                allow:
+                url-pattern: /druid/*
+                # 控制台管理用户名和密码
+                login-username: root
+                login-password:
+
+            filter:
+                stat:
+                    enabled: true
+                    #慢sql记录日志
+                    log-slow-sql: true
+                    #延迟大于x则记录
+                    slow-sql-millis: 2000
+                    #sql统计的merge功能
+                    merge-sql: true
+                wall:
+                    config:
+                        multi-statement-allow: true
+
     jpa:
         hibernate:
             ddl-auto: none
@@ -21,3 +67,8 @@ logging:
 
 server:
     port: 80
+
+knife4j:
+    enable: true
+    #生成环境屏蔽
+    production: true

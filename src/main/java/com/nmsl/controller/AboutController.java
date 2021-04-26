@@ -1,5 +1,6 @@
 package com.nmsl.controller;
 
+import com.nmsl.service.AboutService;
 import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
 import io.swagger.annotations.Api;
@@ -23,8 +24,12 @@ public class AboutController {
     @Resource
     private BlogService blogService;
 
+
     @Resource
     private CommentService commentService;
+
+    @Resource
+    private AboutService aboutService;
 
     /**
      * 跳转到关于我页面
@@ -34,6 +39,7 @@ public class AboutController {
     @GetMapping("/about")
     @ApiOperation(value = "跳转到'关于我'页面")
     public String about(Model model){
+        model.addAttribute("aboutText", aboutService.listAbout());
         BLOG_MSG_NUM(model);
         return "about";
     }
@@ -45,6 +51,7 @@ public class AboutController {
     private void BLOG_MSG_NUM(Model model){
         model.addAttribute("blogNum", blogService.listBlog());
         model.addAttribute("commentNum", commentService.listComment());
+        model.addAttribute("viewsNum", blogService.allViews());
     }
 
 }

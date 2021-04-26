@@ -39,4 +39,5 @@ public interface BlogService {
 
     Map<String,List<Blog>> archiveBlog();
 
+    int allViews();
 }
