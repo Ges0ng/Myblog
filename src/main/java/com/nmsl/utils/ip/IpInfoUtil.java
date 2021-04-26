@@ -1,4 +1,4 @@
-package com.nmsl.utils;
+package com.nmsl.utils.ip;
 
 import org.springframework.stereotype.Component;
 

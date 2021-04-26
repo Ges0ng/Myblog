@@ -4,12 +4,15 @@ import com.nmsl.entity.Url;
 import com.nmsl.entity.User;
 import com.nmsl.service.*;
 import com.nmsl.utils.Md5Utils;
+import com.nmsl.utils.ip.AddressUtils;
 import com.wf.captcha.utils.CaptchaUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
@@ -46,7 +49,8 @@ public class LoginController {
      */
     @GetMapping
     @ApiOperation(value = "进入登录页面")
-    public String loginPage(){
+    public String loginPage(Model model){
+        model.addAttribute("adr", AddressUtils.getAddr());
         return Url.LOGIN;
     }
     /**

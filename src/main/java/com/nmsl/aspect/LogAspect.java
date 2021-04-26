@@ -1,5 +1,6 @@
 package com.nmsl.aspect;
 
+import com.nmsl.utils.ip.AddressUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
@@ -52,6 +53,8 @@ public class LogAspect {
 
         /*ip地址*/
         String ip = request.getRemoteAddr();
+        /*真实地址*/
+        String adr = AddressUtils.getRealAddressByIP(ip);
 
         /*
         * joinPoint.getSignature().getDeclaringTypeName() 声明类型名称
@@ -63,7 +66,7 @@ public class LogAspect {
         Object[] args = joinPoint.getArgs();
 
         /*输出日志*/
-        RequestLog requestLog = new RequestLog(url,ip,classMethod,args);
+        RequestLog requestLog = new RequestLog(url,ip,adr,classMethod,args);
         log.info("Request : {}", requestLog);
     }
 
@@ -106,6 +109,7 @@ public class LogAspect {
     private class RequestLog{
         private String url;
         private String ip;
+        private String addr;
         private String classMethod;
         private Object[] args;
 

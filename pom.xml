@@ -62,11 +62,11 @@
         </dependency>
 
         <!-- 获取系统信息 -->
-<!--        <dependency>-->
-<!--            <groupId>com.github.oshi</groupId>-->
-<!--            <artifactId>oshi-core</artifactId>-->
-<!--            <version>${oshi.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+            <version>${oshi.version}</version>
+        </dependency>
 
         <!--easy-captcha 验证码-->
         <dependency>
