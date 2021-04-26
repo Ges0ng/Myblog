@@ -27,7 +27,7 @@ public class MailUtil {
     private String host = "smtp.qq.com";
     private int port = 25;
     private String userName = "paracosm@foxmail.com";
-    private String password = "lrpfifpaxvhqbffa";
+    private String password = "";
     private String to = "";
 
     /**
