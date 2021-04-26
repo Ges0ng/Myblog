@@ -1,5 +1,7 @@
 package com.nmsl.aspect;
 
+import com.nmsl.entity.system.Request;
+import com.nmsl.service.RequestService;
 import com.nmsl.utils.ip.AddressUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * @Author Paracosm
@@ -26,7 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class LogAspect {
 
-
+    @Resource
+    private RequestService proxy;
 
     /*定义一个切面
     * execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern)throws-pattern?)
@@ -50,7 +55,6 @@ public class LogAspect {
 
         /*url*/
         String url = request.getRequestURL().toString();
-
         /*ip地址*/
         String ip = request.getRemoteAddr();
         /*真实地址*/
@@ -61,13 +65,22 @@ public class LogAspect {
         * joinPoint.getSignature().getName(); 方法的名字
         */
         String classMethod = joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName();
-
         /*参数*/
         Object[] args = joinPoint.getArgs();
-
         /*输出日志*/
         RequestLog requestLog = new RequestLog(url,ip,adr,classMethod,args);
         log.info("Request : {}", requestLog);
+
+        //保存日志到数据库
+        Request requestEntity = new Request();
+        requestEntity.setUrl(url);
+        requestEntity.setIp(ip);
+        requestEntity.setAddr(adr);
+        requestEntity.setClassMethod(classMethod);
+        if (proxy.truncateLog()) {
+            log.info("请求参数日志 : {}", "数据库日志记录超过10000条，删除成功");
+        }
+        proxy.saveLog(requestEntity);
     }
 
 
