@@ -1,33 +1,22 @@
-    thymeleaf:
-        cache: false
-        check-template: true
-        check-template-location: true
-        content-type: text/html
-        enabled: true
-        encoding: UTF-8
-        excluded-view-names: ''
-        mode: HTML5
-        prefix: classpath:/templates/
-        suffix: .html
-
     comment.avatar: /images/cstx.jpg
     email.from: paracosm@foxmail.com
     log.enable: true
+    bak.enable: true
 
     spring:
         mvc:
-                static-path-pattern: /**
+            static-path-pattern: /**
         profiles:
-            active: dev
+            active: pro
         redis:
             #地址
             host:
             #端口，默认6379。。
-            port: 6377
+            port: 6379
             #数据库索引 默认0
             database: 0
             #密码
-            password:
+            password: 1212
             #连接超时时间
             timeout: 10s
             #Lettuce 是 一种可伸缩，线程安全，完全非阻塞的Redis客户端，多个线程可以共享一个RedisConnection,
@@ -42,5 +31,16 @@
                 max-active: 8
                 # #连接池最大阻塞等待时间（使用负值表示没有限制）
                 max-wait: -1ms
-
-
+        thymeleaf:
+          cache: false
+          check-template: true
+          check-template-location: true
+          content-type: text/html
+          enabled: true
+          encoding: UTF-8
+          excluded-view-names: ''
+          mode: HTML
+          prefix: classpath:/templates/
+          suffix: .html
+          servlet:
+            content-type: text/html
