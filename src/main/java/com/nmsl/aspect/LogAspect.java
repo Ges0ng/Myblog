@@ -4,7 +4,6 @@ import com.nmsl.entity.system.Request;
 import com.nmsl.service.RequestService;
 import com.nmsl.utils.ip.AddressUtils;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -12,10 +11,8 @@ import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 /**
  * @Author Paracosm
@@ -33,7 +30,8 @@ public class LogAspect {
     @Resource
     private RequestService proxy;
 
-    /*定义一个切面
+    /**
+     * 定义一个切面
     * execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern)throws-pattern?)
     * Controller下的所有控制器,无论私有共有的类的所有方法
     * */
@@ -44,7 +42,7 @@ public class LogAspect {
     }
 
 
-    /*方法之前
+    /**方法之前
     * @After("log()") 切面方法
     * */
 
@@ -68,7 +66,7 @@ public class LogAspect {
         /*参数*/
         Object[] args = joinPoint.getArgs();
         /*输出日志*/
-        RequestLog requestLog = new RequestLog(url,ip,adr,classMethod,args);
+        RequestLog requestLog = new RequestLog(url, ip, adr, classMethod, args);
         log.info("Request : {}", requestLog);
 
         //保存日志到数据库
@@ -84,20 +82,20 @@ public class LogAspect {
     }
 
 
-    /*方法执行完返回之后拦截 声明后置通知
+    /**
+     * 方法执行完返回之后拦截 声明后置通知
      *     @AfterReturning(returning = "result",pointcut = "log()") 确定返回的参数,切面方法
      * */
-
     @AfterReturning(returning = "result",pointcut = "log()")
     public void doAfterReturn(Object result){
-        /*log.info("Result:{}",result);*/
+        log.info("Result:{}",result);
     }
 
 
-    /*方法之后 最终声明
+    /*** 方法之后 最终声明
     * @After("log()") 切面方法
+    *
     * */
-
     @After("log()")
     public void doAfter(){
         /*log.info("--------doAfter---------");*/

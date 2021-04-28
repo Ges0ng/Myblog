@@ -14,7 +14,7 @@ import java.util.Collection;
 /**
  * 获取地址类
  * 
- * @author ruoyi
+ * @author paracosm
  */
 public class AddressUtils
 {

@@ -1,7 +1,7 @@
 package com.nmsl.controller.admin;
 
 import com.nmsl.entity.Blog;
-import com.nmsl.entity.Url;
+import com.nmsl.common.CommonUrl;
 import com.nmsl.entity.User;
 import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
@@ -70,7 +70,7 @@ public class BlogController {
 
         BLOG_MSG_NUM(model);
 
-        return Url.BLOGS;
+        return CommonUrl.BLOGS;
     }
 
     /**
@@ -103,7 +103,7 @@ public class BlogController {
         model.addAttribute("blog",new Blog());
 
 
-        return Url.BLOGS_INPUT;
+        return CommonUrl.BLOGS_INPUT;
     }
 
 
@@ -121,7 +121,7 @@ public class BlogController {
         blog.init();
         model.addAttribute("blog",blog);
 
-        return Url.BLOGS_INPUT;
+        return CommonUrl.BLOGS_INPUT;
     }
 
     /**
@@ -154,7 +154,7 @@ public class BlogController {
             attributes.addFlashAttribute("msg", "操作成功!");
         }
 
-        return Url.BLOGS_REDIRECT;
+        return CommonUrl.BLOGS_REDIRECT;
     }
 
 
@@ -173,7 +173,7 @@ public class BlogController {
             blogService.deleteBlog(id);
             attributes.addFlashAttribute("msg", "删除成功!");
         }
-        return Url.BLOGS_REDIRECT;
+        return CommonUrl.BLOGS_REDIRECT;
     }
 
 

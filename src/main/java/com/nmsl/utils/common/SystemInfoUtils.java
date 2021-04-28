@@ -1,4 +1,4 @@
-package com.nmsl.utils;
+package com.nmsl.utils.common;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;

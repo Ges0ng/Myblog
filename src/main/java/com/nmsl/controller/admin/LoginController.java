@@ -1,6 +1,6 @@
 package com.nmsl.controller.admin;
 
-import com.nmsl.entity.Url;
+import com.nmsl.common.CommonUrl;
 import com.nmsl.entity.User;
 import com.nmsl.service.*;
 import com.nmsl.utils.Md5Utils;
@@ -11,8 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
@@ -51,7 +49,7 @@ public class LoginController {
     @ApiOperation(value = "进入登录页面")
     public String loginPage(Model model){
         model.addAttribute("adr", AddressUtils.getAddr());
-        return Url.LOGIN;
+        return CommonUrl.LOGIN;
     }
     /**
      * 管理员登录验证
@@ -76,7 +74,7 @@ public class LoginController {
         if (!CaptchaUtil.ver(verCode, request)) {
             CaptchaUtil.clear(request);  // 清除session中的验证码
             attributes.addFlashAttribute("message", "验证码不正确");
-            return Url.REDIRECT_ADMIN;
+            return CommonUrl.REDIRECT_ADMIN;
         }
 
         //校对用户
@@ -88,7 +86,7 @@ public class LoginController {
             return "admin/index";
         } else {
             attributes.addFlashAttribute("message", "用户名和密码错误");
-            return Url.REDIRECT_ADMIN;
+            return CommonUrl.REDIRECT_ADMIN;
         }
     }
 
@@ -101,7 +99,7 @@ public class LoginController {
     @ApiOperation(value = "用户注销")
     public String logout(HttpSession session){
         session.removeAttribute("user");
-        return Url.REDIRECT_ADMIN;
+        return CommonUrl.REDIRECT_ADMIN;
     }
 
     //博客相关信息

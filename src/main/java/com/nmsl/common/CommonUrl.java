@@ -1,12 +1,12 @@
-package com.nmsl.entity;
+package com.nmsl.common;
 
 /**
- * 固定url
+ * 固定跳转url
  * @author paracosm
  * @version 1.0
  * @date 2021/4/23 23:16
  */
-public final class Url {
+public final class CommonUrl {
 
     /**
      * redirect 重定向

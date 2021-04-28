@@ -1,6 +1,6 @@
 package com.nmsl.controller.admin;
 
-import com.nmsl.entity.Url;
+import com.nmsl.common.CommonUrl;
 import com.nmsl.entity.Type;
 import com.nmsl.service.TypeService;
 import io.swagger.annotations.Api;
@@ -47,7 +47,7 @@ public class TypeController {
                                 Pageable pageable, Model model) {
         model.addAttribute("typeNum", typeService.listType());
         model.addAttribute("page", typeService.listType(pageable));
-        return Url.TYPES;
+        return CommonUrl.TYPES;
     }
 
     /**
@@ -58,7 +58,7 @@ public class TypeController {
     @ApiOperation(value = "新增分类页面")
     public String input(Model model){
         model.addAttribute("type",new Type());
-        return Url.TYPES_INPUT;
+        return CommonUrl.TYPES_INPUT;
     }
 
 
@@ -70,7 +70,7 @@ public class TypeController {
     public String editInput(@PathVariable Long id, Model model) {
 
         model.addAttribute("type",typeService.getType(id));
-        return Url.TYPES_INPUT;
+        return CommonUrl.TYPES_INPUT;
     }
 
 
@@ -91,7 +91,7 @@ public class TypeController {
 
         /*非空验证*/
         if (result.hasErrors()){
-            return Url.TYPES_INPUT;
+            return CommonUrl.TYPES_INPUT;
         }
 
         Type typeSave = typeService.saveType(type);
@@ -103,7 +103,7 @@ public class TypeController {
             //保存成功
             attributes.addFlashAttribute("msg","添加成功!" );
         }
-        return Url.TYPES_REDIRECT;
+        return CommonUrl.TYPES_REDIRECT;
     }
 
     /**
@@ -125,7 +125,7 @@ public class TypeController {
         }
         /*非空验证*/
         if (result.hasErrors()) {
-            return Url.TYPES_INPUT;
+            return CommonUrl.TYPES_INPUT;
         }
 
         Type typeUpdate = typeService.updateType(id,type);
@@ -136,7 +136,7 @@ public class TypeController {
             //保存成功
             attributes.addFlashAttribute("msg", "更新成功!");
         }
-        return Url.TYPES_REDIRECT;
+        return CommonUrl.TYPES_REDIRECT;
     }
 
     /**
@@ -150,7 +150,7 @@ public class TypeController {
     public String delete(@PathVariable Long id,RedirectAttributes attributes){
         typeService.deleteType(id);
         attributes.addFlashAttribute("msg", "删除成功!");
-        return Url.TYPES_REDIRECT;
+        return CommonUrl.TYPES_REDIRECT;
     }
 
 }

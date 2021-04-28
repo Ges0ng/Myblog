@@ -1,4 +1,4 @@
-package com.nmsl.utils;
+package com.nmsl.utils.common;
 
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;

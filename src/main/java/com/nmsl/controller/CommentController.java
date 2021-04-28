@@ -1,7 +1,7 @@
 package com.nmsl.controller;
 
 import com.nmsl.entity.Comment;
-import com.nmsl.entity.Url;
+import com.nmsl.common.CommonUrl;
 import com.nmsl.entity.User;
 import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
@@ -85,7 +85,7 @@ public class CommentController {
         //发送邮件
         mailUtil.sendMail("您的博客有新评论","您有新的评论："+comment.getContent(), toMail);
 
-        return Url.COMMENTS + "/" + blogId;
+        return CommonUrl.COMMENTS + "/" + blogId;
     }
 
     /**

@@ -5,7 +5,7 @@ import com.nmsl.utils.StringUtils;
 /**
  * 转义和反转义工具类
  * 
- * @author ruoyi
+ * @author paracosm
  */
 public class EscapeUtil
 {

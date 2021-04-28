@@ -12,8 +12,9 @@ import java.util.Set;
 
 /**
  * 类型转换器
- *
- * @author ruoyi
+ * @author paracosm
+ * @version 1.0
+ * @date 2021/4/24 0:46
  */
 public class Convert
 {
