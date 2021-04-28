@@ -1,16 +1,16 @@
 # MyBlog
 
 #### 介绍
-前端 thymeleaf + semantic-ui + ajax 
-后端 springboot2.0 + spring data JPA + mysql 5.7 + druid连接池监控数据 + redis作为二级缓存 + knife4j接口文档(pro环境自动屏蔽)
-插件 mail邮件通知 + easy-captcha验证码登录 + oshi监控服务器信息 + quartz定时任务备份数据库（但是java不能直接执行linux的命令，仍旧需要依赖第三方库ganymed）
+前端 thymeleaf + semantic-ui + ajax </br></br>
+后端 springboot2.0 + spring data JPA + mysql 5.7 + druid连接池监控数据 + redis作为二级缓存 + knife4j接口文档(pro环境自动屏蔽)</br>
+插件 mail邮件通知 + easy-captcha验证码登录 + oshi监控服务器信息 + quartz定时任务备份数据库（但是java不能直接执行linux的命令，仍旧需要依赖第三方库ganymed）</br>
 
-做成的个人博客项目, 使用aop来生成和记录日志内容存入数据库, quartz定时备份数据库.
+做成的个人博客项目, 使用aop来生成和记录日志内容存入数据库, quartz定时备份数据库.</br>
 
-验证码验证登录后台,也可以用base64来转换存储验证码.
-获取真实ip地址并转换为地区信息，
-相关功能有兴趣的可以自己研究.
-由于是个人博客所以不开放注册功能,只有博主 即管理员才能进行登录和相关的管理. 管理员账户用简单的MD5验证，后期会升级成bearer token验证.
+验证码验证登录后台,也可以用base64来转换存储验证码.</br>
+获取真实ip地址并转换为地区信息，</br>
+相关功能有兴趣的可以自己研究.</br>
+由于是个人博客所以不开放注册功能,只有博主 即管理员才能进行登录和相关的管理. 管理员账户用简单的MD5验证，后期会升级成bearer token验证.</br>
 
 博客内容采用的markdown编辑器,可以通过简单、易读易写的文本格式生成结构化的HTML文档。    
 具有代码高亮,二维码自主生成,博客目录自主侦测,页面动画等插件供使用,有兴趣的可以自己参考官方文档来添加特效相关.
