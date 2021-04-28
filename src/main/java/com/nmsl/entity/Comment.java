@@ -19,37 +19,62 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity //用的是jpa
+@Entity
 @Table(name = "t_comment")
 public class Comment implements Serializable {
-
+    /**
+     * 自增id 主键
+     * GeneratedValue 生成策略
+     */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //生成策略 //生成策略
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    /*昵称*/
+    /**
+     * 昵称
+     * */
     private String nickname;
-    /*邮箱*/
+    /**
+     * 邮箱
+     * */
     private String email;
 
-    /*评论的内容*/
+    /**
+     * 评论的内容
+     * */
     private String content;
 
-    /*头像*/
+    /**
+     * 头像
+     * */
     private String avatar;
 
-    /*创建时间*/
+    /**
+     * 创建时间
+     * */
     @Temporal(TemporalType.TIMESTAMP) /*对应数据库生成时间的类型*/
     private Date createTime;
 
+    /**
+     * bolg类
+     */
     @ManyToOne
     private Blog blog;
 
-    @OneToMany(mappedBy = "parentComment")  /*父级对象, 一个父类对应多个子类*/
+    /**
+     * 父级对象, 一个父类对应多个子类
+     * */
+    @OneToMany(mappedBy = "parentComment")
     private List<Comment> replyComments = new ArrayList<>();
 
+    /**
+     * 上级评论
+     */
     @ManyToOne
     private Comment parentComment;
 
+    /**
+     * 管理员评论
+     */
     private boolean adminComment;
 
  }

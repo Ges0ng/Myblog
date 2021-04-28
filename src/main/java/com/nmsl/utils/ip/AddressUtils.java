@@ -10,34 +10,40 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * 获取地址类
  * 
  * @author paracosm
  */
-public class AddressUtils
-{
+public class AddressUtils {
     private static final Logger log = LoggerFactory.getLogger(AddressUtils.class);
 
-    // IP地址查询
+    /**
+     * IP地址查询
+     */
     public static final String IP_URL = "http://whois.pconline.com.cn/ipJson.jsp";
 
-    // 未知地址
+    /**
+     * 未知地址
+     */
     public static final String UNKNOWN = "XX XX";
 
     /**
      * 真实地址
-     * @return
      */
     public static String getAddr() {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
+        HttpServletRequest request = attributes != null ? attributes.getRequest() : null;
         /*ip地址*/
-        String ip = request.getRemoteAddr();
+//        String ip = request != null ? request.getRemoteAddr() : null;
+
+        IpInfoUtil ip = new IpInfoUtil();
+        String ipAddr = ip.getIpAddr(Objects.requireNonNull(request));
         /*真实地址*/
-        String adr = getRealAddressByIP(ip);
-        return adr;
+        String realAddressByIP = getRealAddressByIP(ipAddr);
+        return realAddressByIP;
     }
 
     public static String getRealAddressByIP(String ip)

@@ -6,22 +6,26 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * @author paracosm
+ */
 @Component
 public class IpInfoUtil {
 
 	/**
 	 * 获取客户端IP地址
-	 *
-	 * @param request 请求
-	 * @return
 	 */
 	public String getIpAddr(HttpServletRequest request) {
+
+		if (request == null) {
+			return "unknown";
+		}
 
 		String ip = request.getHeader("x-forwarded-for");
 
 		if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
 			// 多次反向代理后会有多个ip值，第一个ip才是真实ip
-			if (ip.indexOf(",") != -1) {
+			if (ip.contains(",")) {
 				ip = ip.split(",")[0];
 			}
 		}
@@ -58,4 +62,5 @@ public class IpInfoUtil {
 		}
 		return ip;
 	}
+
 }

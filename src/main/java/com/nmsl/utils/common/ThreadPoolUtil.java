@@ -5,6 +5,10 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 线程池工具类
+ * @author paracosm
+ */
 public class ThreadPoolUtil {
 
     /**

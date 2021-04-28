@@ -37,9 +37,6 @@ public class TypeController {
 
     /**
      * 分页查询按照id的倒序排序
-     *
-     * @param pageable
-     * @return
      */
     @GetMapping("/types")
     @ApiOperation(value = "分页查询按照id的倒序排序")
@@ -52,7 +49,6 @@ public class TypeController {
 
     /**
      * 新增分类页面
-     * @return
      */
     @GetMapping("/types/input")
     @ApiOperation(value = "新增分类页面")
@@ -77,7 +73,6 @@ public class TypeController {
     /**
      * 新增分类提交
      * @Valid 代表要校验对象
-     * @return
      */
     @PostMapping("/types")
     @ApiOperation(value = "新增分类提交")
@@ -108,11 +103,6 @@ public class TypeController {
 
     /**
      * 更新分类名称
-     * @param type
-     * @param result
-     * @param id
-     * @param attributes
-     * @return
      */
     @PostMapping("/types/{id}")
     @ApiOperation(value = "更新分类名称")
@@ -141,9 +131,6 @@ public class TypeController {
 
     /**
      * 根据id删除标签
-     * @param id
-     * @param attributes
-     * @return
      */
     @GetMapping("/types/{id}/delete")
     @ApiOperation(value = "根据id删除标签")

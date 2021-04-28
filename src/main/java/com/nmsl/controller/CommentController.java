@@ -40,13 +40,13 @@ public class CommentController {
     @Value("${comment.avatar}")
     private String avatar;
 
-    private String toMail = "1473713606@qq.com";    //默认通知邮箱
+    /**
+     * 默认的通知邮箱
+     */
+    private String toMail = "1473713606@qq.com";
 
     /**
      * 评论内容局部刷新
-     * @param blogId
-     * @param model
-     * @return
      */
     @GetMapping("/comments/{blogId}")
     @ApiOperation(value = "查询博客下的评论")
@@ -90,7 +90,6 @@ public class CommentController {
 
     /**
      * 博客信息
-     * @param model
      */
     private void BLOG_MSG_NUM(Model model){
         model.addAttribute("blogNum", blogService.listBlog());

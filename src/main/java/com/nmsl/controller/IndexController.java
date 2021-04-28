@@ -4,7 +4,6 @@ import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
 import com.nmsl.service.TagService;
 import com.nmsl.service.TypeService;
-import com.nmsl.utils.ip.AddressUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +43,6 @@ public class IndexController {
 
     /**
      * 博客信息
-     * @param model
      */
     private void BLOG_MSG_NUM(Model model){
         model.addAttribute("blogNum", blogService.listBlog());
@@ -54,9 +52,6 @@ public class IndexController {
 
     /**
      * 首页
-     * @param pageable
-     * @param model
-     * @return
      */
     @GetMapping(value = {"/","/index"})
     @ApiOperation(value = "跳转到博客首页")
@@ -73,10 +68,6 @@ public class IndexController {
 
     /**
      * 搜索
-     * @param pageable
-     * @param query
-     * @param model
-     * @return
      */
     @PostMapping("/search")
     @ApiOperation(value = "根绝关键字搜索")
@@ -92,10 +83,6 @@ public class IndexController {
 
     /**
      * 根据id进入博客
-     *
-     * @param id
-     * @param model
-     * @return
      */
     @GetMapping ("/blog/{id}")
     @ApiOperation (value = "根据id查看博客信息")

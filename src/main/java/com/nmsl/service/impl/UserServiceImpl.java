@@ -12,14 +12,15 @@ import javax.annotation.Resource;
  * @Date 2021/1/18 16:46
  * @Version 1.0
  */
-
 @Service
 public class UserServiceImpl implements UserService {
 
     @Resource
     private UserRepository userRepository;
 
-
+    /**
+     * 验证登录
+     */
     @Override
     public User checkUser(String username, String password) {
         User user = userRepository.findByUsernameAndPassword(username, password);

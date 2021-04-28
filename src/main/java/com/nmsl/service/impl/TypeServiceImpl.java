@@ -46,8 +46,6 @@ public class TypeServiceImpl implements TypeService {
 
     /**
      * 分页查询
-     * @param pageable
-     * @return
      */
     @Override
     public Page<Type> listType(Pageable pageable) {

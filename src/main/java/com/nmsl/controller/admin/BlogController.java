@@ -47,7 +47,6 @@ public class BlogController {
 
     /**
      * 博客信息
-     * @param model
      */
     private void BLOG_MSG_NUM(Model model){
         model.addAttribute("blogNum", blogService.listBlog());
@@ -56,10 +55,6 @@ public class BlogController {
 
     /**
      * 进入博客管理
-     * @param pageable
-     * @param blog
-     * @param model
-     * @return
      */
     @GetMapping("/blogs")
     @ApiOperation(value = "博客信息")
@@ -75,10 +70,6 @@ public class BlogController {
 
     /**
      * 搜索
-     * @param pageable
-     * @param blog
-     * @param model
-     * @return
      */
     @PostMapping("/blogs/search")
     @ApiOperation(value = "根据关键字搜索")
@@ -92,8 +83,6 @@ public class BlogController {
 
     /**
      * 博客内容
-     * @param model
-     * @return
      */
     @GetMapping("/blogs/input")
     @ApiOperation(value = "查看博客内容")
@@ -110,8 +99,6 @@ public class BlogController {
 
     /**
      * 编辑博客
-     * @param model
-     * @return
      */
     @GetMapping("/blogs/{id}/input")
     @ApiOperation(value = "根据id编辑博客")
@@ -126,8 +113,6 @@ public class BlogController {
 
     /**
      * 编辑博客内容
-     *
-     * @return
      */
     @PostMapping("/blogs")
     @ApiOperation(value = "编辑博客内容")

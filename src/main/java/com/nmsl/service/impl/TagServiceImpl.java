@@ -48,8 +48,6 @@ public class TagServiceImpl implements TagService {
 
     /**
      * 分页查询
-     * @param pageable
-     * @return
      */
     @Override
     public Page<Tag> listTag(Pageable pageable) {

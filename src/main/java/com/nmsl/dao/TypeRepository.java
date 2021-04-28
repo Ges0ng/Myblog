@@ -14,12 +14,13 @@ import java.util.List;
  */
 public interface TypeRepository extends JpaRepository<Type,Long> {
 
+    /**
+     * 根据名称查询
+     */
     Type findByName(String name);
 
     /**
      * 自定义查询
-     * @param pageable
-     * @return
      */
     @Query("select t from Type t ")
     List<Type> findTop(Pageable pageable);

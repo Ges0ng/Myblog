@@ -52,8 +52,6 @@ public class CommentServiceImpl implements CommentService {
 
     /**
      * 循环每个顶级的节点
-     * @param comments
-     * @return
      */
     private List<Comment> eachComment(List<Comment> comments){
         List<Comment> commentsView = new ArrayList<>();
@@ -70,7 +68,6 @@ public class CommentServiceImpl implements CommentService {
 
     /**
      * root根节点,blog不为空的对象集合
-     * @param comments
      */
     private void combineChildren(List<Comment> comments){
         for (Comment comment : comments) {
@@ -86,12 +83,14 @@ public class CommentServiceImpl implements CommentService {
         }
     }
 
-    //存放迭代找出的所有子代的集合,相当于一个公共容器
+    /**
+     * 存放迭代找出的所有子代的集合,相当于一个公共容器
+     *
+     */
     private List<Comment> tempReplys = new ArrayList<>();
 
     /**
      * 递归迭代
-     * @param comment
      */
     private void recursively(Comment comment) {
         //顶节点添加到临时存放的集合

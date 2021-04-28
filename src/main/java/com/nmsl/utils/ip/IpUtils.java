@@ -12,8 +12,7 @@ import java.net.UnknownHostException;
  * 
  * @author paracosm
  */
-public class IpUtils
-{
+public class IpUtils {
     public static String getIpAddr(HttpServletRequest request)
     {
         if (request == null)

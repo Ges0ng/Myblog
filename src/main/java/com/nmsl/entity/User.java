@@ -19,33 +19,52 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity //用的是jpa
+@Entity
 @Table(name = "t_user")
 public class User implements Serializable {
-
+    /**
+     * 自增id 主键
+     * GeneratedValue 生成策略
+     */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //生成策略
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /*昵称*/
+    /**
+     * 昵称
+     * */
     private String nickname;
 
+    /**
+     * 用户名
+     */
     private String username;
 
+    /**
+     * 密码
+     */
     private String password;
 
+    /**
+     * 邮箱
+     */
     private String email;
 
+    /**
+     * 头像
+     */
     private String avatar;
 
-    /*用户类型*/
+    /**用户类型*/
     private Integer type;
 
-    @Temporal(TemporalType.TIMESTAMP) /*对应数据库生成时间的类型*/
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
-    @Temporal(TemporalType.TIMESTAMP) /*对应数据库生成时间的类型*/
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
 
-    @OneToMany(mappedBy = "user")   /*关系被维护方*/
+    /**关系被维护方*/
+    @OneToMany(mappedBy = "user")
     public List<Blog> blogs = new ArrayList<>();
 }

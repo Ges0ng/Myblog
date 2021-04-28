@@ -39,7 +39,6 @@ public class TagsController {
 
     /**
      * 博客信息
-     * @param model
      */
     private void BLOG_MSG_NUM(Model model){
         model.addAttribute("blogNum", blogService.listBlog());
@@ -59,7 +58,6 @@ public class TagsController {
         }
 
         BlogQuery blogQuery = new BlogQuery();
-
         model.addAttribute("tags", tags);
         model.addAttribute("page",blogService.listBlog(id,pageable));
         model.addAttribute("actionTagId", id);

@@ -13,6 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 /**
  * @Author Paracosm
@@ -48,11 +49,12 @@ public class LogAspect {
 
     @Before("log()")
     public void doBefore(JoinPoint joinPoint){
+        //获取请求属性
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
+        HttpServletRequest request = Objects.requireNonNull(attributes).getRequest();
 
         /*url*/
-        String url = request.getRequestURL().toString();
+        String url = Objects.requireNonNull(request).getRequestURL().toString();
         /*ip地址*/
         String ip = request.getRemoteAddr();
         /*真实地址*/
@@ -75,9 +77,10 @@ public class LogAspect {
         requestEntity.setIp(ip);
         requestEntity.setAddr(adr);
         requestEntity.setClassMethod(classMethod);
-        if (proxy.truncateLog()) {
-            log.info("请求参数日志 : {}", "数据库日志记录超过10000条，删除成功");
-        }
+        //放到定时任务里面，一周检测一次
+//        if (proxy.truncateLog()) {
+//            log.info("请求参数日志 : {}", "数据库日志记录超过10000条，删除成功");
+//        }
         proxy.saveLog(requestEntity);
     }
 
@@ -88,7 +91,7 @@ public class LogAspect {
      * */
     @AfterReturning(returning = "result",pointcut = "log()")
     public void doAfterReturn(Object result){
-        log.info("Result:{}",result);
+//        log.info("Result:{}",result);
     }
 
 
@@ -117,12 +120,12 @@ public class LogAspect {
      */
     @ToString
     @AllArgsConstructor
-    private class RequestLog{
-        private String url;
-        private String ip;
-        private String addr;
-        private String classMethod;
-        private Object[] args;
+    private static class RequestLog{
+        private final String url;
+        private final String ip;
+        private final String addr;
+        private final String classMethod;
+        private final Object[] args;
 
     }
 

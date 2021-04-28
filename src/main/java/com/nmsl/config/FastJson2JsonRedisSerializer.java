@@ -11,6 +11,7 @@ import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.util.Assert;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Redis使用FastJson序列化
@@ -19,28 +20,24 @@ import java.nio.charset.Charset;
  * @date 2021/4/25 01:33
  */
 public class FastJson2JsonRedisSerializer <T> implements RedisSerializer<T> {
+    /**
+     * 默认字符集
+     */
+    public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
-    @SuppressWarnings("unused")
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final Class<T> clazz;
 
-    public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
-
-    private Class<T> clazz;
-
-    static
-    {
+    static {
         ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
     }
 
-    public FastJson2JsonRedisSerializer (Class<T> clazz)
-    {
+    public FastJson2JsonRedisSerializer (Class<T> clazz) {
         super();
         this.clazz = clazz;
     }
 
     @Override
-    public byte[] serialize(T t) throws SerializationException
-    {
+    public byte[] serialize(T t) throws SerializationException {
         if (t == null)
         {
             return new byte[0];
@@ -49,8 +46,7 @@ public class FastJson2JsonRedisSerializer <T> implements RedisSerializer<T> {
     }
 
     @Override
-    public T deserialize(byte[] bytes) throws SerializationException
-    {
+    public T deserialize(byte[] bytes) throws SerializationException {
         if (bytes == null || bytes.length <= 0)
         {
             return null;
@@ -60,14 +56,14 @@ public class FastJson2JsonRedisSerializer <T> implements RedisSerializer<T> {
         return JSON.parseObject(str, clazz);
     }
 
-    public void setObjectMapper(ObjectMapper objectMapper)
-    {
+    public void setObjectMapper(ObjectMapper objectMapper) {
         Assert.notNull(objectMapper, "'objectMapper' 必须为空");
-        this.objectMapper = objectMapper;
     }
 
-    protected JavaType getJavaType(Class<?> clazz)
-    {
+    /**
+     * 得到java类型
+     */
+    protected JavaType getJavaType(Class<?> clazz) {
         return TypeFactory.defaultInstance().constructType(clazz);
     }
 }

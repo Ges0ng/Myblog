@@ -18,11 +18,17 @@ import javax.persistence.*;
 @Entity //用的是jpa
 @Table(name = "t_about")
 public class About {
-
+    /**
+     * 自增id 主键
+     * GeneratedValue 生成策略
+     */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //生成策略
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String myIntroduction;  //介绍
+    /**
+     * 自我介绍
+     */
+    private String myIntroduction;
 
 }

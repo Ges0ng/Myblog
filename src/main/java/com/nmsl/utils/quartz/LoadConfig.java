@@ -98,6 +98,6 @@ public class LoadConfig {
         if (value.length() <= 0) {
             return false;
         }
-        return value.equalsIgnoreCase("true") || value.equalsIgnoreCase("yes") || value.equalsIgnoreCase("on");
+        return "true".equalsIgnoreCase(value) || "yes".equalsIgnoreCase(value) || "on".equalsIgnoreCase(value);
     }
 }

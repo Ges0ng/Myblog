@@ -37,9 +37,6 @@ public class TagController {
 
     /**
      * 分页查询按照id的倒序排序
-     *
-     * @param pageable
-     * @return
      */
     @GetMapping("/tags")
     @ApiOperation(value = "分页查询")
@@ -52,7 +49,6 @@ public class TagController {
 
     /**
      * 新增标签页面
-     * @return
      */
     @GetMapping("/tags/input")
     @ApiOperation("新增标签页面")
@@ -77,7 +73,6 @@ public class TagController {
     /**
      * 新增标签提交
      * @Valid 代表要校验对象
-     * @return
      */
     @PostMapping("/tags")
     @ApiOperation("新增标签提交")
@@ -108,11 +103,6 @@ public class TagController {
 
     /**
      * 更新标签名称
-     * @param tag
-     * @param result
-     * @param id
-     * @param attributes
-     * @return
      */
     @PostMapping("/tags/{id}")
     @ApiOperation(value = "更新标签")
@@ -143,9 +133,6 @@ public class TagController {
 
     /**
      * 根据id删除标签
-     * @param id
-     * @param attributes
-     * @return
      */
     @GetMapping("/tags/{id}/delete")
     @ApiOperation(value = "根据id删除标签")

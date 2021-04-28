@@ -14,21 +14,22 @@ import oshi.util.Util;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 /**
  * 系统消息工具类
  *
- *
  * @author paracosm
- * */
-public class SystemInfoUtils{
+ */
+public class SystemInfoUtils {
     private static final int OSHI_WAIT_SECOND = 1000;
     private static SystemInfo systemInfo = new SystemInfo();
     private static HardwareAbstractionLayer hardware = systemInfo.getHardware();
     private static OperatingSystem operatingSystem = systemInfo.getOperatingSystem();
 
-    public static JSONObject getCpuInfo() {
+    public static JSONObject getCpuInfo () {
         JSONObject cpuInfo = new JSONObject();
         CentralProcessor processor = hardware.getProcessor();
         // CPU信息
@@ -45,48 +46,48 @@ public class SystemInfoUtils{
         long idle = ticks[CentralProcessor.TickType.IDLE.getIndex()] - prevTicks[CentralProcessor.TickType.IDLE.getIndex()];
         long totalCpu = user + nice + cSys + idle + iowait + irq + softirq + steal;
         //cpu核数
-        cpuInfo.put("cpuNum", processor.getLogicalProcessorCount());
+        cpuInfo.put("cpu核数", processor.getLogicalProcessorCount());
         //cpu系统使用率
-        cpuInfo.put("cSys", new DecimalFormat("#.##%").format(cSys * 1.0 / totalCpu));
+        cpuInfo.put("cpu系统使用率", new DecimalFormat("#.##%").format(cSys * 1.0 / totalCpu));
         //cpu用户使用率
-        cpuInfo.put("user", new DecimalFormat("#.##%").format(user * 1.0 / totalCpu));
+        cpuInfo.put("cpu用户使用率", new DecimalFormat("#.##%").format(user * 1.0 / totalCpu));
         //cpu当前等待率
-        cpuInfo.put("iowait", new DecimalFormat("#.##%").format(iowait * 1.0 / totalCpu));
+        cpuInfo.put("cpu当前等待率", new DecimalFormat("#.##%").format(iowait * 1.0 / totalCpu));
         //cpu当前使用率
-        cpuInfo.put("idle", new DecimalFormat("#.##%").format(1.0 - (idle * 1.0 / totalCpu)));
+        cpuInfo.put("cpu当前使用率", new DecimalFormat("#.##%").format(1.0 - (idle * 1.0 / totalCpu)));
         return cpuInfo;
     }
 
     /**
      * 系统jvm信息
      */
-    public static JSONObject getJvmInfo() {
+    public static JSONObject getJvmInfo () {
         JSONObject cpuInfo = new JSONObject();
         Properties props = System.getProperties();
         Runtime runtime = Runtime.getRuntime();
         long jvmTotalMemoryByte = runtime.totalMemory();
         long freeMemoryByte = runtime.freeMemory();
         //jvm总内存
-        cpuInfo.put("total", formatByte(runtime.totalMemory()));
+        cpuInfo.put("jvm总内存", formatByte(runtime.totalMemory()));
         //空闲空间
-        cpuInfo.put("free", formatByte(runtime.freeMemory()));
+        cpuInfo.put("空闲空间", formatByte(runtime.freeMemory()));
         //jvm最大可申请
-        cpuInfo.put("max", formatByte(runtime.maxMemory()));
+        cpuInfo.put("jvm最大可申请", formatByte(runtime.maxMemory()));
         //vm已使用内存
-        cpuInfo.put("user", formatByte(jvmTotalMemoryByte - freeMemoryByte));
+        cpuInfo.put("vm已使用内存", formatByte(jvmTotalMemoryByte - freeMemoryByte));
         //jvm内存使用率
-        cpuInfo.put("usageRate", new DecimalFormat("#.##%").format((jvmTotalMemoryByte - freeMemoryByte) * 1.0 / jvmTotalMemoryByte));
+        cpuInfo.put("jvm内存使用率", new DecimalFormat("#.##%").format((jvmTotalMemoryByte - freeMemoryByte) * 1.0 / jvmTotalMemoryByte));
         //jdk版本
-        cpuInfo.put("jdkVersion", props.getProperty("java.version"));
+        cpuInfo.put("jdk版本", props.getProperty("java.version"));
         //jdk路径
-        cpuInfo.put("jdkHome", props.getProperty("java.home"));
+        cpuInfo.put("jdk路径", props.getProperty("java.home"));
         return cpuInfo;
     }
 
     /**
      * 系统内存信息
      */
-    public static JSONObject getMemInfo() {
+    public static JSONObject getMemInfo () {
         JSONObject cpuInfo = new JSONObject();
         GlobalMemory memory = systemInfo.getHardware().getMemory();
         //总内存
@@ -94,20 +95,20 @@ public class SystemInfoUtils{
         //剩余
         long acaliableByte = memory.getAvailable();
         //总内存
-        cpuInfo.put("total", formatByte(totalByte));
+        cpuInfo.put("总内存", formatByte(totalByte));
         //使用
-        cpuInfo.put("used", formatByte(totalByte - acaliableByte));
+        cpuInfo.put("使用", formatByte(totalByte - acaliableByte));
         //剩余内存
-        cpuInfo.put("free", formatByte(acaliableByte));
+        cpuInfo.put("剩余内存", formatByte(acaliableByte));
         //使用率
-        cpuInfo.put("usageRate", new DecimalFormat("#.##%").format((totalByte - acaliableByte) * 1.0 / totalByte));
+        cpuInfo.put("使用率", new DecimalFormat("#.##%").format((totalByte - acaliableByte) * 1.0 / totalByte));
         return cpuInfo;
     }
 
     /**
      * 系统盘符信息
      */
-    public static JSONArray getSysFileInfo() {
+    public static JSONArray getSysFileInfo () {
         JSONObject cpuInfo;
         JSONArray sysFiles = new JSONArray();
         FileSystem fileSystem = operatingSystem.getFileSystem();
@@ -118,22 +119,22 @@ public class SystemInfoUtils{
         for (OSFileStore fs : fsArray) {
             cpuInfo = new JSONObject();
             //盘符路径
-            cpuInfo.put("dirName", fs.getMount());
+            cpuInfo.put("盘符路径", fs.getMount());
             //盘符类型
-            cpuInfo.put("sysTypeName", fs.getType());
+            cpuInfo.put("盘符类型", fs.getType());
             //文件类型
-            cpuInfo.put("typeName", fs.getName());
+            cpuInfo.put("文件类型", fs.getName());
             //总大小
-            cpuInfo.put("total", formatByte(fs.getTotalSpace()));
+            cpuInfo.put("总大小", formatByte(fs.getTotalSpace()));
             //剩余大小
-            cpuInfo.put("free", formatByte(fs.getUsableSpace()));
+            cpuInfo.put("剩余大小", formatByte(fs.getUsableSpace()));
             //已经使用量
-            cpuInfo.put("used", formatByte(fs.getTotalSpace() - fs.getUsableSpace()));
+            cpuInfo.put("已经使用量", formatByte(fs.getTotalSpace() - fs.getUsableSpace()));
             if (fs.getTotalSpace() == 0) {
                 //资源的使用率
                 cpuInfo.put("usage", 0);
             } else {
-                cpuInfo.put("usage",new DecimalFormat("#.##%").format((fs.getTotalSpace() - fs.getUsableSpace()) * 1.0 / fs.getTotalSpace()));
+                cpuInfo.put("usage", new DecimalFormat("#.##%").format((fs.getTotalSpace() - fs.getUsableSpace()) * 1.0 / fs.getTotalSpace()));
             }
             sysFiles.add(cpuInfo);
         }
@@ -143,39 +144,39 @@ public class SystemInfoUtils{
     /**
      * 系统信息
      */
-    public static JSONObject getSysInfo() throws UnknownHostException {
+    public static JSONObject getSysInfo () throws UnknownHostException {
         JSONObject cpuInfo = new JSONObject();
         Properties props = System.getProperties();
         //操作系统名
-        cpuInfo.put("osName", props.getProperty("os.name"));
+        cpuInfo.put("操作系统名", props.getProperty("os.name"));
         //系统架构
-        cpuInfo.put("osArch", props.getProperty("os.arch"));
+        cpuInfo.put("系统架构", props.getProperty("os.arch"));
         //服务器名称
-        cpuInfo.put("computerName", InetAddress.getLocalHost().getHostName());
+        cpuInfo.put("服务器名称", InetAddress.getLocalHost().getHostName());
         //服务器Ip
-        cpuInfo.put("computerIp", InetAddress.getLocalHost().getHostAddress());
+        cpuInfo.put("服务器Ip", InetAddress.getLocalHost().getHostAddress());
         //项目路径
-        cpuInfo.put("userDir", props.getProperty("user.dir"));
+        cpuInfo.put("项目路径", props.getProperty("user.dir"));
         return cpuInfo;
     }
 
     /**
      * 所有系统信息
      */
-    public static JSONObject getInfo() throws UnknownHostException {
+    public static JSONObject getInfo () throws UnknownHostException {
         JSONObject info = new JSONObject();
-        info.put("cpuInfo", getCpuInfo());
-        info.put("jvmInfo", getJvmInfo());
-        info.put("memInfo", getMemInfo());
-        info.put("sysInfo", getSysInfo());
-        info.put("sysFileInfo", getSysFileInfo());
+        info.put("系统盘符信息", getSysFileInfo());
+        info.put("系统信息", getSysInfo());
+        info.put("jvm信息", getJvmInfo());
+        info.put("内存信息", getMemInfo());
+        info.put("cpu信息", getCpuInfo());
         return info;
     }
 
     /**
      * 单位转换
      */
-    private static String formatByte(long byteNumber) {
+    private static String formatByte (long byteNumber) {
         //换算单位
         double FORMAT = 1024.0;
         double kbNumber = byteNumber / FORMAT;
@@ -192,5 +193,15 @@ public class SystemInfoUtils{
         }
         double tbNumber = gbNumber / FORMAT;
         return new DecimalFormat("#.##TB").format(tbNumber);
+    }
+
+    /**
+     * 获取当前时间，格式 yyyy-MM-dd HH:mm:ss
+     * @return
+     */
+    public static String getCurrentTime() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        return df.format(date);
     }
 }

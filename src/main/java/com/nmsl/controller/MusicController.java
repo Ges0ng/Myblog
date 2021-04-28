@@ -27,7 +27,6 @@ public class MusicController {
 
     /**
      * 博客信息
-     * @param model
      */
     private void BLOG_MSG_NUM(Model model){
         model.addAttribute("blogNum", blogService.listBlog());

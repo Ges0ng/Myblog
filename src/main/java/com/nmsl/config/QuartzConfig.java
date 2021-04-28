@@ -26,6 +26,11 @@ public class QuartzConfig {
     private static final String TASK_TIME = "0 15 10 ? * FRI";
 
     /**
+     * 测试用
+     */
+//    private static final String TASK_TIME = "*/5 * * * * ?";
+
+    /**
      * 方法名：
      * 功能：配置定时任务
      * 描述：
@@ -76,9 +81,8 @@ public class QuartzConfig {
         trigger.setJobDetail(Objects.requireNonNull(jobDetail.getObject()));
         //初始化的cron表达式(每周五15点10分触发)
         trigger.setCronExpression(TASK_TIME);
-//        trigger.setCronExpression("*/5 * * * * ?");//每五秒执行一次 test
         //trigger的name
-        trigger.setName("myTigger");
+        trigger.setName("myTrigger");
         log.info("jobTrigger 初始化成功！");
         return trigger;
     }

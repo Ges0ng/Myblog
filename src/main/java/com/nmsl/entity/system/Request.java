@@ -16,23 +16,41 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity //用的是jpa
+@Entity
 @Table (name = "sys_request_log")
 public class Request {
 
+    /**
+     * 自增id 主键
+     * GeneratedValue 生成策略
+     */
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY) //生成策略
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
-    /*请求url*/
+
+    /**
+     * 发出请求的url
+     */
     private String url;
-    /*访问者ip*/
+
+    /**
+     * 访问者ip
+     */
     private String ip;
-    /*真实地址*/
+
+    /**
+     * 转换的真实地址
+     * */
     private String addr;
-    /*调用方法 classMethod*/
+
+    /**
+     * 调用方法 classMethod
+     * */
     private String classMethod;
 
-    /*创建时间*/
-    @Temporal(TemporalType.TIMESTAMP) /*对应数据库生成时间的类型*/
+    /**
+     * 创建时间 （对应数据库生成时间的类型）
+     * */
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 }

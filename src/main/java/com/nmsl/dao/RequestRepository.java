@@ -20,9 +20,15 @@ import java.util.List;
  */
 public interface RequestRepository extends JpaRepository<Request,Long>, JpaSpecificationExecutor<Request> {
 
+    /**
+     * 请求
+     */
     @Query("select count(id) from Request")
     int findAllById();
 
+    /**
+     * truncate 清空表中数据
+     */
     @Transactional
     @Modifying
     @Query(value = "truncate table sys_request_log",nativeQuery = true)

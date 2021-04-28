@@ -14,9 +14,14 @@ import java.util.List;
  */
 public interface TagRepository extends JpaRepository<Tag,Long> {
 
+    /**
+     * 根据名称查询
+     */
     Tag findByName(String name);
 
-
+    /**
+     * 分页
+     */
     @Query("select t from Tag t")
     List<Tag> findTop(Pageable pageable);
 

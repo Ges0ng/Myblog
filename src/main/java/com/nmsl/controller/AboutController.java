@@ -33,8 +33,6 @@ public class AboutController {
 
     /**
      * 跳转到关于我页面
-     * @param model
-     * @return
      */
     @GetMapping("/about")
     @ApiOperation(value = "跳转到'关于我'页面")
@@ -46,7 +44,6 @@ public class AboutController {
 
     /**
      * 博客信息
-     * @param model
      */
     private void BLOG_MSG_NUM(Model model){
         model.addAttribute("blogNum", blogService.listBlog());

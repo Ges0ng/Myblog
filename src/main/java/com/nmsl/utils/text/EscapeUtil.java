@@ -7,8 +7,7 @@ import com.nmsl.utils.StringUtils;
  * 
  * @author paracosm
  */
-public class EscapeUtil
-{
+public class EscapeUtil {
     public static final String RE_HTML_MARK = "(<[^<]*?>)|(<[\\s]*?/[^<]*?>)|(<[^<]*?/[\\s]*?>)";
 
     private static final char[][] TEXT = new char[64][];

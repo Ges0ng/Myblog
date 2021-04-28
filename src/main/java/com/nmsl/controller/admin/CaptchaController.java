@@ -1,10 +1,9 @@
 package com.nmsl.controller.admin;
 
-import com.wf.captcha.GifCaptcha;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
-import com.wf.captcha.utils.CaptchaUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,12 +22,10 @@ import java.awt.*;
 public class CaptchaController {
 
     /**
-     * 数字型验证码
-     * @param request
-     * @param response
-     * @throws Exception
+     * 混合型验证码
      */
     @RequestMapping("/captcha")
+    @ApiOperation("验证码验证")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 设置请求头为输出图片类型
         response.setContentType("image/gif");
@@ -38,8 +35,8 @@ public class CaptchaController {
 
         // 三个参数分别为宽、高、位数
         SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 5);
-        // 设置字体
-        specCaptcha.setFont(new Font("Verdana", Font.PLAIN, 32));  // 有默认字体，可以不用设置
+        // 设置字体 (有默认字体，可以不用设置)
+        specCaptcha.setFont(new Font("Verdana", Font.PLAIN, 32));
         // 设置类型，纯数字、纯字母、字母数字混合
         specCaptcha.setCharType(Captcha.TYPE_DEFAULT);
 

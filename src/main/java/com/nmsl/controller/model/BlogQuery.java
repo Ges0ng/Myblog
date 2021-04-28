@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * query
  * @Author Paracosm
  * @Date 2021/1/21 22:36
  * @Version 1.0
@@ -14,7 +15,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlogQuery {
-
     private String title;
     private Long typeId;
     private boolean recommend;

@@ -5,7 +5,6 @@ import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.commons.mail.MultiPartEmail;
 import org.apache.commons.mail.SimpleEmail;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -24,19 +23,17 @@ import java.util.Properties;
  */
 public class MailUtil {
 
-    private String host = "smtp.qq.com";
-    private int port = 25;
-    private String userName = "paracosm@foxmail.com";
-    private String password = "lrpfifpaxvhqbffa";
-    private String to = "";
+    private final String host = "smtp.qq.com";
+    private final int port = 25;
+    private final String userName = "paracosm@foxmail.com";
+    private final String password = "lrpfifpaxvhqbffa";
+    private final String to = "";
 
     /**
      * 发送邮件
      * @param subject 标题
      * @param content 内容
      * @param toEmail 接受邮箱
-     * @throws GeneralSecurityException
-     * @throws MessagingException
      */
     public void sendMail(String subject,String content,String toEmail) throws GeneralSecurityException, MessagingException, UnsupportedEncodingException {
         Properties props = new Properties();
@@ -60,9 +57,11 @@ public class MailUtil {
 
         Message msg = new MimeMessage(session);
         msg.setSubject(subject);
+
         StringBuilder builder = new StringBuilder();
         builder.append("\n"+content);
         msg.setText(builder.toString());
+
         msg.setFrom(new InternetAddress(userName,"paracosm","UTF-8"));
         msg.setSentDate(new Date());
 
@@ -75,8 +74,6 @@ public class MailUtil {
 
     /**
      * 发送文本邮件
-     *
-     * @throws Exception
      */
     public void sendTextMail() throws Exception
     {
@@ -104,8 +101,6 @@ public class MailUtil {
 
     /**
      * 发送Html邮件
-     *
-     * @throws Exception
      */
     public void sendHtmlMail() throws Exception
     {
@@ -134,8 +129,6 @@ public class MailUtil {
 
     /**
      * 发送内嵌图片邮件
-     *
-     * @throws Exception
      */
     public void sendImageMail() throws Exception
     {
@@ -165,8 +158,6 @@ public class MailUtil {
 
     /**
      * 发送附件邮件
-     *
-     * @throws Exception
      */
     public void sendAttachmentMail() throws Exception
     {
@@ -201,8 +192,6 @@ public class MailUtil {
 
     /**
      * 发送内嵌图片和附件邮件
-     *
-     * @throws Exception
      */
     public void sendImageAndAttachmentMail() throws Exception
     {

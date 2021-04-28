@@ -19,12 +19,16 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity //用的是jpa
+@Entity
 @Table(name = "t_tag")
 public class Tag  implements Serializable {
 
+    /**
+     * 自增id 主键
+     * GeneratedValue 生成策略
+     */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //生成策略 //生成策略
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**

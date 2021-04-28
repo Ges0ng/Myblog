@@ -1,6 +1,9 @@
 package com.nmsl.utils;
 import java.security.MessageDigest;
 
+/**
+ * @author paracosm
+ */
 public class Md5Utils {
 
     /**

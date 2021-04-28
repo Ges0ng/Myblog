@@ -21,12 +21,16 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity //用的是jpa
+@Entity
 @Table(name = "t_type")
 public class Type implements Serializable {
 
+    /**
+     * 自增id 主键
+     * GeneratedValue 生成策略
+     */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //生成策略
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
@@ -37,7 +41,9 @@ public class Type implements Serializable {
     private String name;
 
 
-    /*说明当前type是被维护blog和type之间的关系,blog主动维护相互的关系*/
+    /**
+     * 说明当前type是被维护blog和type之间的关系,blog主动维护相互的关系
+     * */
     @OneToMany(mappedBy = "type")
     public List<Blog> blogs = new ArrayList<>();
 }

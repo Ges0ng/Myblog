@@ -12,5 +12,7 @@ import java.util.List;
  * @Version 1.0
  */
 public interface AboutService {
+
     List<About> listAbout();
+
 }

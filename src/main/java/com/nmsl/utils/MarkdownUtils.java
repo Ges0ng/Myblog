@@ -9,8 +9,6 @@ import org.commonmark.node.Link;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.AttributeProvider;
-import org.commonmark.renderer.html.AttributeProviderContext;
-import org.commonmark.renderer.html.AttributeProviderFactory;
 import org.commonmark.renderer.html.HtmlRenderer;
 
 import java.util.*;
@@ -25,8 +23,6 @@ public class MarkdownUtils {
 
     /**
      * markdown格式转换成HTML格式
-     * @param markdown
-     * @return
      */
     public static String markdownToHtml(String markdown) {
         Parser parser = Parser.builder().build();
@@ -38,8 +34,6 @@ public class MarkdownUtils {
     /**
      * 增加扩展[标题锚点，表格生成]
      * Markdown转换成HTML
-     * @param markdown
-     * @return
      */
     public static String markdownToHtmlExtensions(String markdown) {
         //h标题生成id
@@ -53,12 +47,7 @@ public class MarkdownUtils {
         HtmlRenderer renderer = HtmlRenderer.builder()
                 .extensions(headingAnchorExtensions)
                 .extensions(tableExtension)
-                .attributeProviderFactory(new AttributeProviderFactory() {
-                    @Override
-                    public AttributeProvider create(AttributeProviderContext context) {
-                        return new CustomAttributeProvider();
-                    }
-                })
+                .attributeProviderFactory(context -> new CustomAttributeProvider())
                 .build();
         return renderer.render(document);
     }
@@ -77,17 +66,6 @@ public class MarkdownUtils {
                 attributes.put("class", "ui celled table");
             }
         }
-    }
-
-
-    public static void main(String[] args) {
-        String table = "| hello | hi   | 哈哈哈   |\n" +
-                "| ----- | ---- | ----- |\n" +
-                "| 斯维尔多  | 士大夫  | f啊    |\n" +
-                "| 阿什顿发  | 非固定杆 | 撒阿什顿发 |\n" +
-                "\n";
-        String a = "[imCoding 爱编程](http://www.lirenmi.cn)";
-        System.out.println(markdownToHtmlExtensions(a));
     }
 }
 

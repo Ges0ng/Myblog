@@ -38,12 +38,9 @@ public class BlogServiceImpl implements BlogService {
 
     /**
      * 查询blog对象
-     * @param id
-     * @return
      */
     @Override
     public Blog getBlog(Long id) {
-
         return blogRepository.findById(id).get();
     }
 
@@ -74,32 +71,26 @@ public class BlogServiceImpl implements BlogService {
 
     /**
      * 分页查询blog,自动拼接动态查询的sql语句
-     * @param pageable
-     * @param blog
-     * @return
      */
     @Override
     public Page<Blog> listBlog(Pageable pageable, BlogQuery blog) {
-        return blogRepository.findAll(new Specification<Blog>() {
-            @Override
-            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> predicates = new ArrayList<>();
-                /*标题*/
-                if (!"".equals(blog.getTitle()) && blog.getTitle() != null) {
-                    predicates.add(criteriaBuilder.like(root.<String>get("title"), "%" + blog.getTitle() + "%"));
-                }
-                /*分类*/
-                if (blog.getTypeId() != null) {
-                    predicates.add(criteriaBuilder.equal(root.<Type>get("type").get("id"), blog.getTypeId()));
-                }
-                /*是否推荐*/
-                if (blog.isRecommend()) {
-                    predicates.add(criteriaBuilder.equal(root.<Boolean>get("recommend"), blog.isRecommend()));
-                }
-
-                query.where(predicates.toArray(new Predicate[predicates.size()]));
-                return null;
+        return blogRepository.findAll((Specification<Blog>) (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            /*标题*/
+            if (!"".equals(blog.getTitle()) && blog.getTitle() != null) {
+                predicates.add(criteriaBuilder.like(root.get("title"), "%" + blog.getTitle() + "%"));
             }
+            /*分类*/
+            if (blog.getTypeId() != null) {
+                predicates.add(criteriaBuilder.equal(root.<Type>get("type").get("id"), blog.getTypeId()));
+            }
+            /*是否推荐*/
+            if (blog.isRecommend()) {
+                predicates.add(criteriaBuilder.equal(root.<Boolean>get("recommend"), blog.isRecommend()));
+            }
+
+            query.where(predicates.toArray(new Predicate[predicates.size()]));
+            return null;
         },pageable);
     }
 
@@ -110,19 +101,14 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Page<Blog> listBlog(Long tagId, Pageable pageable) {
-        return blogRepository.findAll(new Specification<Blog>() {
-            @Override
-            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                Join join = root.join("tags");
-                return criteriaBuilder.equal(join.get("id"),tagId);
-            }
+        return blogRepository.findAll((Specification<Blog>) (root, query, criteriaBuilder) -> {
+            Join<Object, Object> join = root.join("tags");
+            return criteriaBuilder.equal(join.get("id"),tagId);
         },pageable);
     }
 
     /**
      * 新增blog
-     * @param blog
-     * @return
      */
     @Transactional
     @Override
@@ -141,9 +127,6 @@ public class BlogServiceImpl implements BlogService {
 
     /**
      * 更新blog信息
-     * @param id
-     * @param blog
-     * @return
      */
     @Transactional
     @Override
@@ -163,7 +146,6 @@ public class BlogServiceImpl implements BlogService {
 
     /**
      * 删除
-     * @param id
      */
     @Override
     @Transactional
@@ -187,7 +169,6 @@ public class BlogServiceImpl implements BlogService {
 
     /**
      * 归档
-     * @return
      */
     @Override
     public Map<String, List<Blog>> archiveBlog() {
@@ -204,7 +185,6 @@ public class BlogServiceImpl implements BlogService {
 
     /**
      * 所有查看
-     * @return
      */
     @Override
     public int allViews () {

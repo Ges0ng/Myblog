@@ -12,12 +12,16 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- *@描述   验证码生成
+ *@author paracosm
+ * @描述   验证码生成
  */
 public class VerifyCodeUtils{
 
-    //使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符
+    /**
+     *使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符
+     */
     public static final String VERIFY_CODES = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+
     private static Random random = new Random();
 
 
@@ -176,10 +180,12 @@ public class VerifyCodeUtils{
     }
 
     private static Color getRandColor(int fc, int bc) {
-        if (fc > 255)
+        if (fc > 255) {
             fc = 255;
-        if (bc > 255)
+        }
+        if (bc > 255) {
             bc = 255;
+        }
         int r = fc + random.nextInt(bc - fc);
         int g = fc + random.nextInt(bc - fc);
         int b = fc + random.nextInt(bc - fc);

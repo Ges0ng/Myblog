@@ -14,9 +14,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     /**
      * 比对账号密码是否正确
-     * @param username
-     * @param password
-     * @return
      */
     User findByUsernameAndPassword(String username, String password);
 }

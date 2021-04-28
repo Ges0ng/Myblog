@@ -43,7 +43,6 @@ public class LoginController {
 
     /**
      * 进入登录页面
-     * @return
      */
     @GetMapping
     @ApiOperation(value = "进入登录页面")
@@ -53,12 +52,6 @@ public class LoginController {
     }
     /**
      * 管理员登录验证
-     * @param username
-     * @param password
-     * @param session
-     * @param attributes
-     * @param model
-     * @return
      */
     @PostMapping("/login")
     @ApiOperation(value = "登陆验证")
@@ -69,10 +62,10 @@ public class LoginController {
                         RedirectAttributes attributes,
                         Model model,
                         HttpServletRequest request) {
-
         //校对验证码
         if (!CaptchaUtil.ver(verCode, request)) {
-            CaptchaUtil.clear(request);  // 清除session中的验证码
+            // 清除session中的验证码
+            CaptchaUtil.clear(request);
             attributes.addFlashAttribute("message", "验证码不正确");
             return CommonUrl.REDIRECT_ADMIN;
         }
@@ -92,17 +85,18 @@ public class LoginController {
 
     /**
      * 用户注销
-     * @param session
-     * @return
      */
     @GetMapping("/logout")
     @ApiOperation(value = "用户注销")
     public String logout(HttpSession session){
+        //清除session
         session.removeAttribute("user");
         return CommonUrl.REDIRECT_ADMIN;
     }
 
-    //博客相关信息
+    /**
+     *博客相关信息
+     */
     private void BLOG_MSG_NUM(Model model){
         model.addAttribute("blogNum", blogService.listBlog());
         model.addAttribute("tagNum", tagService.listTag());

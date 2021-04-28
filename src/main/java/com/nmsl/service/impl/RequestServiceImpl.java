@@ -3,10 +3,12 @@ package com.nmsl.service.impl;
 import com.nmsl.dao.RequestRepository;
 import com.nmsl.entity.system.Request;
 import com.nmsl.service.RequestService;
+import com.nmsl.utils.common.SystemInfoUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
  */
 @Service
 public class RequestServiceImpl implements RequestService {
-    /*日志数量达到x以后全部清除，默认10000*/
+    /**日志数量达到x以后全部清除，默认10000*/
     private static final int LOG_NUM = 10000;
 
     @Resource
@@ -28,8 +30,6 @@ public class RequestServiceImpl implements RequestService {
 
     /**
      * 保存日志
-     * @param request
-     * @return
      */
     @Override
     public Request saveLog (Request request) {
@@ -41,7 +41,6 @@ public class RequestServiceImpl implements RequestService {
 
     /**
      * 查看所有日志
-     * @return
      */
     @Override
     public List<Request> listRequest () {
@@ -50,7 +49,6 @@ public class RequestServiceImpl implements RequestService {
 
     /**
      * 返回日志数量
-     * @return
      */
     @Override
     public int logNum () {
@@ -62,9 +60,8 @@ public class RequestServiceImpl implements RequestService {
      */
     @Override
     public boolean truncateLog () {
-        //如果数据量超过1000条则删除数据
+        //如果数据量超过10000条则删除数据
         if (logNum() > LOG_NUM) {
-
             requestRepository.deleteAllById();
             return true;
         }

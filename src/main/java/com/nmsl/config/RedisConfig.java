@@ -62,10 +62,11 @@ public class RedisConfig extends CachingConfigurerSupport {
         cacheNames.add("car");
         cacheNames.add("distributor");
 
-        ConcurrentHashMap configMap = new ConcurrentHashMap<>();
-        configMap.put("car", config.entryTtl(Duration.ofMinutes(    5L)));//有效期5分钟
-        configMap.put("distributor", config);//永久
-
+        ConcurrentHashMap configMap = new ConcurrentHashMap<>(16);
+        //有效期5分钟
+        configMap.put("car", config.entryTtl(Duration.ofMinutes(5L)));
+        //永久
+        configMap.put("distributor", config);
         //需要先初始化缓存名称，再初始化其它的配置。
         RedisCacheManager cacheManager = RedisCacheManager.builder(factory).initialCacheNames(cacheNames).withInitialCacheConfigurations(configMap).build();
 

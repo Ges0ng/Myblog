@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.nmsl</groupId>
     <artifactId>blog</artifactId>
-    <version>1.4.1</version>
+    <version>1.5.0</version>
     <name>blog</name>
     <description>Paracosm的blog</description>
 
@@ -29,6 +29,7 @@
         <quartz.version>2.3.2</quartz.version>
         <ganymed-ssh2.version>262</ganymed-ssh2.version>
         <spring-context-support.version>5.3.6</spring-context-support.version>
+        <joda-time.version>2.10.10</joda-time.version>
 
     </properties>
 
@@ -40,11 +41,11 @@
             <version>${spring-context-support.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+        <!--时间工具类-->
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.10.10</version>
+            <version>${joda-time.version}</version>
         </dependency>
 
 
