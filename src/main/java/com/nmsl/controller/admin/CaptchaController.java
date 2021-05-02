@@ -1,5 +1,6 @@
 package com.nmsl.controller.admin;
 
+import com.nmsl.cache.RedisCache;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
 import io.swagger.annotations.Api;
@@ -7,9 +8,11 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 123
@@ -20,7 +23,6 @@ import java.awt.*;
 @Controller
 @Api(tags = "验证码模块")
 public class CaptchaController {
-
     /**
      * 混合型验证码
      */
@@ -39,10 +41,9 @@ public class CaptchaController {
         specCaptcha.setFont(new Font("Verdana", Font.PLAIN, 32));
         // 设置类型，纯数字、纯字母、字母数字混合
         specCaptcha.setCharType(Captcha.TYPE_DEFAULT);
-
+        
         // 验证码存入session
         request.getSession().setAttribute("captcha", specCaptcha.text().toLowerCase());
-
         // 输出图片流
         specCaptcha.out(response.getOutputStream());
     }

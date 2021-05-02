@@ -28,10 +28,10 @@ public class Knife4jConfiguration {
                         .description("# Paracosm Blog APIs")
                         .termsOfServiceUrl("http://blog.paracosm.top/")
                         .contact(new Contact("paracosm", "paracosm.top", "paracosm@foxmail.com"))
-                        .version("1.5.0")
+                        .version("1.5.1")
                         .build())
                 //分组名称
-                .groupName("1.5.0 version")
+                .groupName("1.5.1 version")
                 .select()
                 //这里指定Controller扫描包路径
                 .apis(RequestHandlerSelectors.basePackage("com.nmsl.controller"))

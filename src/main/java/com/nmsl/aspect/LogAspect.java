@@ -1,5 +1,7 @@
 package com.nmsl.aspect;
 
+import com.nmsl.cache.RedisCache;
+import com.nmsl.controller.common.CommonCache;
 import com.nmsl.entity.system.Request;
 import com.nmsl.service.RequestService;
 import com.nmsl.utils.ip.AddressUtils;
@@ -14,6 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author Paracosm
@@ -30,6 +33,9 @@ public class LogAspect {
 
     @Resource
     private RequestService proxy;
+
+    @Resource
+    private RedisCache redisCache;
 
     /**
      * 定义一个切面
@@ -67,21 +73,26 @@ public class LogAspect {
         String classMethod = joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName();
         /*参数*/
         Object[] args = joinPoint.getArgs();
+
         /*输出日志*/
         RequestLog requestLog = new RequestLog(url, ip, adr, classMethod, args);
         log.info("Request : {}", requestLog);
 
-        //保存日志到数据库
-        Request requestEntity = new Request();
-        requestEntity.setUrl(url);
-        requestEntity.setIp(ip);
-        requestEntity.setAddr(adr);
-        requestEntity.setClassMethod(classMethod);
-        //放到定时任务里面，一周检测一次
-//        if (proxy.truncateLog()) {
-//            log.info("请求参数日志 : {}", "数据库日志记录超过10000条，删除成功");
-//        }
-        proxy.saveLog(requestEntity);
+        /*三十分钟内不记录同一ip重复操作到数据库*/
+        if (redisCache.getCacheObject("ip_" + ip) == null || redisCache.getCacheObject("url_" + url) == null) {
+            //保存日志到数据库
+            Request requestEntity = new Request();
+            requestEntity.setUrl(url);
+            requestEntity.setIp(ip);
+            requestEntity.setAddr(adr);
+            requestEntity.setClassMethod(classMethod);
+            proxy.saveLog(requestEntity);
+            /*将ip和调用的接口记录到缓存，以免重复记录*/
+            redisCache.setCacheObject("ip_" + ip, ip, 30, TimeUnit.MINUTES);
+            redisCache.setCacheObject("url_" + url, url, 30, TimeUnit.MINUTES);
+            log.info("=====将ip或url存入缓存,30分钟后销毁=====");
+        }
+
     }
 
 

@@ -1,5 +1,6 @@
 package com.nmsl.controller;
 
+import com.nmsl.controller.common.CommonCache;
 import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
 import io.swagger.annotations.Api;
@@ -24,22 +25,13 @@ public class ArchiveController {
     private BlogService blogService;
 
     @Resource
-    private CommentService commentService;
-
-    /**
-     * 博客信息
-     */
-    private void BLOG_MSG_NUM(Model model){
-        model.addAttribute("blogNum", blogService.listBlog());
-        model.addAttribute("viewsNum", blogService.allViews());
-        model.addAttribute("commentNum", commentService.listComment());
-    }
+    private CommonCache commonCache;
 
     @GetMapping("/archives")
     @ApiOperation(value = "跳转到‘归档信息’页面")
     public String archive(Model model) {
-        BLOG_MSG_NUM(model);
         model.addAttribute("archivesMap", blogService.archiveBlog());
+        commonCache.blogMsg(model);
         return "archives";
     }
 

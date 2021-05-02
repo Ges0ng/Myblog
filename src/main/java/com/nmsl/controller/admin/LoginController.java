@@ -73,8 +73,9 @@ public class LoginController {
         //校对用户
         User user = userService.checkUser(username, Md5Utils.string2Md5(password));
         if (user != null) {
+            //验证成功后将密码设为null再传回前台
+            user.setPassword(null);
             session.setAttribute("user",user);
-
             BLOG_MSG_NUM(model);
             return "admin/index";
         } else {

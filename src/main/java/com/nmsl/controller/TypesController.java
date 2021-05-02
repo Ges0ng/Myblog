@@ -1,5 +1,6 @@
 package com.nmsl.controller;
 
+import com.nmsl.controller.common.CommonCache;
 import com.nmsl.entity.Type;
 import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
@@ -35,22 +36,13 @@ public class TypesController {
     private BlogService blogService;
 
     @Resource
-    private CommentService commentService;
-
-    /**
-     * 博客信息
-     */
-    private void BLOG_MSG_NUM(Model model){
-        model.addAttribute("blogNum", blogService.listBlog());
-        model.addAttribute("viewsNum", blogService.allViews());
-        model.addAttribute("commentNum", commentService.listComment());
-    }
+    private CommonCache commonCache;
 
     @GetMapping("/types/{id}")
     @ApiOperation("根据id查看类型")
     public String types(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         @PathVariable Long id, Model model) {
-        BLOG_MSG_NUM(model);
+        commonCache.blogMsg(model);
 
         List<Type> types = typeService.listTypeToTop(10000);
         if (id == -1) {

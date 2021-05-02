@@ -1,7 +1,6 @@
 package com.nmsl.controller;
 
-import com.nmsl.service.BlogService;
-import com.nmsl.service.CommentService;
+import com.nmsl.controller.common.CommonCache;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -20,24 +19,13 @@ import javax.annotation.Resource;
 public class MusicController {
 
     @Resource
-    private BlogService blogService;
+    private CommonCache commonCache;
 
-    @Resource
-    private CommentService commentService;
-
-    /**
-     * 博客信息
-     */
-    private void BLOG_MSG_NUM(Model model){
-        model.addAttribute("blogNum", blogService.listBlog());
-        model.addAttribute("viewsNum", blogService.allViews());
-        model.addAttribute("commentNum", commentService.listComment());
-    }
 
     @GetMapping("/music")
     @ApiOperation(value = "跳转到音乐界面")
     public String music(Model model){
-        BLOG_MSG_NUM(model);
+        commonCache.blogMsg(model);
         return "music";
     }
 }

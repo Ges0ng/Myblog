@@ -1,5 +1,6 @@
 package com.nmsl.controller;
 
+import com.nmsl.controller.common.CommonCache;
 import com.nmsl.service.BlogService;
 import com.nmsl.service.CommentService;
 import com.nmsl.service.TagService;
@@ -38,17 +39,7 @@ public class IndexController {
     private TagService tagService;
 
     @Resource
-    private CommentService commentService;
-
-
-    /**
-     * 博客信息
-     */
-    private void BLOG_MSG_NUM(Model model){
-        model.addAttribute("blogNum", blogService.listBlog());
-        model.addAttribute("viewsNum", blogService.allViews());
-        model.addAttribute("commentNum", commentService.listComment());
-    }
+    private CommonCache commonCache;
 
     /**
      * 首页
@@ -57,8 +48,7 @@ public class IndexController {
     @ApiOperation(value = "跳转到博客首页")
     public String index(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         Model model){
-        BLOG_MSG_NUM(model);
-
+        commonCache.blogMsg(model);
         model.addAttribute("page", blogService.listBlog(pageable));
         model.addAttribute("types",typeService.listTypeToTop(6));
         model.addAttribute("tags", tagService.listTagTop(10));
@@ -73,7 +63,7 @@ public class IndexController {
     @ApiOperation(value = "根绝关键字搜索")
     public String search(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                          @RequestParam String query, Model model) {
-        BLOG_MSG_NUM(model);
+        commonCache.blogMsg(model);
 
         model.addAttribute("page",blogService.listBlog("%"+query+"%", pageable) );
         model.addAttribute("query",query);
@@ -87,7 +77,7 @@ public class IndexController {
     @GetMapping ("/blog/{id}")
     @ApiOperation (value = "根据id查看博客信息")
     public String blog (@PathVariable Long id, Model model) {
-        BLOG_MSG_NUM(model);
+        commonCache.blogMsg(model);
 
         if (!blogService.getBlog(id).isPublished()) {
             model.addAttribute("msg", "草稿内容暂时无法观看");

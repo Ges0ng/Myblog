@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Date;
 
 /**
@@ -41,7 +42,6 @@ public class DatabaseBakTimingTask {
         //启动备份
         if (BAK_ENABLE) {
             new MysqlUtil().exportDataBase();
-            log.info("备份数据库成功，时间为 : {}", SystemInfoUtils.getCurrentTime());
             log.info("当前系统信息 : {}", SystemInfoUtils.getInfo());
         }
         //如果大于10000条则清空

@@ -17,10 +17,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import javax.persistence.criteria.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author Paracosm
@@ -44,6 +46,9 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.findById(id).get();
     }
 
+    /**
+     * 更新
+     */
     @Override
     public Blog getAndConvert(Long id) {
         Blog blog = blogRepository.findById(id).get();
@@ -52,20 +57,36 @@ public class BlogServiceImpl implements BlogService {
             throw new NotFoundException("该博客不存在");
         }
 
-        Blog b = new Blog();
-        BeanUtils.copyProperties(blog,b);
-        String content =b.getContent();
+        //三十分钟内重复浏览不算
+        if (redisCache.getCacheObject("updateView_"+id) == null) {
+            blogRepository.updateViews(id);
+            redisCache.setCacheObject("updateView_"+id,id,30,TimeUnit.MINUTES);
+        }
 
-        blog.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        Blog blogCache = redisCache.getCacheObject("blog_" + id);
+        //如果缓存为空则设置一个一分钟的缓存，如果不为空直接返回缓存结果
+        if (blogCache == null) {
+            redisCache.setCacheObject("blog_" + id, blog, 1, TimeUnit.MINUTES);
+            Blog b = new Blog();
+            BeanUtils.copyProperties(blog, b);
+            String content = b.getContent();
+            blog.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
 
-        blogRepository.updateViews(id);
+            return blog;
+        } else {
+            Blog b = new Blog();
+            BeanUtils.copyProperties(blogCache,b);
+            String content =b.getContent();
+            blogCache.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
 
-        return blog;
+            return blogCache;
+        }
+
     }
+
 
     @Override
     public Page<Blog> listBlog(Pageable pageable) {
-
         return blogRepository.findAll(pageable);
     }
 
@@ -121,7 +142,6 @@ public class BlogServiceImpl implements BlogService {
             blog.setUpdateTime(new Date());
         }
 
-
         return blogRepository.save(blog);
     }
 
@@ -164,6 +184,8 @@ public class BlogServiceImpl implements BlogService {
     @Override
 //    @Cacheable(cacheNames = "findBlogAll")
     public List<Blog> listBlog() {
+
+
         return blogRepository.findAll();
     }
 
@@ -190,4 +212,5 @@ public class BlogServiceImpl implements BlogService {
     public int allViews () {
         return blogRepository.findAllByViews();
     }
+
 }

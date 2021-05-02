@@ -3,6 +3,7 @@ package com.nmsl.utils.quartz;
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
+import com.nmsl.utils.MailUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,8 @@ import org.joda.time.DateTime;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  * Created with IntelliJ IDEA.
@@ -65,7 +68,8 @@ public class MysqlUtil {
         } else {
             file_path = System.getProperty("blog.path") + "sql";
         }
-        String file_name = "/blog" + DateTime.now().toString("yyyyMMddHHmmss") + ".sql";
+//        String file_name = "/blog" + DateTime.now().toString("yyyyMMddHHmmss") + ".sql";
+        String file_name = "/blog" + LocalDate.now() + ".sql";
         String file = file_path + file_name;
         logger.info("文件路径和文件名为：: " + file);
 
@@ -115,10 +119,12 @@ public class MysqlUtil {
             stdout.close();
             br.close();
 
-            logger.info("备份成功");
+            logger.info("备份成功,时间为 : {}", LocalTime.now());
             logger.info(sb.toString());
         } catch (Exception e) {
             logger.error("错误！！！", e);
+//            MailUtil mailUtil = new MailUtil();
+//            mailUtil.sendMail("数据库备份错误", "时间为：" + LocalDate.now() + "。。。错误日志：" + e.getLocalizedMessage(), "704965520@qq.com");
         }
     }
 }

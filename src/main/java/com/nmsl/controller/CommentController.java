@@ -1,5 +1,6 @@
 package com.nmsl.controller;
 
+import com.nmsl.controller.common.CommonCache;
 import com.nmsl.entity.Comment;
 import com.nmsl.common.CommonUrl;
 import com.nmsl.entity.User;
@@ -37,6 +38,9 @@ public class CommentController {
     @Resource
     private BlogService blogService;
 
+    @Resource
+    private CommonCache commonCache;
+
     @Value("${comment.avatar}")
     private String avatar;
 
@@ -50,8 +54,8 @@ public class CommentController {
      */
     @GetMapping("/comments/{blogId}")
     @ApiOperation(value = "查询博客下的评论")
-    public String comments(@PathVariable Long blogId, Model model){
-        BLOG_MSG_NUM(model);
+    public String comments(@PathVariable Long blogId, Model model) {
+        commonCache.blogMsg(model);
         model.addAttribute("comments",commentService.listCommentByBlogId(blogId));
         return "blog :: commentList";
     }
@@ -86,15 +90,6 @@ public class CommentController {
         mailUtil.sendMail("您的博客有新评论","您有新的评论："+comment.getContent(), toMail);
 
         return CommonUrl.COMMENTS + "/" + blogId;
-    }
-
-    /**
-     * 博客信息
-     */
-    private void BLOG_MSG_NUM(Model model){
-        model.addAttribute("blogNum", blogService.listBlog());
-        model.addAttribute("viewsNum", blogService.allViews());
-        model.addAttribute("commentNum", commentService.listComment());
     }
 
 }
