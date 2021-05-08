@@ -3,7 +3,6 @@ package com.nmsl.utils.quartz;
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
-import com.nmsl.utils.MailUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -32,17 +31,20 @@ public class MysqlUtil {
     /**
      * 文件路径
      */
-    public final static String MYSQL_DUMP = "/usr/local/mysql/bin/mysqldump";
+//    private final static String MYSQL_DUMP = "/usr/local/mysql/bin/mysqldump";
 
-//    @Scheduled(cron = "0 15 10 ? * FRI")
-//    public static void main(String[] args) {
-//        new MysqlUtil().exportDataBase();
-//    }
+    /**
+     * 用ThreadLocal记录过程时间
+     */
+    ThreadLocal<Long> startTime = new ThreadLocal<>();
 
     /**
      * 导出数据库
      */
     public void exportDataBase() {
+        //记录开始时间
+        startTime.set(System.currentTimeMillis());
+
         //获取配置
         logger.info(String.valueOf(DateTime.now()));
         logger.info("开始备份数据库");
@@ -50,6 +52,7 @@ public class MysqlUtil {
         String password = LoadConfig.getProperty("jdbc.password_dev");
         String database = LoadConfig.getProperty("jdbc.database");
         String host = LoadConfig.getProperty("jdbc.host_dev");
+        String mysqlDumpPath = LoadConfig.getProperty("mysql.dump");
         //系统类型
         String os = System.getProperty("os.name");
         String file_path = null;
@@ -79,9 +82,10 @@ public class MysqlUtil {
         String s_username = LoadConfig.getProperty("server.username");
         String s_password = LoadConfig.getProperty("server.password");
         try {
-            StringBuffer sb = new StringBuffer();
+            //拼接sql语句
+            StringBuilder sb = new StringBuilder();
 //            /usr/local/mysql/bin/mysqldump -u ? -p? -h 127.0.0.1 blog >/home/blog/bak/blog20210427235400.sql
-            sb.append(MYSQL_DUMP)
+            sb.append(mysqlDumpPath)
                     .append(" -u ").append(username)
                     .append(" -p").append(password)
                     .append(" -h ").append(host)
@@ -112,6 +116,8 @@ public class MysqlUtil {
                 }
                 System.out.println(line);
             }
+            //输出消耗时间
+            logger.info("备份耗时 : " + (System.currentTimeMillis() - startTime.get())+"ms");
 
             //关闭流
             session.close();
@@ -119,12 +125,14 @@ public class MysqlUtil {
             stdout.close();
             br.close();
 
+            //防止内存泄露，要及时删除
+            startTime.remove();
+            //输出日志
             logger.info("备份成功,时间为 : {}", LocalTime.now());
-            logger.info(sb.toString());
         } catch (Exception e) {
-            logger.error("错误！！！", e);
+            logger.error("备份过程中出现错误: {}", e);
 //            MailUtil mailUtil = new MailUtil();
-//            mailUtil.sendMail("数据库备份错误", "时间为：" + LocalDate.now() + "。。。错误日志：" + e.getLocalizedMessage(), "704965520@qq.com");
+//            mailUtil.sendMail("数据库备份错误", "时间为：" + LocalDate.now() + "。。。错误日志：" + e.getLocalizedMessage(), "paracosm@foxmail.com");
         }
     }
 }

@@ -10,9 +10,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.net.UnknownHostException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.util.Date;
 
 /**
  * 定时任务，备份
@@ -49,6 +46,7 @@ public class DatabaseBakTimingTask {
             log.info("清空日志数据 : {}", "数据库日志记录超过10000条，删除成功");
         }
     }
+
 
 
 

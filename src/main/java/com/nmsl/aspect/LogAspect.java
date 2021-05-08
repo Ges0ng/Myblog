@@ -1,7 +1,6 @@
 package com.nmsl.aspect;
 
 import com.nmsl.cache.RedisCache;
-import com.nmsl.controller.common.CommonCache;
 import com.nmsl.entity.system.Request;
 import com.nmsl.service.RequestService;
 import com.nmsl.utils.ip.AddressUtils;
@@ -38,6 +37,17 @@ public class LogAspect {
     private RedisCache redisCache;
 
     /**
+     * 用ThreadLocal记录过程时间
+     */
+    ThreadLocal<Long> startTime = new ThreadLocal<>();
+
+    /**
+     * 缓存名前缀
+     */
+    public static final String IP_CACHE = "ip_";
+    public static final String URL_CACHE = "url_";
+
+    /**
      * 定义一个切面
     * execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern)throws-pattern?)
     * Controller下的所有控制器,无论私有共有的类的所有方法
@@ -55,6 +65,9 @@ public class LogAspect {
 
     @Before("log()")
     public void doBefore(JoinPoint joinPoint){
+        //开始时间
+        startTime.set(System.currentTimeMillis());
+
         //获取请求属性
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = Objects.requireNonNull(attributes).getRequest();
@@ -79,7 +92,7 @@ public class LogAspect {
         log.info("Request : {}", requestLog);
 
         /*三十分钟内不记录同一ip重复操作到数据库*/
-        if (redisCache.getCacheObject("ip_" + ip) == null || redisCache.getCacheObject("url_" + url) == null) {
+        if (redisCache.getCacheObject(IP_CACHE + ip) == null & redisCache.getCacheObject(URL_CACHE + url) == null) {
             //保存日志到数据库
             Request requestEntity = new Request();
             requestEntity.setUrl(url);
@@ -88,9 +101,9 @@ public class LogAspect {
             requestEntity.setClassMethod(classMethod);
             proxy.saveLog(requestEntity);
             /*将ip和调用的接口记录到缓存，以免重复记录*/
-            redisCache.setCacheObject("ip_" + ip, ip, 30, TimeUnit.MINUTES);
-            redisCache.setCacheObject("url_" + url, url, 30, TimeUnit.MINUTES);
-            log.info("=====将ip或url存入缓存,30分钟后销毁=====");
+            redisCache.setCacheObject(IP_CACHE + ip, ip, 30, TimeUnit.MINUTES);
+            redisCache.setCacheObject(URL_CACHE + url, url, 30, TimeUnit.MINUTES);
+            log.info("=====将ip'"+ip+"'或url存入缓存,30分钟后销毁=====");
         }
 
     }
@@ -102,7 +115,11 @@ public class LogAspect {
      * */
     @AfterReturning(returning = "result",pointcut = "log()")
     public void doAfterReturn(Object result){
-//        log.info("Result:{}",result);
+        log.info("结果:{}",result);
+        // 处理完请求，返回内容
+        log.info("耗时 : " + (System.currentTimeMillis() - startTime.get())+"ms");
+        //用完之后记得清除，不然可能导致内存泄露;
+        startTime.remove();
     }
 
 
@@ -134,6 +151,8 @@ public class LogAspect {
     private static class RequestLog{
         private final String url;
         private final String ip;
+
+        //真实地址
         private final String addr;
         private final String classMethod;
         private final Object[] args;

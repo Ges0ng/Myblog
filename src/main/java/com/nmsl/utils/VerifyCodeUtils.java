@@ -132,12 +132,13 @@ public class VerifyCodeUtils{
             fractions[i] = rand.nextFloat();
         }
         Arrays.sort(fractions);
-
-        g2.setColor(Color.GRAY);// 设置边框色
+        // 设置边框色
+        g2.setColor(Color.GRAY);
         g2.fillRect(0, 0, w, h);
 
         Color c = getRandColor(200, 250);
-        g2.setColor(c);// 设置背景色
+        // 设置背景色
+        g2.setColor(c);
         g2.fillRect(0, 2, w, h-4);
 
         //绘制干扰线
@@ -260,11 +261,11 @@ public class VerifyCodeUtils{
         }
 
     }
-    public static void main(String[] args) throws IOException {
-        //获取验证码
-        String s = generateVerifyCode(4);
-        //将验证码放入图片中
-        outputImage(260,60,new File("/Users/chenyannan/Desktop/安工资料/aa.jpg"),s);
-        System.out.println(s);
-    }
+//    public static void main(String[] args) throws IOException {
+//        //获取验证码
+//        String s = generateVerifyCode(4);
+//        //将验证码放入图片中
+//        outputImage(260,60,new File("/Users/chenyannan/Desktop/安工资料/aa.jpg"),s);
+//        System.out.println(s);
+//    }
 }

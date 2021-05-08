@@ -9,11 +9,14 @@ import org.apache.commons.mail.SimpleEmail;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.sql.DataSource;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.Date;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * STMP 邮箱 工具类
@@ -28,6 +31,26 @@ public class MailUtil {
     private final String userName = "paracosm@foxmail.com";
     private final String password = "lrpfifpaxvhqbffa";
     private final String to = "";
+
+    /**
+     * 匹配邮箱正则
+     */
+    private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern SLUG_REGEX = Pattern.compile("^[A-Za-z0-9_-]{5,100}$", Pattern.CASE_INSENSITIVE);
+    // 使用双重检查锁的单例方式需要添加 volatile 关键字
+    private static volatile DataSource newDataSource;
+
+    /**
+     * 判断是否是邮箱
+     *
+     * @param emailStr
+     * @return
+     */
+    public static boolean isEmail(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.find();
+    }
 
     /**
      * 发送邮件

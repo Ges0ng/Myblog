@@ -9,6 +9,7 @@ import com.nmsl.service.CommentService;
 import com.nmsl.utils.MailUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,7 @@ import java.security.GeneralSecurityException;
  */
 @Controller
 @Api(tags = "评论模块")
+@Slf4j
 public class CommentController {
     
     @Resource
@@ -85,6 +87,10 @@ public class CommentController {
         //假如回复的用户存在，则发邮件通知被回复用户
         if (comment.getParentComment() != null) {
             toMail = comment.getParentComment().getEmail();
+        }
+        //验证邮件格式
+        if (!MailUtil.isEmail(comment.getParentComment().getEmail())) {
+            log.error("邮件发送格式错误:{}", comment.getNickname() + "：" + comment.getParentComment().getEmail());
         }
         //发送邮件
         mailUtil.sendMail("您的博客有新评论","您有新的评论："+comment.getContent(), toMail);
