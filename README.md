@@ -1,7 +1,7 @@
 # MyBlog 个人博客
 
 #### 介绍
-前端 thymeleaf + semantic-ui + ajax + jquery </br></br>
+前端 thymeleaf + semantic-ui</br></br>
 后端 springboot2.0 + spring data JPA + mysql 5.7 + druid连接池监控数据 + redis作为二级缓存 + knife4j接口文档(pro环境自动屏蔽)</br>
 插件 mail邮件通知 + easy-captcha验证码登录 + oshi监控服务器信息 + quartz定时任务备份数据库（但是java不能直接执行linux的命令，依赖第三方库ganymed）</br>
 
